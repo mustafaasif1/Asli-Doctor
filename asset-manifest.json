@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/AsliDoctor/static/css/main.d1b05096.chunk.css",
+    "main.js": "/AsliDoctor/static/js/main.0619d06d.chunk.js",
+    "main.js.map": "/AsliDoctor/static/js/main.0619d06d.chunk.js.map",
+    "runtime-main.js": "/AsliDoctor/static/js/runtime-main.3118dfaf.js",
+    "runtime-main.js.map": "/AsliDoctor/static/js/runtime-main.3118dfaf.js.map",
+    "static/js/2.42ab5fc5.chunk.js": "/AsliDoctor/static/js/2.42ab5fc5.chunk.js",
+    "static/js/2.42ab5fc5.chunk.js.map": "/AsliDoctor/static/js/2.42ab5fc5.chunk.js.map",
+    "index.html": "/AsliDoctor/index.html",
+    "precache-manifest.cd4d6dc634c9613e1b917df959d8d753.js": "/AsliDoctor/precache-manifest.cd4d6dc634c9613e1b917df959d8d753.js",
+    "service-worker.js": "/AsliDoctor/service-worker.js",
+    "static/css/main.d1b05096.chunk.css.map": "/AsliDoctor/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.42ab5fc5.chunk.js.LICENSE.txt": "/AsliDoctor/static/js/2.42ab5fc5.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/AsliDoctor/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3118dfaf.js",
+    "static/js/2.42ab5fc5.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.0619d06d.chunk.js"
+  ]
+}
