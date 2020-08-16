@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/AsliDoctor/precache-manifest.cd4d6dc634c9613e1b917df959d8d753.js"
+  "/AsliDoctor/precache-manifest.17c708293438cbff424fec48dea1ff37.js"
 );
 
 self.addEventListener('message', (event) => {
