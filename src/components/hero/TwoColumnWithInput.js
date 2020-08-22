@@ -8,6 +8,11 @@ import Header from "../headers/light.js";
 
 import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-1.svg";
 import DesignIllustration from "../../images/design-illustration-2.svg";
+import GetInformationForm from "components/forms/TwoColGetInformationWithIllustrationFullForm.js";
+
+import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
+import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
+
 // import CustomersLogoStripImage from "../../images/customers-logo-strip.png";
 
 const Container = tw.div`relative`;
@@ -45,10 +50,40 @@ const DecoratorBlob1 = styled(SvgDecoratorBlob1)`
 //   }
 // `;
 
-export default ({ roundedHeaderButton }) => {
+const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
+const ImageColumn = tw(Column)`md:w-5/12 flex-shrink-0 h-80 md:h-auto`;
+const TextColumn = styled(Column)(props => [
+  tw`md:w-7/12 mt-16 md:mt-0`,
+  props.textOnLeft ? tw`md:mr-12 lg:mr-16 md:order-first` : tw`md:ml-12 lg:ml-16 md:order-last`
+]);
+
+const Image = styled.div(props => [
+  `background-image: url("${props.imageSrc}");`,
+  tw`rounded bg-contain bg-no-repeat bg-center h-full`,
+]);
+const TextContent = tw.div`lg:py-8 text-center md:text-left`;
+
+const Subheading = tw(SubheadingBase)`text-center md:text-left`;
+const Description = tw.p`mt-4 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`
+
+const Form = tw.form`mt-8 md:mt-10 text-sm flex flex-col max-w-sm mx-auto md:mx-0`
+const Input = tw.input`mt-6 first:mt-0 border-b-2 py-3 focus:outline-none font-medium transition duration-300 hocus:border-primary-500`
+const Textarea = styled(Input).attrs({as: "textarea"})`
+  ${tw`h-24`}
+`
+
+
+const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-8`
+
+
+export default ({ roundedHeaderButton, submitButtonText = "Submit",
+formAction = "#",
+formMethod = "get", }) => {
   return (
     <>
       <Header roundedHeaderButton={roundedHeaderButton} />
+      {/* < GetInformationForm/> */}
+      
       <Container>
         <TwoColumn>
           <LeftColumn>
@@ -56,8 +91,19 @@ export default ({ roundedHeaderButton }) => {
               Search for Authentic <span tw="text-primary-500">Doctors</span> in
               your area
             </Heading>
-            <Paragraph>Always we sure of your doctor</Paragraph>
-            <Actions>
+            <Paragraph>Always be sure of your doctor</Paragraph>
+            <Form action={formAction} method={formMethod}>
+              <Input type="text" name="registration" placeholder="Registration Number" />
+              <Input type="text" name="name" placeholder="Full Name" />
+              <Input type="text" name="gender" placeholder="Gender" />
+              <Input type="text" name="city" placeholder="City" />
+              <Input type="text" name="fathersName" placeholder="Father's Name" />
+              <Input type="text" name="area" placeholder="Area" />
+              <Input type="text" name="type" placeholder="Type" />
+              <SubmitButton type="Search">{submitButtonText}</SubmitButton>
+            </Form>
+        
+            {/* <Actions>
               <input type="text" placeholder="Registration Number" />
               <input type="text" placeholder="Name" />
               <input type="text" placeholder="Gender" />
@@ -68,7 +114,7 @@ export default ({ roundedHeaderButton }) => {
             </Actions>
             <Actions>
               <button>Search</button>
-            </Actions>
+            </Actions> */}
 
             {/* <CustomersLogoStrip>
               <p>Our TRUSTED Customers</p>

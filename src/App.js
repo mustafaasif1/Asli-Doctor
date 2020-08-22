@@ -92,11 +92,11 @@ import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 // import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
 
 /* Inner Pages */
-// import LoginPage from "pages/Login.js";
-// import SignupPage from "pages/Signup.js";
+import LoginPage from "pages/Login.js";
+import SignupPage from "pages/Signup.js";
 // import PricingPage from "pages/Pricing.js";
-// import AboutUsPage from "pages/AboutUs.js";
-// import ContactUsPage from "pages/ContactUs.js";
+import AboutUsPage from "pages/AboutUs.js";
+import ContactUsPage from "pages/ContactUs.js";
 // import BlogIndexPage from "pages/BlogIndex.js";
 // import TermsOfServicePage from "pages/TermsOfService.js";
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
@@ -107,19 +107,13 @@ import ComponentRenderer from "ComponentRenderer.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default function App() {
-  // return <AnimationRevealPage disabled></AnimationRevealPage>;
   return (
     <Router>
-      <Switch>
-        <Route path="/components/:type/:subtype/:name">
-          <ComponentRenderer />
-        </Route>
-        <Route path="/components/:type/:name">
-          <ComponentRenderer />
-        </Route>
-        <Route path="/">
-          <SaaSProductLandingPage />
-        </Route>
+      <Switch> 
+        <Route path="/SignUp" component={SignupPage} />
+        <Route path="/LogIn" component={LoginPage} />
+        <Route path="/ContactUs" component={ContactUsPage} />
+        <Route path="/" component={SaaSProductLandingPage} />      
       </Switch>
     </Router>
   );
