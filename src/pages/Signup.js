@@ -53,7 +53,7 @@ const IllustrationImage = styled.div`
 `;
 
 export default ({
-  logoLinkUrl = "#",
+  logoLinkUrl = "/",
   illustrationImageSrc = illustration,
   headingText = "Sign Up For Asli Doctor",
   socialButtons = [
@@ -121,9 +121,9 @@ export default ({
             </FormContainer>
           </MainContent>
         </MainContainer>
-        <IllustrationContainer>
+        {/* <IllustrationContainer>
           <IllustrationImage imageSrc={illustrationImageSrc} />
-        </IllustrationContainer>
+        </IllustrationContainer> */}
       </Content>
     </Container>
   </AnimationRevealPage>

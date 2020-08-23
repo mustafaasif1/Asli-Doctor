@@ -4,7 +4,7 @@ import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
 import {css} from "styled-components/macro"; //eslint-disable-line
-import illustration from "images/login-illustration.svg";
+import illustration from "images/Oldmen-With-Physiotherapist.png";
 import logo from "images/logo.svg";
 import googleIconImageSrc from "images/google-icon.png";
 import twitterIconImageSrc from "images/twitter-icon.png";
@@ -47,14 +47,14 @@ const SubmitButton = styled.button`
     ${tw`ml-3`}
   }
 `;
-const IllustrationContainer = tw.div`sm:rounded-r-lg flex-1 bg-purple-100 text-center hidden lg:flex justify-center`;
-const IllustrationImage = styled.div`
-  ${props => `background-image: url("${props.imageSrc}");`}
-  ${tw`m-12 xl:m-16 w-full max-w-sm bg-contain bg-center bg-no-repeat`}
-`;
+// const IllustrationContainer = tw.div`sm:rounded-r-lg flex-1 bg-purple-100 text-center hidden lg:flex justify-center`;
+// const IllustrationImage = styled.div`
+//   ${props => `background-image: url("${props.imageSrc}");`}
+//   ${tw`m-12 xl:m-16 w-full max-w-sm bg-contain bg-center bg-no-repeat`}
+// `;
 
 export default ({
-  logoLinkUrl = "#",
+  logoLinkUrl = "/",
   illustrationImageSrc = illustration,
   headingText = "Sign In To Asli Doctor",
   socialButtons = [
@@ -116,9 +116,9 @@ export default ({
             </FormContainer>
           </MainContent>
         </MainContainer>
-        <IllustrationContainer>
+        {/* <IllustrationContainer>
           <IllustrationImage imageSrc={illustrationImageSrc} />
-        </IllustrationContainer>
+        </IllustrationContainer> */}
       </Content>
     </Container>
   </AnimationRevealPage>

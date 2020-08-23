@@ -88,8 +88,8 @@ formMethod = "get", }) => {
         <TwoColumn>
           <LeftColumn>
             <Heading>
-              Search for Authentic <span tw="text-primary-500">Doctors</span> in
-              your area
+              Search for Authentic <span tw="text-primary-500">Doctors</span><wbr/> in
+              your area.
             </Heading>
             <Paragraph>Always be sure of your doctor</Paragraph>
             <Form action={formAction} method={formMethod}>

@@ -35,12 +35,12 @@ export default () => {
         <Row>
           <LogoContainer>
             <LogoImg src={logo} />
-            <LogoText>Treact</LogoText>
+            <LogoText>Asli Doctor</LogoText>
           </LogoContainer>
           <LinksContainer>
-            <Link href="#">Home</Link>
-            <Link href="#">Fake Doctor Reports</Link>
-            <Link href="#">Contact Us</Link>
+            <Link href="/">Home</Link>
+            <Link href="/">Fake Doctor Reports</Link>
+            <Link href="/ContactUs">Contact Us</Link>
           </LinksContainer>
           <SocialLinksContainer>
             <SocialLink href="https://facebook.com">
