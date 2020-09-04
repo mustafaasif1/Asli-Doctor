@@ -104,6 +104,8 @@ import ContactUsPage from "pages/ContactUs.js";
 import ComponentRenderer from "ComponentRenderer.js";
 // import MainLandingPage from "MainLandingPage.js";
 
+import DoctorList from "pages/Pricing.js";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default function App() {
@@ -112,8 +114,10 @@ export default function App() {
       <Switch> 
         <Route path="/SignUp" component={SignupPage} />
         <Route path="/LogIn" component={LoginPage} />
+        <Route path="/Doctors" component={DoctorList} />
         <Route path="/ContactUs" component={ContactUsPage} />
-        <Route path="/" component={SaaSProductLandingPage} />      
+        <Route path="/" component={SaaSProductLandingPage} />  
+        
       </Switch>
     </Router>
   );

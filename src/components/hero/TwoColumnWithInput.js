@@ -77,7 +77,7 @@ const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-8`
 
 
 export default ({ roundedHeaderButton, submitButtonText = "Submit",
-formAction = "#",
+formAction = "/Doctors",
 formMethod = "get", }) => {
   return (
     <>
