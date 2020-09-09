@@ -19,39 +19,39 @@ import { ReactComponent as HandleIcon } from "images/handle-icon.svg";
 import { ReactComponent as ArrowRightIcon} from "images/arrow-right-3-icon.svg";
 
 import heroScreenshotImageSrc from "images/demo/MainLandingPageHero.png";
-import logo from "images/logo.svg";
+import logo from "images/logo.png";
 import useInView from "use-in-view";
 
 /* Hero */
 const Row = tw.div`flex`;
 const NavRow = tw(Row)`flex flex-col sm:flex-row items-center justify-between`;
-const DownloadLink = tw.a`mt-8 sm:mt-0 transition duration-300 font-medium pb-1 border-b-2 text-primary-500 border-purple-300 hocus:border-primary-500`;
+const DownloadLink = tw.a`mt-8 sm:mt-0 transition duration-300 font-medium pb-1 border-b-2 text-teal-500 border-purple-300 hocus:border-primary-500`;
 const HeroRow = tw(Row)`flex-col lg:flex-row justify-between items-center py-20 lg:py-24 max-w-screen-2xl mx-auto`;
 
 const Column = tw.div``;
 const TextColumn = tw(Column)`mx-auto lg:mr-0 max-w-2xl lg:max-w-xl xl:max-w-2xl flex-shrink-0`;
-const Heading = tw(HeadingBase)`text-center lg:text-left text-primary-900 leading-snug`;
+const Heading = tw(HeadingBase)`text-center lg:text-left text-teal-900 leading-snug`;
 const Description = tw(
   DescriptionBase
 )`mt-4 text-center lg:text-left lg:text-base text-gray-700 max-w-lg mx-auto lg:mx-0`;
 const Actions = tw.div`flex flex-col sm:flex-row justify-center lg:justify-start`;
 const ActionButton = tw(
   AnchorLink
-)`px-8 py-3 font-bold rounded bg-primary-500 text-gray-100 hocus:bg-primary-700 hocus:text-gray-200 focus:shadow-outline focus:outline-none transition duration-300 mt-12 inline-block tracking-wide text-center px-10 py-4 font-semibold tracking-normal`;
+)`px-8 py-3 font-bold rounded bg-teal-500 text-gray-100 hocus:bg-teal-700 hocus:text-gray-200 focus:shadow-outline focus:outline-none transition duration-300 mt-12 inline-block tracking-wide text-center px-10 py-4 font-semibold tracking-normal`;
 const PrimaryButton = tw(ActionButton)``;
 const SecondaryButton = tw(
   ActionButton
 )`mt-6 sm:mt-12 sm:ml-8 bg-gray-300 text-gray-800 hocus:bg-gray-400 hocus:text-gray-900`;
 const FeatureList = tw.ul`mt-6 leading-loose flex flex-wrap max-w-xl mx-auto lg:mx-0`;
 const Feature = tw.li`mt-2 flex items-center flex-shrink-0 w-full sm:w-1/2 justify-center lg:justify-start`;
-const FeatureIcon = tw(CheckboxIcon)`w-5 h-5 text-primary-500`;
+const FeatureIcon = tw(CheckboxIcon)`w-5 h-5 text-teal-500`;
 const FeatureText = tw.p`ml-2 font-medium text-gray-700`;
 const ImageColumn = tw(Column)`mx-auto lg:mr-0 relative mt-16 lg:mt-0 lg:ml-8`;
 const ImageContainer = tw.div``;
 const Image = tw.img`max-w-full rounded-t sm:rounded`;
 
 const SectionContainer = tw(ContentWithVerticalPadding)``;
-const SectionHeading = tw(HeadingBase)`text-primary-900`;
+const SectionHeading = tw(HeadingBase)`text-teal-900`;
 const SectionDescription = tw(DescriptionBase)`text-center mx-auto text-gray-600 max-w-4xl`;
 
 const PreviewCards = tw.div`flex flex-wrap -mr-12`;

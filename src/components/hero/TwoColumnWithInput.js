@@ -8,7 +8,7 @@ import Header from "../headers/light.js";
 
 import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-1.svg";
 import DesignIllustration from "../../images/Pediatrician-Check-A-Healthy-Cheerful-Kid.png";
-import GetInformationForm from "components/forms/TwoColGetInformationWithIllustrationFullForm.js";
+// import GetInformationForm from "components/forms/TwoColGetInformationWithIllustrationFullForm.js";
 
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
@@ -67,7 +67,7 @@ const Subheading = tw(SubheadingBase)`text-center md:text-left`;
 const Description = tw.p`mt-4 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`
 
 const Form = tw.form`mt-8 md:mt-10 text-sm flex flex-col max-w-sm mx-auto md:mx-0`
-const Input = tw.input`mt-6 first:mt-0 border-b-2 py-3 focus:outline-none font-medium transition duration-300 hocus:border-primary-500`
+const Input = tw.input`mt-6 first:mt-0 border-b-2 py-3 focus:outline-none font-medium transition duration-300 hocus:border-teal-500`
 const Textarea = styled(Input).attrs({as: "textarea"})`
   ${tw`h-24`}
 `
@@ -88,7 +88,7 @@ formMethod = "get", }) => {
         <TwoColumn>
           <LeftColumn>
             <Heading>
-              Search for Authentic <span tw="text-primary-500">Doctors</span><wbr/> in
+              Search for Authentic <span tw="text-teal-500">Doctors</span><wbr/> in
               your area.
             </Heading>
             <Paragraph>Always be sure of your doctor</Paragraph>
@@ -100,7 +100,7 @@ formMethod = "get", }) => {
               <Input type="text" name="fathersName" placeholder="Father's Name" />
               <Input type="text" name="area" placeholder="Area" />
               <Input type="text" name="type" placeholder="Type" />
-              <SubmitButton type="Search">{submitButtonText}</SubmitButton>
+              <SubmitButton  type="Search">{submitButtonText}</SubmitButton>
             </Form>
         
             {/* <Actions>
