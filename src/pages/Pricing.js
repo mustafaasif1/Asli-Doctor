@@ -2,7 +2,7 @@ import React,{useState, Component} from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter.js";
-import Docs from "./DocLayout";
+import Docs from "./ImprovedDocLayout";
 import axios from 'axios';
 
 
