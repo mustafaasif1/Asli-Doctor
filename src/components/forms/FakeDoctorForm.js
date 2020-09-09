@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
-import EmailIllustrationSrc from "images/Female Caretaker.png";
+import EmailIllustrationSrc from "images/Oldmen-With-Physiotherapist.png";
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-20 md:py-24`;
@@ -34,10 +34,11 @@ const Textarea = styled(Input).attrs({as: "textarea"})`
 const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-8`
 
 export default ({
-  subheading = <><span tw="text-teal-500">Contact Us</span></>,
-  heading = <>Feel free to <span tw="text-teal-500">get in touch</span><wbr/> with us.</>,
-  description = "We are a team of three students from Lahore University of Management Sciences who are working on finding the fake doctors in Pakistan. If you have any queries please contact us. We will reach you in with 24 hours",
-  submitButtonText = "Send",
+  subheading = <><span tw="text-teal-500">Report a fake doctor</span></>,
+  heading = <>Do you think a doctor is not authentic? <span tw="text-teal-500">Report the doctor</span><wbr/> now!</>,
+  //description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  description = "Although there has been a rapid rise in the number of doctors in Pakistan, unfortunately the number of doctors with fake registration have also appeared. People who seek treatment from such individuals are at a high risk. If you have encountered such a doctor please fll the form below",
+  submitButtonText = "Report!",
   formAction = "#",
   formMethod = "get",
   textOnLeft = true,
@@ -47,7 +48,6 @@ export default ({
   return (
     <Container>
       <TwoColumn>
-        
         <TextColumn textOnLeft={textOnLeft}>
           <TextContent>
             {subheading && <Subheading>{subheading}</Subheading>}

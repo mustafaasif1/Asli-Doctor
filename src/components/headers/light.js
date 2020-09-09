@@ -73,7 +73,7 @@ export default ({ roundedHeaderButton = true, logoLink, links, className, collap
   const defaultLinks = [
     <NavLinks key={1}>
       <NavLink href="/">Home</NavLink>
-      <NavLink href="/#">Fake Doctor Reports</NavLink>
+      <NavLink href="/FakeDoctorReport">Fake Doctor Reports</NavLink>
       <NavLink href="/ContactUs">Contact Us</NavLink>
       <NavLink href="/LogIn" tw="lg:ml-12!">
         Login

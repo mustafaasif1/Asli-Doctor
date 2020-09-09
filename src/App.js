@@ -94,6 +94,7 @@ import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 /* Inner Pages */
 import LoginPage from "pages/Login.js";
 import SignupPage from "pages/Signup.js";
+import FakeDoctorReport from "pages/FakeDoctorReport.js";
 // import PricingPage from "pages/Pricing.js";
 import AboutUsPage from "pages/AboutUs.js";
 import ContactUsPage from "pages/ContactUs.js";
@@ -116,6 +117,7 @@ export default function App() {
         <Route path="/LogIn" component={LoginPage} />
         <Route path="/Doctors" component={DoctorList} />
         <Route path="/ContactUs" component={ContactUsPage} />
+        <Route path="/FakeDoctorReport" component={FakeDoctorReport} />
         <Route path="/" component={SaaSProductLandingPage} />  
         
       </Switch>
