@@ -5,8 +5,42 @@ import Card from './Card'
 import MyPhoto from "../images/default-person.png";
 // import ImageComponent from "react-rounded-image";
 import Avatar from 'react-avatar';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+import { makeStyles } from '@material-ui/core/styles';
+// import Button from '@material-ui/core/Button';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
 
 
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    position: 'relative',
+    background: "#20B2AA",
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
+}));
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const StyledRoot = styled.div`
   padding: 50px 12px;
@@ -55,10 +89,32 @@ var divStyle = {
     display: 'flex'
   };
 
+  const [open, setOpen] = React.useState(false);
+  const [openn, setOpenn] = React.useState(false);
+
+  const classes = useStyles();
+  
+
+  const handleClickOpenn = () => {
+    setOpenn(true);
+  };
+
+  const handleClosen = () => {
+    setOpenn(false);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
     return (
         <div style={divStyle}>
           <Avatar name={props.person.Name} size="100" round={true}/>
-            <dix style={{padding: " 0px 20px"}}>
+            <div style={{padding: " 0px 20px"}}>
               <Title >Name: {props.person.Name}</Title>
               <Title>Registration Number: {props.person.reg}</Title>
               <Title>City: {props.person.City}</Title>
@@ -66,10 +122,113 @@ var divStyle = {
               <Title>Fathers name: {props.person['Father Name']}</Title>
               <Title>Type: {props.person.type}</Title>
               <div>
-              <ActionButton style={{margin: "10px"}}>0 Reviews</ActionButton>
-              <ActionButton>Add a new Review</ActionButton>
+              {/* <ActionButton style={{margin: "10px"}}>0 Reviews</ActionButton> */}
+
+             
+              <ActionButton style={{margin: "10px"}} onClick={handleClickOpenn}>2 Reviews</ActionButton>
+      <Dialog fullScreen open={openn} onClose={handleClosen} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton edge="start" color="inherit" onClick={handleClosen} aria-label="close">
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Reviews of {props.person.Name}
+            </Typography>
+            
+          </Toolbar>
+        </AppBar>
+        {/* <List>
+          <ListItem button>
+            <ListItemText primary="Phone ringtone" secondary="Titania" />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+          </ListItem>
+          
+
+
+
+
+
+          
+
+          
+        </List> */}
+
+      <div style={divStyle}>
+      <Avatar name="Mustafa Asif" size="100" round={true}/>
+      <div style={{padding: " 0px 20px"}}>
+              <Title >Name: Mustafa Asif</Title>
+              <Title>Review: He is a very good Doctor! I love this guy.</Title>
+              
               </div>
-            </dix>
+      
+      </div>
+
+      <div style={divStyle}>
+      <Avatar name="Maroof Saleemi" size="100" round={true}/>
+      <div style={{padding: " 0px 20px"}}>
+              <Title >Name: Maroof Saleemi</Title>
+              <Title>Review: He is a very good Doctor! I love this guy.</Title>
+              
+              </div>
+      
+      </div>
+      
+      </Dialog>
+    
+              
+              
+      
+
+      <ActionButton onClick={handleClickOpen} >Add a new Review</ActionButton>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Have you had an encounter with {props.person.Name}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Write a review about your experience with this doctor below
+          </DialogContentText>
+          <div style={{padding: "15px"}}>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Your Name"
+            type="text"
+            fullWidth
+            color="teal"
+          />
+          </div>
+          <div>
+          <TextField  style={{padding: "0px 15px"}}
+            autoFocus
+            margin="dense"
+            id="review"
+            label="Your Review"
+            type="text"
+            fullWidth
+          />
+          </div>
+        </DialogContent>
+        <DialogActions>
+          
+          <ActionButton style={{margin: "10px"}} onClick={handleClose} >Submit Review</ActionButton>
+        </DialogActions>
+      </Dialog>
+
+
+      
+    
+  
+    
+
+              
+
+
+              </div>
+            </div>
         </div>
     )
 
