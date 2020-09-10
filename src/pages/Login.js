@@ -68,7 +68,7 @@ export default ({
   submitButtonText = "Sign In",
   SubmitButtonIcon = LoginIcon,
   forgotPasswordUrl = "#",
-  signupUrl = "/SignUp",
+  signupUrl = "/AsliDoctor",
 
 }) => (
   <AnimationRevealPage>
@@ -97,7 +97,7 @@ export default ({
               <Form>
                 <Input type="email" placeholder="Email" />
                 <Input type="password" placeholder="Password" />
-                <SubmitButton type="submit">
+                <SubmitButton type="submit" href="/FakeDoctorReport">
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
                 </SubmitButton>

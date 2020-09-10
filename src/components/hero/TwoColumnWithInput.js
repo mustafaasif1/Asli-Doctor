@@ -25,7 +25,7 @@ const RightColumn = tw.div`relative mt-12 lg:mt-0 flex-1 flex flex-col`;
 // const Heading = tw.h1`font-bold text-3xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-900 leading-tight`;
 const Heading = tw(SectionHeading)`mt-4 font-bold text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
 
-const Paragraph = tw.p`my-5 lg:my-8 text-base xl:text-lg`;
+const Paragraph = tw.p`my-5 lg:my-8 text-gray-500 text-base xl:text-lg`;
 
 const Actions = styled.div`
   ${tw`relative max-w-md text-center mx-auto lg:mx-0`}
@@ -91,11 +91,12 @@ formMethod = "get", }) => {
       <Container>
         <TwoColumn>
           <LeftColumn>
+          <Subheading>Search Doctors</Subheading>
             <Heading>
               Search for Authentic <span tw="text-teal-500">Doctors</span><wbr/> in
               your area
             </Heading>
-            <Paragraph>Always be sure of your doctor</Paragraph>
+            <Paragraph style={{padding: "0px 25px 0px 0px"}}>Pakistan has seen a rapid influx of Fake Doctors, especially in low income areas. With no one to check their credentials, they have exploited the population and taken large sums of money form them only to put their lives at risk. This is an inititave to expose such doctors and report them. Find out if the doctor in your locality is authentic by searching them below</Paragraph>
             <Form action={formAction} method={formMethod}>
               <Input type="text" name="registration" placeholder="Registration Number" />
               <Input type="text" name="name" placeholder="Full Name" />
@@ -104,26 +105,10 @@ formMethod = "get", }) => {
               <Input type="text" name="fathersName" placeholder="Father's Name" />
               <Input type="text" name="area" placeholder="Area" />
               <Input type="text" name="type" placeholder="Type" />
-              <SubmitButton  type="Search">{submitButtonText}</SubmitButton>
+              <SubmitButton type="Search">{submitButtonText}</SubmitButton>
             </Form>
         
-            {/* <Actions>
-              <input type="text" placeholder="Registration Number" />
-              <input type="text" placeholder="Name" />
-              <input type="text" placeholder="Gender" />
-              <input type="text" placeholder="City" />
-              <input type="text" placeholder="Fathers name" />
-              <input type="text" placeholder="Area" />
-              <input type="text" placeholder="Type" />
-            </Actions>
-            <Actions>
-              <button>Search</button>
-            </Actions> */}
-
-            {/* <CustomersLogoStrip>
-              <p>Our TRUSTED Customers</p>
-              <img src={CustomersLogoStripImage} alt="Our Customers" />
-            </CustomersLogoStrip> */}
+           
           </LeftColumn>
 
           <RightColumn>

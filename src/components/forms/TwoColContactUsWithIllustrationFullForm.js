@@ -5,6 +5,68 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import EmailIllustrationSrc from "images/Female Caretaker.png";
+import Popup from "reactjs-popup";
+import Content from "./PopUpContent.js";
+import "./PopUp.css";
+
+
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+// import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
+
+
+
+import {
+  PopupboxManager,
+  PopupboxContainer
+} from 'react-popupbox';
+
+
+const styles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          {/* <CloseIcon /> */}
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-6 md:py-6`;
@@ -33,6 +95,8 @@ const Textarea = styled(Input).attrs({as: "textarea"})`
 
 const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-8`
 
+
+
 export default ({
   subheading = <><span tw="text-teal-500">Contact Us</span></>,
   heading = <>Feel free to <span tw="text-teal-500">get in touch</span><wbr/> with us.</>,
@@ -43,6 +107,15 @@ export default ({
   textOnLeft = true,
 }) => {
   // The textOnLeft boolean prop can be used to display either the text on left or right side of the image.
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
 
   return (
     <Container>
@@ -58,7 +131,54 @@ export default ({
               <Input type="text" name="name" placeholder="Full Name" />
               <Input type="text" name="subject" placeholder="Subject" />
               <Textarea name="message" placeholder="Your Message Here" />
-              <SubmitButton type="submit">{submitButtonText}</SubmitButton>
+              {/* <SubmitButton type="submit">{submitButtonText}</SubmitButton> */}
+              <div>
+      {/* <Button variant="outlined" color="teal" onClick={handleClickOpen}>
+        Open dialog
+      </Button> */}
+
+      <SubmitButton type="submit" onClick={handleClickOpen} >{submitButtonText}</SubmitButton>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+        Congratulations!
+        </DialogTitle>
+        <DialogContent dividers>
+          
+          <Typography gutterBottom>
+          Your message has been sent to us. We will get back to you in a while.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+        <SubmitButton type="submit" onClick={handleClose}>Okay</SubmitButton>
+        </DialogActions>
+      </Dialog>
+    {/* </div>
+              <Popup
+    trigger={<SubmitButton type="submit">{submitButtonText}</SubmitButton>}
+    modal
+    nested
+  >
+    {close => (
+      <div className="modal" style={{fontSize: "12px", padding: "25px", backgroundColor: "#20B2AA", borderRadius: "10px", margin: "20px"}}>
+        <button className="close" style={{cursor: "pointer",position: 'absolute',display: 'block',padding: '2px 5px',}} onClick={close}>
+          &times;
+        </button>
+        <div className="header" style={{width: "80%",
+        fontSize: "18px",
+        textAlign: "center",
+        padding: "5px", color:"#FFFFFF"}}> Congratulations! </div>
+        <div className="content" style={{color:"#FFFFFF"}}>
+          {' '}
+          Your message has been sent to us. We will get back to you in a while
+        </div>
+        
+      </div>
+    )}
+  </Popup>
+
+              <div> */}
+            
+          </div>
             </Form>
           </TextContent>
         </TextColumn>
