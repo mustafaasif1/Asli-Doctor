@@ -25,7 +25,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -91,11 +91,25 @@ var divStyle = {
 
   const [open, setOpen] = React.useState(false);
   const [openn, setOpenn] = React.useState(false);
+  const [name, setName] = React.useState('');
+  const [addReview, setAddReview] = React.useState('');
+  const [reviews,setReviews]=React.useState([]);
+  
 
   const classes = useStyles();
   
+  const handleNameChange = e=>{
+    setName(e.target.value);
+  }
 
+  const handleAddReviewChange = e =>{
+    setAddReview(e.target.value);
+  }
   const handleClickOpenn = () => {
+    axios.get('http://localhost:5000/reviews',{params:{reg: "/.*"+props.person.reg+".*/i"}}).then(res=>{
+        setReviews(res.data);
+        console.log(res.data);
+      }).catch(err=>{console.log("Error: ",err)})
     setOpenn(true);
   };
 
@@ -108,8 +122,15 @@ var divStyle = {
   };
 
   const handleClose = () => {
+    if (name!="" && addReview!=""){
+      axios.post('http://localhost:5000/rate',{name: name.trim(), review: addReview, reg: props.person.reg}).then(res=>{
+        console.log(res);
+      }).catch(err=>{console.log("Error: ",err)})
+      }
     setOpen(false);
   };
+
+
 
     return (
         <div style={divStyle}>
@@ -125,7 +146,7 @@ var divStyle = {
               {/* <ActionButton style={{margin: "10px"}}>0 Reviews</ActionButton> */}
 
              
-              <ActionButton style={{margin: "10px"}} onClick={handleClickOpenn}>2 Reviews</ActionButton>
+              <ActionButton style={{margin: "10px"}} onClick={handleClickOpenn}>{props.person.reviews} Reviews</ActionButton>
       <Dialog fullScreen open={openn} onClose={handleClosen} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -156,26 +177,21 @@ var divStyle = {
 
           
         </List> */}
-
-      <div style={divStyle}>
-      <Avatar name="Mustafa Asif" size="100" round={true}/>
-      <div style={{padding: " 0px 20px"}}>
-              <Title >Name: Mustafa Asif</Title>
-              <Title>Review: He is a very good Doctor! I love this guy.</Title>
-              
+      <div>
+        {reviews.map(i=>
+          <div style={divStyle}>
+          <Avatar name={i.name} size="100" round={true}/>
+              <div style={{padding: " 0px 20px"}}>
+              <Title >Name: {i.name}</Title>
+              <Title>Review: {i.review}</Title>
+                
               </div>
-      
+        
+          </div>
+        )}
+        
       </div>
-
-      <div style={divStyle}>
-      <Avatar name="Maroof Saleemi" size="100" round={true}/>
-      <div style={{padding: " 0px 20px"}}>
-              <Title >Name: Maroof Saleemi</Title>
-              <Title>Review: He is a very good Doctor! I love this guy.</Title>
-              
-              </div>
-      
-      </div>
+     
       
       </Dialog>
     
@@ -199,6 +215,8 @@ var divStyle = {
             type="text"
             fullWidth
             color="teal"
+            onChange={handleNameChange}
+            value={name}
           />
           </div>
           <div>
@@ -208,6 +226,8 @@ var divStyle = {
             id="review"
             label="Your Review"
             type="text"
+            onChange={handleAddReviewChange}
+            value={addReview}
             fullWidth
           />
           </div>

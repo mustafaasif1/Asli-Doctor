@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState} from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import EmailIllustrationSrc from "images/Oldmen-With-Physiotherapist.png";
+import axios from 'axios';
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-6 md:py-6`;
@@ -44,6 +45,42 @@ export default ({
   textOnLeft = true,
 }) => {
   // The textOnLeft boolean prop can be used to display either the text on left or right side of the image.
+  const [open, setOpen] = React.useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleNameInput = e => {
+    setName(e.target.value);
+  };
+
+  const handleEmailInput = e => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubjectInput = e => {
+    setSubject(e.target.value);
+  };
+
+  const handleMessageInput = e => {
+    setMessage(e.target.value);
+  };
+  
+
+  const handleClickOpen = () => {
+    if (email!=""){
+      axios.post('http://localhost:5000/report',{name: name, email: email, subject: subject, message: message}).then(res=>{
+        console.log(res);
+      }).catch(err=>{console.log("Error: ",err)})
+      }
+    setOpen(true);
+    
+  };
+  const handleClose = () => {
+    
+    setOpen(false);
+  };
 
   return (
     <Container>
@@ -54,11 +91,11 @@ export default ({
             <Heading>{heading}</Heading>
             {description && <Description>{description}</Description>}
             <Form action={formAction} method={formMethod}>
-              <Input type="email" name="email" placeholder="Your Email Address" />
-              <Input type="text" name="name" placeholder="Full Name" />
-              <Input type="text" name="subject" placeholder="Subject" />
-              <Textarea name="message" placeholder="Your Message Here" />
-              <SubmitButton type="submit">{submitButtonText}</SubmitButton>
+              <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email}/>
+              <Input type="text" name="name" placeholder="Full Name" onChange={handleNameInput} value={name}/>
+              <Input type="text" name="subject" placeholder="Subject" onChange={handleSubjectInput} value={subject}/>
+              <Textarea name="message" placeholder="Your Message Here" onChange={handleMessageInput} value={message}/>
+              <SubmitButton type="submit" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
             </Form>
           </TextContent>
         </TextColumn>

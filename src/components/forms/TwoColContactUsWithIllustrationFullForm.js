@@ -19,7 +19,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 // import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-
+import axios from 'axios';
 
 
 import {
@@ -132,10 +132,16 @@ export default ({
   
 
   const handleClickOpen = () => {
+    if (email!=""){
+      axios.post('http://localhost:5000/message',{name: name, email: email, subject: subject, message: message}).then(res=>{
+        console.log(res);
+      }).catch(err=>{console.log("Error: ",err)})
+      }
     setOpen(true);
     
   };
   const handleClose = () => {
+    
     setOpen(false);
   };
 

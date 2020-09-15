@@ -23,7 +23,7 @@ connection.once('open',()=>{
 
 app.get('/sample',(req,res)=>{
     connection.db.collection('sample',(err,collection)=>{
-    console.log(req.query)
+    // console.log(req.query)
     collection.find({
                     Name:eval(req.query.name),
                     "Father Name":eval(req.query.fathersName),
@@ -35,4 +35,104 @@ app.get('/sample',(req,res)=>{
     })
     
 });
+app.post('/message',(req,res)=>{
+    
+    console.log(req.body);
+    if (req.body.email!=undefined){
+    connection.db.collection('messages',(err,collection)=>{
+        
+        collection.save(req.body).then(()=>res.send("Uploaded")).catch(err=>res.send("Error: "+err));
+    })
+    }
 
+
+});
+
+
+app.post('/report',(req,res)=>{
+    
+    console.log(req.body);
+    if (req.body.email!=undefined){
+    connection.db.collection('report',(err,collection)=>{
+        
+        collection.save(req.body).then(()=>res.send("Uploaded")).catch(err=>res.send("Error: "+err));
+    })
+    }
+});
+
+
+
+app.post('/users',(req,res)=>{
+    
+    console.log(req.body);
+    if (req.body.email!=undefined){
+    connection.db.collection('users',(err,collection)=>{
+        
+        collection.save(req.body).then(()=>res.send("Uploaded")).catch(err=>res.send("Error: "+err));
+    })
+    }
+});
+
+
+app.post('/login',(req,res)=>{
+    
+    console.log(req.body);
+    if (req.body.email!=undefined){
+    connection.db.collection('users',(err,collection)=>{
+        
+        collection.find(req.body).toArray((err,results)=>{
+            console.log(results);
+            if (results.length>0){
+            res.send("login")
+        }
+        
+        else {
+            res.send("again");
+        }
+    }
+    )})
+    }
+});
+
+app.post('/rate',(req,res)=>{
+    var revNumbers=0;
+    connection.db.collection('sample',(err,collection)=>{
+        console.log(req.body);
+        collection.find({
+                        reg:req.body.reg
+                        
+        }).toArray((err,results)=>{
+
+            revNumbers=results[0].reviews+1;
+            console.log(revNumbers);
+            connection.db.collection('sample',(err, collection)=>{
+                collection.updateOne({"reg":req.body.reg},
+                                    {$set:{"reviews":revNumbers}})
+            });
+        });
+        })
+    
+    
+    
+    
+    console.log(req.body);
+    if (req.body.name!=undefined){
+    connection.db.collection('reviews',(err,collection)=>{
+        
+    collection.save(req.body).then(()=>res.send("Uploaded")).catch(err=>res.send("Error: "+err));
+    })
+    }
+});
+
+app.get('/reviews',(req,res)=>{
+    
+
+    connection.db.collection('reviews',(err,collection)=>{
+    console.log(req.query);
+    collection.find({
+                    reg:eval(req.query.reg)
+                    
+    }).toArray((err,results)=>{res.send(JSON.stringify(results))});
+    })
+    
+});
