@@ -75,10 +75,15 @@ export default ({ roundedHeaderButton = true, logoLink, links, className, collap
       <NavLink href="/">Home</NavLink>
       <NavLink href="/FakeDoctorReport">Fake Doctor Reports</NavLink>
       <NavLink href="/ContactUs">Contact Us</NavLink>
+      {true && 
       <NavLink href="/LogIn" tw="lg:ml-12!">
         Login
-      </NavLink>
-      <PrimaryLink css={roundedHeaderButton && tw`rounded-full bg-teal-500`}href="/SignUp">Sign Up</PrimaryLink>
+      </NavLink>}
+      {true &&
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full bg-teal-500`}href="/SignUp">Sign Up</PrimaryLink>}
+      {false &&
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full bg-teal-500`}href="/SignUp">Sign Out</PrimaryLink>}
+
     </NavLinks>
   ];
 

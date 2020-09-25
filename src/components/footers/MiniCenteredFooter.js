@@ -42,18 +42,9 @@ export default () => {
             <Link href="/">Fake Doctor Reports</Link>
             <Link href="/ContactUs">Contact Us</Link>
           </LinksContainer>
-          {/* <SocialLinksContainer>
-            <SocialLink href="https://facebook.com">
-              <FacebookIcon />
-            </SocialLink>
-            <SocialLink href="https://twitter.com">
-              <TwitterIcon />
-            </SocialLink>
-            <SocialLink href="https://youtube.com">
-              <YoutubeIcon />
-            </SocialLink>
-          </SocialLinksContainer> */}
+          
         </Row>
+        
       </Content>
     </Container>
   );
