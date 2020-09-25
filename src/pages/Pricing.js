@@ -204,21 +204,39 @@ class CustomTabs extends React.Component {
   constructor(){
     super()
     this.state={docs:[],
+      allDocs:[],
       val:0,
+      maxToDisplay:10,
+      minToDisplay:0,
     params: parsedData(window.location.href)};
-    
   };
   
   componentDidMount(){
     trackPromise(
     axios.get("http://localhost:5000/sample",{params: this.state.params}).then(res=>{
-      this.setState({docs:res.data})
-      console.log(this.state.docs)
+      
+      this.setState({allDocs: res.data});
+      if (res.data.length>this.state.maxToDisplay){
+        this.setState({docs: res.data.slice(this.state.minToDisplay, this.state.maxToDisplay)});
+      }
+      
     })).catch(err=>{console.log(err)})
-    console.log(this.state.docs)
+    
   }
 
 
+  handleUpdate = (event)=> {
+        var toAdd=0;
+        if (this.state.allDocs.length>=this.state.maxToDisplay){
+          toAdd=10;
+        }
+        else{
+          toAdd=this.state.allDocs.length-this.state.maxToDisplay;
+        }
+        this.setState({maxToDisplay: this.state.maxToDisplay+10});
+        this.setState({docs: this.state.allDocs.slice(this.state.minToDisplay, this.state.maxToDisplay)});
+        window.scrollTo({top: document.documentElement.scrollHeight*(this.state.docs.length*0.001+0.7), behaviour: 'smooth'});
+  }
 
   handleChange = (event, value) => {
     this.setState({ val: value });
@@ -227,7 +245,7 @@ class CustomTabs extends React.Component {
   render() {
     const value = this.state.val;
     return (
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%' }} onScroll={this.handleScroll}>
         <AppBar position="static" color="default">
           <Tabs
             value={value}
@@ -243,6 +261,8 @@ class CustomTabs extends React.Component {
         </AppBar>
         {value === 0 && <div>
           {this.state.docs.map(i=><Docs person={i}/>)}
+          <button onClick={this.handleUpdate}>Load More</button>
+          
         </div>}
         {value === 1 && <BasicTable  data={this.state.docs}></BasicTable>}
       </div>
