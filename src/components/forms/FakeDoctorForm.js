@@ -5,6 +5,9 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import EmailIllustrationSrc from "images/Oldmen-With-Physiotherapist.png";
+import '../../styles/popup.css'
+import MapContainer from "components/misc/googlemap.js";
+
 import axios from 'axios';
 
 const Container = tw.div`relative`;
@@ -38,7 +41,7 @@ export default ({
   subheading = <><span tw="text-teal-500">Report a fake doctor</span></>,
   heading = <>Do you think a doctor is not authentic? <span tw="text-teal-500">Report the doctor</span><wbr/> now!</>,
   //description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  description = "Although there has been a rapid rise in the number of doctors in Pakistan, unfortunately the number of doctors with fake registration have also appeared. People who seek treatment from such individuals are at a high risk. If you have encountered such a doctor please fll the form below",
+  description = "Although there has been a rapid rise in the number of doctors in Pakistan, unfortunately the number of doctors with fake registrations have also appeared. People who seek treatment from such individuals are at a high risk. If you have encountered such a doctor please fill the form below",
   submitButtonText = "Report!",
   formAction = "#",
   formMethod = "get",
@@ -46,6 +49,7 @@ export default ({
 }) => {
   // The textOnLeft boolean prop can be used to display either the text on left or right side of the image.
   const [open, setOpen] = React.useState(false);
+  const [popup, setpup] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
@@ -66,7 +70,14 @@ export default ({
   const handleMessageInput = e => {
     setMessage(e.target.value);
   };
+
+  const setPopUp=()=>{
+    setpup(true);
+  };
   
+  const handleClosePop=()=>{
+    setpup(false);
+  };
 
   const handleClickOpen = () => {
     if (email!=""){
@@ -94,8 +105,19 @@ export default ({
               <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email}/>
               <Input type="text" name="name" placeholder="Full Name" onChange={handleNameInput} value={name}/>
               <Input type="text" name="subject" placeholder="Subject" onChange={handleSubjectInput} value={subject}/>
+              <PrimaryButtonBase style={{marginTop:'20px'}} onClick={setPopUp}>Add Location of Doctor To Report</PrimaryButtonBase>
               <Textarea name="message" placeholder="Your Message Here" onChange={handleMessageInput} value={message}/>
+              { popup ?
+               <div className='popup'>
+                <div className='popup_inner'>
+                  <MapContainer/>
+                </div>
+             </div>
+                :
+                null
+              }
               <SubmitButton type="submit" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
+              
             </Form>
           </TextContent>
         </TextColumn>
