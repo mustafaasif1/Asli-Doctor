@@ -73,13 +73,7 @@ const columns = [
     // align: 'right',
     // format: (value) => value.toFixed(2),
   },
-  {
-    id: 'type',
-    label: 'Type',
-    minWidth: 170,
-    // align: 'right',
-    // format: (value) => value.toFixed(2),
-  },
+  
   // {
   //   id: 'reviews',
   //   label: 'See Reviews',
@@ -226,7 +220,8 @@ class CustomTabs extends React.Component {
 
 
   handleUpdate = (event)=> {
-        var toAdd=0;
+    if (this.state.docs.length < this.state.allDocs.length) {
+      var toAdd=0;
         if (this.state.allDocs.length>=this.state.maxToDisplay){
           toAdd=10;
         }
@@ -236,6 +231,8 @@ class CustomTabs extends React.Component {
         this.setState({maxToDisplay: this.state.maxToDisplay+10});
         this.setState({docs: this.state.allDocs.slice(this.state.minToDisplay, this.state.maxToDisplay)});
         window.scrollTo({top: document.documentElement.scrollHeight*(this.state.docs.length*0.001+0.7), behaviour: 'smooth'});
+    }
+        
   }
 
   handleChange = (event, value) => {
@@ -261,9 +258,14 @@ class CustomTabs extends React.Component {
         </AppBar>
         {value === 0 && <div>
           {this.state.docs.map(i=><Docs person={i}/>)}
-          <button onClick={this.handleUpdate}>Load More</button>
+          { (this.state.docs.length > 0 || this.state.docs.length < this.state.allDocs.length )&& 
+          <div style={{textAlign:'center'}}>
+          <Button variant="contained" color="primary" onClick={this.handleUpdate}>
+          Load More
+          </Button>
+          </div>}
           
-        </div>}
+        </div >}
         {value === 1 && <BasicTable  data={this.state.docs}></BasicTable>}
       </div>
     );

@@ -205,7 +205,7 @@ const Docs = (props) => {
           
           {/* This is where you can allow the user to write a review if he is signed In*/}
 
-          { false && 
+          { true && 
             <ActionButton onClick={handleClickOpen}>
             Add a new Review
             </ActionButton>
