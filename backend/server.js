@@ -22,6 +22,7 @@ connection.once('open',()=>{
 })
 
 app.get('/sample',(req,res)=>{
+    console.log("Requesting Doctors...");
     connection.db.collection('sample',(err,collection)=>{
     // console.log(req.query)
     collection.find({
