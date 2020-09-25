@@ -220,6 +220,7 @@ class CustomTabs extends React.Component {
   constructor(){
     super()
     this.state={docs:[],
+      val:0,
     params: parsedData(window.location.href)};
     
   };
@@ -234,16 +235,13 @@ class CustomTabs extends React.Component {
   }
 
 
-  state = {
-    value: 0
-  };
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({ val: value });
   };
 
   render() {
-    const {value} = this.state;
+    const value = this.state.val;
     return (
       <div style={{ width: '100%' }}>
         <AppBar position="static" color="default">
