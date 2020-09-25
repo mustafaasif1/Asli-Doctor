@@ -4,6 +4,13 @@ import tw from "twin.macro";
 //eslint-disable-next-line
 // import { css } from "styled-components/macro";
 
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+
 import Header from "../headers/light.js";
 
 import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-1.svg";
@@ -83,6 +90,19 @@ const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-8`
 export default ({ roundedHeaderButton, submitButtonText = "Submit",
 formAction = "/Doctors",
 formMethod = "get", }) => {
+
+  const [gender, setGender] = React.useState('');
+  const [type, setType] = React.useState('');
+
+  const handleChangeGender = (event) => {
+    setGender(event.target.value);
+  };
+
+  const handleChangeType = (event) => {
+    setType(event.target.value);
+  };
+
+
   return (
     <>
       <Header roundedHeaderButton={roundedHeaderButton} />
@@ -101,10 +121,11 @@ formMethod = "get", }) => {
               <Input type="text" name="registration" placeholder="Registration Number" />
               <Input type="text" name="name" placeholder="Full Name" />
               <Input type="text" name="gender" placeholder="Gender" />
+              
               <Input type="text" name="city" placeholder="City" />
               <Input type="text" name="fathersName" placeholder="Father's Name" />
-              <Input type="text" name="area" placeholder="Area" />
               <Input type="text" name="type" placeholder="Type" />
+              
               <SubmitButton type="Search">{submitButtonText}</SubmitButton>
             </Form>
         
