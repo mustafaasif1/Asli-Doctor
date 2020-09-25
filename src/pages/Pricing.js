@@ -29,6 +29,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import TablePagination from '@material-ui/core/TablePagination';
+import { Button } from "@material-ui/core";
 
 
 const Heading = tw(SectionHeading)`mt-4 font-bold text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
@@ -42,52 +43,77 @@ const styles = theme => ({
 })
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+  { id: 'reg_num', label: 'Registration Number', minWidth: 170 },
+  { id: 'name', label: 'Name', minWidth: 100 },
   {
-    id: 'population',
-    label: 'Population',
+    id: 'gender',
+    label: 'Gender',
     minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+    // align: 'right',
+    // format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
+    id: 'city',
+    label: 'City',
     minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+    // align: 'right',
+    // format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'density',
-    label: 'Density',
+    id: 'fathers_name',
+    label: 'Father\'s Name',
     minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
+    // align: 'right',
+    // format: (value) => value.toFixed(2),
   },
+  {
+    id: 'type',
+    label: 'Type',
+    minWidth: 170,
+    // align: 'right',
+    // format: (value) => value.toFixed(2),
+  },
+  {
+    id: 'type',
+    label: 'Type',
+    minWidth: 170,
+    // align: 'right',
+    // format: (value) => value.toFixed(2),
+  },
+  // {
+  //   id: 'reviews',
+  //   label: 'See Reviews',
+  //   minWidth: 170,
+  //   // align: 'right',
+  //   // format: (value) => value.toFixed(2),
+  // },
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
+function createData(reg_num, name, gender, city, fathers_name, type) {
+
+  return { reg_num, name, gender, city, fathers_name, type };
 }
 
 const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
+  createData('1234-F', 'Maroof Saleemi', 'Male', 'Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+  
 ];
 
 const useStyles = makeStyles({
@@ -100,59 +126,9 @@ const useStyles = makeStyles({
 });
 
 
-// const useStyles = makeStyles({
-//   root: {
-//     width: '100%',
-//   },
-//   container: {
-//     maxHeight: 440,
-//   },
-// });
 
-// function createData(registration_id, name, fathers_name, gender, type, city) {
-//   return { registration_id, name, fathers_name, gender, type, city };
-// }
-
-// const rows = [
-//   createData('13342-F', 'Mustafa Asif', 'Asif', 'Male', 'Doctor', 'Karachi',),
-//   createData('13342-F', 'Maroof Saleemi', 'Saleemi', 'Male', 'Doctor', 'Lahore',),
-//   createData('13442-F', 'Omer Shakeel', 'Shakeel', 'Male', 'Doctor', 'Lahore',),
-//   createData('13332-F', 'Shayan', 'Irfan', 'Male', 'Dentist', 'Lahore',),
-//   createData('13754-F', 'Sheraz Hasan', 'Hasan', 'Male', 'Doctor', 'Multan',),
-// ];
-
-function BasicTable() {
-  // const classes = useStyles();
-
-  // return (
-  //   <TableContainer component={Paper}>
-  //     <Table className={classes.table} >
-  //       <TableHead>
-  //         <TableRow>
-  //           <TableCell>Registration Number</TableCell>
-  //           <TableCell align="right">Full Name</TableCell>
-  //           <TableCell align="right">Fathers name</TableCell>
-  //           <TableCell align="right">Gender</TableCell>
-  //           <TableCell align="right">Type</TableCell>
-  //           <TableCell align="right">City</TableCell>
-  //         </TableRow>
-  //       </TableHead>
-  //       <TableBody>
-  //         {rows.map((row) => (
-  //           <TableRow key={row.registration_id}>
-              
-  //             <TableCell align="right">{row.registration_id}</TableCell>
-  //             <TableCell align="right">{row.name}</TableCell>
-  //             <TableCell align="right">{row.fathers_name}</TableCell>
-  //             <TableCell align="right">{row.gender}</TableCell>
-  //             <TableCell align="right">{row.type}</TableCell>
-  //             <TableCell align="right">{row.city}</TableCell>
-  //           </TableRow>
-  //         ))}
-  //       </TableBody>
-  //     </Table>
-  //   </TableContainer>
-  // );
+function BasicTable(props) {
+  
 
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -170,7 +146,7 @@ function BasicTable() {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader >
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -191,11 +167,19 @@ function BasicTable() {
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
+                      
                       <TableCell key={column.id} align={column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
+                      
                     );
                   })}
+                  <Button variant="contained" color="primary">
+                    Reviews
+                  </Button>
+
+                  
+                  
                 </TableRow>
               );
             })}
@@ -260,7 +244,7 @@ class CustomTabs extends React.Component {
         {value === 0 && <div>
           {this.state.docs.map(i=><Docs person={i}/>)}
         </div>}
-        {value === 1 && <BasicTable></BasicTable>}
+        {value === 1 && <BasicTable  data={this.state.docs}></BasicTable>}
       </div>
     );
   }

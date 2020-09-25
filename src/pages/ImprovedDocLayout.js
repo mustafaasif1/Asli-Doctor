@@ -55,10 +55,6 @@ const StyledContainer = styled.div`
 `;
 const Docs = (props) => {
 
-  
-
-
-
   const Title = styled.h2`
     color: #000;
     font-weight: 300;
