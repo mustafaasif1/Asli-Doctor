@@ -3,7 +3,6 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
-import { css } from "styled-components/macro"; //eslint-disable-line
 import illustration from "images/signup-illustration.svg";
 import logo from "images/logo.png";
 import googleIconImageSrc from "images/google-icon.png";
@@ -68,7 +67,8 @@ export default ({
   SubmitButtonIcon = SignUpIcon,
   tosUrl = "#",
   privacyPolicyUrl = "#",
-  signInUrl = "LogIn"
+  signInUrl = "LogIn",
+  toggleLogin
 }) => {
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = useState('');
@@ -88,6 +88,7 @@ export default ({
         console.log(res);
         if (!res.includes('Error')){
           setSignedIn(true);
+          toggleLogin();
         }
       }).catch(err=>{console.log("Error: ",err)})
       }

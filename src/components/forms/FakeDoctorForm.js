@@ -72,7 +72,7 @@ export default ({
   };
 
   const setPopUp=()=>{
-    window.scrollTo({top: document.documentElement.scrollHeight*(0.3), behaviour: 'smooth'});
+    window.scrollTo({top: document.documentElement.scrollHeight*(0.2), behaviour: 'smooth'});
 
     setpup(true);
   };
@@ -107,7 +107,6 @@ export default ({
               <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email}/>
               <Input type="text" name="name" placeholder="Full Name" onChange={handleNameInput} value={name}/>
               <Input type="text" name="subject" placeholder="Subject" onChange={handleSubjectInput} value={subject}/>
-              <PrimaryButtonBase style={{marginTop:'20px'}} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
               <Textarea name="message" placeholder="Your Message Here" onChange={handleMessageInput} value={message}/>
               { popup ?
                <div className='popup'>
@@ -122,6 +121,7 @@ export default ({
                 :
                 null
               }
+              <PrimaryButtonBase style={{backgroundColor: "#9400D3", marginTop:'20px'}} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
               <SubmitButton type="submit" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
               
             </Form>

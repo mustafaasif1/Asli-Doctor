@@ -107,39 +107,41 @@ import ComponentRenderer from "ComponentRenderer.js";
 
 import DoctorList from "pages/Pricing.js";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-export default function App() {
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { render } from "@testing-library/react";
+
+class App extends React.Component {
+
+  constructor(props) {
+    super();
+    this.state = {
+      isLoggedIn: false,
+    };
+    
+  }
+
+  toggleLogin = () => {
+    this.setState(state => ({isLoggedIn: !state.isLoggedIn }));
+    console.log(this.state.isLoggedIn);
+    
+  }
+
+
+  render() {
   return (
     <Router>
       <Switch> 
-        <Route path="/SignUp" component={SignupPage} />
-        <Route path="/LogIn" component={LoginPage} />
-        <Route path="/Doctors" component={DoctorList} />
-        <Route path="/ContactUs" component={ContactUsPage} />
-        <Route path="/FakeDoctorReport" component={FakeDoctorReport} />
-        <Route path="/" component={SaaSProductLandingPage} />  
+        <Route path="/SignUp" component={()=> <SignupPage checkSignedIn={this.toggleLogin}/>}/>
+        <Route path="/LogIn" component={()=> <LoginPage checkSignedIn={this.toggleLogin}/>}/>
+        <Route path="/Doctors" component={()=> <DoctorList checkSignedIn={this.state.isLoggedIn}/>}/>
+        <Route path="/ContactUs"  component={()=> <ContactUsPage checkSignedIn={this.state.isLoggedIn}/>}/>
+        <Route path="/FakeDoctorReport"  component={()=> <FakeDoctorReport checkSignedIn={this.state.isLoggedIn}/>}/>
+        <Route path="/"  component={()=> <SaaSProductLandingPage checkSignedIn={this.state.isLoggedIn}/>}/>  
         
       </Switch>
     </Router>
-  );
+  );}
 }
 
-// export default EventLandingPage;
-// export default HotelTravelLandingPage;
-// export default AgencyLandingPage;
-// export default SaaSProductLandingPage;
-// export default RestaurantLandingPage;
-// export default ServiceLandingPage;
-// export default HostingCloudLandingPage;
-
-// export default LoginPage;
-// export default SignupPage;
-// export default PricingPage;
-// export default AboutUsPage;
-// export default ContactUsPage;
-// export default BlogIndexPage;
-// export default TermsOfServicePage;
-// export default PrivacyPolicyPage;
-
-// export default MainLandingPage;
+export default App;

@@ -1,11 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
-import { FaCommentAlt, FaThumbsUp, FaRegEye } from "react-icons/fa";
-import Card from "./Card";
-import MyPhoto from "../images/default-person.png";
-// import ImageComponent from "react-rounded-image";
+
 import Avatar from "react-avatar";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -14,11 +10,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { makeStyles } from "@material-ui/core/styles";
-// import Button from '@material-ui/core/Button';
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -45,14 +37,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const StyledRoot = styled.div`
-  padding: 50px 12px;
-`;
-const StyledContainer = styled.div`
-  max-width: 550px;
-  width: 100%;
-  margin: auto;
-`;
+
 const Docs = (props) => {
 
   const Title = styled.h2`
@@ -60,15 +45,7 @@ const Docs = (props) => {
     font-weight: 300;
     margin: 6px 0;
   `;
-  const Date = styled.div`
-    color: #000;
-    font-weight: 300;
-    margin: 6px 0;
-  `;
-  const Description = styled.p`
-    color: #000;
-    font-weight: 300;
-  `;
+  
 
   const ActionButton = styled.button`
     margin: 0 5px;
@@ -133,7 +110,7 @@ const Docs = (props) => {
   };
 
   const handleClose = () => {
-    if (name != "" && addReview != "") {
+    if (name !== "" && addReview !== "") {
       axios
         .post("http://localhost:5000/rate", {
           name: name.trim(),

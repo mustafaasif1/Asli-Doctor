@@ -4,20 +4,14 @@ import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter.js";
 import Docs from "./ImprovedDocLayout";
 import axios from 'axios';
-import styled from "styled-components";
-import tw from "twin.macro";
-import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
-import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { trackPromise } from 'react-promise-tracker';
 
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
 import {withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+
+
 
 
 import Table from '@material-ui/core/Table';
@@ -32,9 +26,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { Button } from "@material-ui/core";
 
 
-const Heading = tw(SectionHeading)`mt-4 font-bold text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
-const Subheading = tw(SubheadingBase)`text-center md:text-left`;
-const PreviewButton = tw(PrimaryButtonBase)` rounded-b-lg py-2 font-semibold`;
 
 const styles = theme => ({
   root: {
@@ -84,31 +75,33 @@ const columns = [
 ];
 
 function createData(reg_num, name, gender, city, fathers_name, type) {
-
+  if (city == "") {
+    city = "-";
+  } 
   return { reg_num, name, gender, city, fathers_name, type };
 }
 
-const rows = [
-  createData('1234-F', 'Maroof Saleemi', 'Male', 'Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
-  createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+// const rows = [
+//   createData('1234-F', 'Maroof Saleemi', 'Male', 'Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
+//   createData('1234-F', 'Maroof Saleemi', 'Male','Lahore', 'Saleemi', 'Doctor'),
   
-];
+// ];
 
 const useStyles = makeStyles({
   root: {
@@ -122,6 +115,17 @@ const useStyles = makeStyles({
 
 
 function BasicTable(props) {
+
+  console.log(props);
+
+  const rows = [];
+
+  props.data.forEach(i=>{
+    rows.push(createData(i.reg, i.Name, i.Gender, i.City, i["Father Name"], i.type));
+  });
+
+  console.log(rows);
+  
   
 
   const classes = useStyles();
@@ -171,6 +175,7 @@ function BasicTable(props) {
                   <Button variant="contained" color="primary">
                     Reviews
                   </Button>
+                 
 
                   
                   
@@ -266,7 +271,7 @@ class CustomTabs extends React.Component {
           </div>}
           
         </div >}
-        {value === 1 && <BasicTable  data={this.state.docs}></BasicTable>}
+        {value === 1 && <BasicTable  data={this.state.allDocs}></BasicTable>}
       </div>
     );
   }
@@ -284,22 +289,22 @@ const parsedData=(params)=>{
   let toGet=[]
   let j=0
   for (let i = 0; i < data.length; i++) {
-    if (data[i]=='='){
+    if (data[i]==='='){
       toGet.push(data.slice(j,i));
       j=i+1;
     }
-    else if(data[i]=='&'){
+    else if(data[i]==='&'){
       toGet.push(data.slice(j,i));
       j=i+1;
     }
-    if(i==(data.length-1)){
+    if(i===(data.length-1)){
       toGet.push(data.slice(j,i));
     }  
   }
   let toFetch={}
    
   for (let i = 0; i < toGet.length; i+=2) {
-    if (toGet[i+1]!=""){
+    if (toGet[i+1]!==""){
     toFetch[toGet[i]]="/.*"+toGet[i+1]+".*/i"; 
     }
     else{
