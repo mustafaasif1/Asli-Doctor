@@ -13,6 +13,7 @@
     "feather-icons": "^4.26.0",
     "framer-motion": "^1.10.2",
     "google-maps-react": "^2.0.6",
+    "loadash": "^1.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-anchor-link-smooth-scroll": "^1.0.12",

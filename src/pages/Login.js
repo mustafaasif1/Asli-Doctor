@@ -7,7 +7,6 @@ import {css} from "styled-components/macro"; //eslint-disable-line
 import illustration from "images/Oldmen-With-Physiotherapist.png";
 import logo from "images/logo.png";
 import googleIconImageSrc from "images/google-icon.png";
-import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import axios from 'axios';
 const Container = tw(ContainerBase)`min-h-screen bg-teal-600 text-white font-medium flex justify-center -m-8`;
@@ -75,6 +74,8 @@ export default ({
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [signedIn,setSignedIn]=React.useState(false);
+  
+  
   const handleEmailInput = e => {
     setEmail(e.target.value);
   };
