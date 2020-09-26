@@ -39,6 +39,7 @@ export default class CurrentLocation extends React.Component {
     
         if (map) {
           let center = new maps.LatLng(current.lat, current.lng);
+          this.props.updLoc(current.lat, current.lng);
           map.panTo(center);
         }
       }

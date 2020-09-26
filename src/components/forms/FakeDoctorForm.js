@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useRef} from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
@@ -54,9 +54,14 @@ export default ({
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const longlat=useRef([0,0]);
 
   const handleNameInput = e => {
     setName(e.target.value);
+  };
+
+  const UpdateLatLong = (lat, Long) => {
+    longlat.current=[lat, Long];
   };
 
   const handleEmailInput = e => {
@@ -78,12 +83,13 @@ export default ({
   };
   
   const handleClosePop=()=>{
+    console.log(longlat);
     setpup(false);
   };
 
   const handleClickOpen = () => {
     if (email!=""){
-      axios.post('http://localhost:5000/report',{name: name, email: email, subject: subject, message: message}).then(res=>{
+      axios.post('http://localhost:5000/report',{name: name, email: email, subject: subject, message: message, GoogleLocation: longlat}).then(res=>{
         console.log(res);
       }).catch(err=>{console.log("Error: ",err)})
       }
@@ -112,7 +118,7 @@ export default ({
               { popup ?
                <div className='popup'>
                 <div className='popup_inner'>
-                  <MapContainer/>
+                  <MapContainer updLoc={UpdateLatLong}/>
                 </div>
                 <div className='popup_inner_lower'>
                   <PrimaryButtonBase onClick={handleClosePop} type="button">Add Location</PrimaryButtonBase>

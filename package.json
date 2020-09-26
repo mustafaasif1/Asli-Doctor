@@ -19,6 +19,7 @@
     "react-avatar": "^3.9.7",
     "react-dom": "^16.13.1",
     "react-drag-drawer": "^3.3.4",
+    "react-google-maps": "^9.4.5",
     "react-icons": "^3.11.0",
     "react-js-pagination": "^3.0.3",
     "react-loader-spinner": "^3.1.14",
@@ -38,7 +39,8 @@
     "styled-components": "^5.2.0",
     "tailwindcss": "^1.2.0",
     "twin.macro": "^1.0.0-alpha.7",
-    "use-in-view": "^1.0.15"
+    "use-in-view": "^1.0.15",
+    "use-position": "0.0.7"
   },
   "homepage": "https://mustafaasif1.github.io/AsliDoctor/",
   "scripts": {
