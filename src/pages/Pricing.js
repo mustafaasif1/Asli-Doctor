@@ -1,4 +1,4 @@
-import React,{useState, Component} from "react";
+import React,{useState, Component, useEffect, useLayoutEffect} from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter.js";
@@ -10,6 +10,10 @@ import {withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { TableSortLabel } from '@material-ui/core';
+
+
+import orderBy from 'lodash/orderBy';
 
 
 
@@ -112,21 +116,22 @@ const useStyles = makeStyles({
   },
 });
 
+function assign(value) {
+  var rows = []
+  value.data.forEach(i=>{
+    rows.push(createData(i.reg, i.Name, i.Gender, i.City, i["Father Name"], i.type));
+  });
+  return rows;
+}
 
 
 function BasicTable(props) {
 
-  console.log(props);
+  // console.log(props);
 
-  const rows = [];
+  // const rows = [];
+  const [rows, setRows] = React.useState(assign(props));
 
-  props.data.forEach(i=>{
-    rows.push(createData(i.reg, i.Name, i.Gender, i.City, i["Father Name"], i.type));
-  });
-
-  console.log(rows);
-  
-  
 
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -141,22 +146,35 @@ function BasicTable(props) {
     setPage(0);
   };
 
+  
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader >
-          <TableHead>
+          <TableHead >
+          
             <TableRow>
               {columns.map((column) => (
+                
                 <TableCell
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
-                >
+                  onClick={() => {
+                    console.log('hi');
+                    setRows(orderBy(rows, column.id))
+
+                    // setOrder
+                  }}
+                  
+                ><TableSortLabel>
                   {column.label}
+                  </TableSortLabel>
                 </TableCell>
               ))}
             </TableRow>
+            
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
@@ -166,15 +184,15 @@ function BasicTable(props) {
                     const value = row[column.id];
                     return (
                       
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell key={column.id} align={column.align} >
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                       
                     );
                   })}
-                  <Button variant="contained" color="primary">
+                  {/* <Button variant="contained" color="primary">
                     Reviews
-                  </Button>
+                  </Button> */}
                  
 
                   
