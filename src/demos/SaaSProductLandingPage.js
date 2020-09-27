@@ -20,7 +20,7 @@ import Footer from "components/footers/MiniCenteredFooter.js";
 
 
 
-export default () => {
+export default ({LI, setLI}) => {
   // const Subheading = tw.span`uppercase tracking-widest font-bold text-primary-500`;
   // const HighlightedText = tw.span`text-primary-500`;
 
@@ -28,7 +28,7 @@ export default () => {
 
   return (
     <AnimationRevealPage>
-      <Hero roundedHeaderButton={true} />
+      <Hero roundedHeaderButton={true} LI={LI} setLI={setLI}/>
       {/* <Features
         subheading={<Subheading>Features</Subheading>}
         heading={

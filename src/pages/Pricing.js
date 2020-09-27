@@ -218,8 +218,8 @@ function BasicTable(props) {
 
 class CustomTabs extends React.Component {
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state={docs:[],
       allDocs:[],
       val:0,
@@ -337,14 +337,15 @@ const parsedData=(params)=>{
 
 class DoctorList extends Component{
 
-  // constructor(){
-  //   super()
+   constructor(props){
+     super(props)
   //   this.state={docs:[],
   //   params: parsedData(window.location.href)};
     
-  // };
+   };
 
-  // componentDidMount(){
+   componentDidMount(){
+     console.log(this.props)
   //   trackPromise(
   //   axios.get("http://localhost:5000/sample",{params: this.state.params}).then(res=>{
   //     this.setState({docs:res.data})
@@ -353,7 +354,7 @@ class DoctorList extends Component{
   //   console.log(this.state.docs)
     
     
-  // }
+   }
 
 
   render(){
@@ -362,7 +363,7 @@ class DoctorList extends Component{
       
       <AnimationRevealPage>
         
-        <Header />
+        <Header LI={this.props.LI} setLI={this.props.setLI}/>
         {/* <div style={{padding: "30px", justifyContent: "center", alignItems: "center", display: "flex"}}>
         <Subheading>
               Do you want a new search? <PreviewButton stlye={{margin: "20px"}}>Click Here</PreviewButton>

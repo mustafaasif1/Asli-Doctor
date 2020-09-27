@@ -87,7 +87,7 @@ const Textarea = styled(Input).attrs({as: "textarea"})`
 const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-8`
 
 
-export default ({ roundedHeaderButton, submitButtonText = "Submit",
+export default ({ roundedHeaderButton, setLI, LI,submitButtonText = "Submit",
 formAction = "/Doctors",
 formMethod = "get", }) => {
 
@@ -105,7 +105,7 @@ formMethod = "get", }) => {
 
   return (
     <>
-      <Header roundedHeaderButton={roundedHeaderButton} />
+      <Header roundedHeaderButton={roundedHeaderButton} LI={LI} setLI={setLI}/>
       {/* < GetInformationForm/> */}
       
       <Container>

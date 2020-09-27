@@ -1,6 +1,6 @@
 import "tailwindcss/dist/base.css";
 import "styles/globalStyles.css";
-import React from "react";
+import React, {useState} from "react";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
 /*
@@ -107,41 +107,44 @@ import ComponentRenderer from "ComponentRenderer.js";
 
 import DoctorList from "pages/Pricing.js";
 
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { render } from "@testing-library/react";
 
-class App extends React.Component {
-
-  constructor(props) {
-    super();
-    this.state = {
-      isLoggedIn: false,
-    };
-    
+export default function App() {
+  const [login,setLogged]=useState(false);
+  const setLogIn=(param)=>{
+    setLogged(param);
   }
-
-  toggleLogin = () => {
-    this.setState(state => ({isLoggedIn: !state.isLoggedIn }));
-    console.log(this.state.isLoggedIn);
-    
-  }
-
-
-  render() {
   return (
     <Router>
       <Switch> 
-        <Route path="/SignUp" component={()=> <SignupPage checkSignedIn={this.toggleLogin}/>}/>
-        <Route path="/LogIn" component={()=> <LoginPage checkSignedIn={this.toggleLogin}/>}/>
-        <Route path="/Doctors" component={()=> <DoctorList checkSignedIn={this.state.isLoggedIn}/>}/>
-        <Route path="/ContactUs"  component={()=> <ContactUsPage checkSignedIn={this.state.isLoggedIn}/>}/>
-        <Route path="/FakeDoctorReport"  component={()=> <FakeDoctorReport checkSignedIn={this.state.isLoggedIn}/>}/>
-        <Route path="/"  component={()=> <SaaSProductLandingPage checkSignedIn={this.state.isLoggedIn}/>}/>  
+        <Route path="/SignUp" render={(props) => <SignupPage {...props} setLI={setLogIn} LI={login} />}/>
+        <Route path="/LogIn" render={(props) => <LoginPage {...props} setLI={setLogIn} LI={login} />}/>
+        <Route path="/Doctors" render={(props) => <DoctorList {...props} setLI={setLogIn} LI={login} />}/>
+        <Route path="/ContactUs" render={(props) => <ContactUsPage {...props} setLI={setLogIn} LI={login} />}/>
+        <Route path="/FakeDoctorReport" render={(props) => <FakeDoctorReport {...props} setLI={setLogIn} LI={login}/>}/>
+        <Route path="/" render={(props) => <SaaSProductLandingPage {...props} setLI={setLogIn} LI={login} />}
+/>  
         
       </Switch>
     </Router>
-  );}
+  );
 }
 
-export default App;
+// export default EventLandingPage;
+// export default HotelTravelLandingPage;
+// export default AgencyLandingPage;
+// export default SaaSProductLandingPage;
+// export default RestaurantLandingPage;
+// export default ServiceLandingPage;
+// export default HostingCloudLandingPage;
+
+// export default LoginPage;
+// export default SignupPage;
+// export default PricingPage;
+// export default AboutUsPage;
+// export default ContactUsPage;
+// export default BlogIndexPage;
+// export default TermsOfServicePage;
+// export default PrivacyPolicyPage;
+
+// export default MainLandingPage;

@@ -12,10 +12,10 @@ const AddressLine = tw.span`block`;
 const Email = tw.span`text-sm mt-6 block text-gray-500`;
 const Phone = tw.span`text-sm mt-0 block text-gray-500`;
 
-export default () => {
+export default ({setLI, LI}) => {
   return (
     <AnimationRevealPage>
-      <Header />
+      <Header LI={LI} setLI={setLI}/>
       <ContactUsForm />
       
       <Footer />

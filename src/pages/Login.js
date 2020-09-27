@@ -7,8 +7,11 @@ import {css} from "styled-components/macro"; //eslint-disable-line
 import illustration from "images/Oldmen-With-Physiotherapist.png";
 import logo from "images/logo.png";
 import googleIconImageSrc from "images/google-icon.png";
+import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
+
 const Container = tw(ContainerBase)`min-h-screen bg-teal-600 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
 const MainContainer = tw.div`lg:w-1/2 xl:w-5/12 p-6 sm:p-12`;
@@ -68,14 +71,15 @@ export default ({
   SubmitButtonIcon = LoginIcon,
   forgotPasswordUrl = "#",
   signupUrl = "/AsliDoctor",
+  setLI
 
 }) => {
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [signedIn,setSignedIn]=React.useState(false);
-  
-  
+  const history = useHistory();
+
   const handleEmailInput = e => {
     setEmail(e.target.value);
   };
@@ -87,8 +91,13 @@ export default ({
     setEmail(email.trim());
     if (email!="" && pass.length>8){
       axios.post('http://localhost:5000/login',{email: email, secret: pass}).then(res=>{
-        if (res=="login"){
+        
+        if (res.data=="login"){
           setSignedIn(true);
+          setLI(true);
+
+          history.push("/");
+
         }
       }).catch(err=>{console.log("Error: ",err)})
       }
@@ -122,7 +131,7 @@ export default ({
               <Form>
                 <Input type="email" placeholder="Email" onChange={handleEmailInput} value={email}/>
                 <Input type="password" placeholder="Password" onChange={handlePassInput} value={pass}/>
-                <SubmitButton type="submit" href="/FakeDoctorReport"  onClick={handleClickOpen}>
+                <SubmitButton type="button" onClick={handleClickOpen}>
                   <SubmitButtonIcon className="icon"/>
                   <span className="text">{submitButtonText}</span>
                 </SubmitButton>
