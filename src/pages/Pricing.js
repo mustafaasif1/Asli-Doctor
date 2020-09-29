@@ -29,6 +29,28 @@ import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import { Button } from "@material-ui/core";
 
+import { usePromiseTracker } from "react-promise-tracker";
+import Loader from 'react-loader-spinner';
+
+
+const LoadingIndicator = props => {
+  const { promiseInProgress } = usePromiseTracker();
+   return (
+    promiseInProgress && 
+    <div
+          style={{
+            width: "100%",
+            height: "100",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+       >
+          <Loader type="ThreeDots" color="#2BAD60" height="350" width="100" />
+       </div>
+  );  
+}
+
 
 
 const styles = theme => ({
@@ -82,6 +104,9 @@ function createData(reg_num, name, gender, city, fathers_name, type) {
   if (city == "") {
     city = "-";
   } 
+  if (fathers_name == "XXXXX") {
+    fathers_name = "-";
+  }  
   return { reg_num, name, gender, city, fathers_name, type };
 }
 
@@ -290,6 +315,7 @@ class CustomTabs extends React.Component {
           
         </div >}
         {value === 1 && <BasicTable  data={this.state.allDocs}></BasicTable>}
+        <LoadingIndicator/>
       </div>
     );
   }

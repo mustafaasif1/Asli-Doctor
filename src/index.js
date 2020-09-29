@@ -12,7 +12,7 @@ const LoadingIndicator = props => {
     <div
           style={{
             width: "100%",
-            height: "100",
+            // height: "100",
            display: "flex",
            justifyContent: "center",
             alignItems: "center"
@@ -26,9 +26,9 @@ const LoadingIndicator = props => {
 Modal.setAppElement("#root");
 
 ReactDOM.render(
-  <div>
+  // <div>
   <App />,
-  <LoadingIndicator/>
-  </div>,
+  // <LoadingIndicator/>
+  // </div>,
   document.getElementById("root")
 );

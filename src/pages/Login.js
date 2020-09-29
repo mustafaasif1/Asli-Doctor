@@ -70,7 +70,7 @@ export default ({
   submitButtonText = "Sign In",
   SubmitButtonIcon = LoginIcon,
   forgotPasswordUrl = "#",
-  signupUrl = "/AsliDoctor",
+  signupUrl = "/SignUp",
   setLI
 
 }) => {

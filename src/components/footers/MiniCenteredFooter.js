@@ -39,8 +39,8 @@ export default () => {
           </LogoContainer>
           <LinksContainer>
             <Link href="/">Home</Link>
-            <Link href="/">Fake Doctor Reports</Link>
-            <Link href="/ContactUs">Contact Us</Link>
+            <Link href="/FakeDoctorReport">Fake Doctor Reports</Link>
+            {/* <Link href="/ContactUs">Contact Us</Link> */}
           </LinksContainer>
           
         </Row>

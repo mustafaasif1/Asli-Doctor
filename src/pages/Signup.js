@@ -136,7 +136,7 @@ export default ({
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
                 </SubmitButton>
-                <p tw="mt-6 text-xs text-gray-600 text-center">
+                {/* <p tw="mt-6 text-xs text-gray-600 text-center">
                   I agree to abide by Asli Doctor's{" "}
                   <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
                     Terms of Service
@@ -145,14 +145,20 @@ export default ({
                   <a href={privacyPolicyUrl} tw="border-b border-gray-500 border-dotted">
                     Privacy Policy
                   </a>
-                </p>
+                </p> */}
+                {/* <p tw="mt-8 text-sm text-gray-600 text-center">
+                  Dont have an account?{" "}
+                  <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
+                    Login
+                  </a>
+                </p> */}
 
-                <p tw="mt-8 text-sm text-gray-600 text-center">
+                {/* <p tw="mt-8 text-sm text-gray-600 text-center">
                   Already have an account?{" "}
                   <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
                     Sign In
                   </a>
-                </p>
+                </p> */}
               </Form>
             </FormContainer>
           </MainContent>

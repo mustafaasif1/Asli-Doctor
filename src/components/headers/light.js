@@ -77,7 +77,7 @@ export default ({ roundedHeaderButton = true, logoLink, links, setLI, LI,classNa
     <NavLinks key={1}>
       <NavLink href="/">Home</NavLink>
       <NavLink href="/FakeDoctorReport">Fake Doctor Reports</NavLink>
-      <NavLink href="/ContactUs">Contact Us</NavLink>
+      {/* <NavLink href="/ContactUs">Contact Us</NavLink> */}
       {!LI && 
       <NavLink href="/LogIn" tw="lg:ml-12!">
         Login

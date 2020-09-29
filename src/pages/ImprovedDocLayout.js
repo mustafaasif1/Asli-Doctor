@@ -19,6 +19,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import axios from "axios";
 
+import { usePromiseTracker } from "react-promise-tracker";
+import Loader from 'react-loader-spinner';
 
 
 
@@ -36,6 +38,25 @@ const useStyles = makeStyles((theme) => ({
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+
+const LoadingIndicator = props => {
+  const { promiseInProgress } = usePromiseTracker();
+   return (
+    promiseInProgress && 
+    <div
+          style={{
+            width: "100%",
+            // height: "100",
+           display: "flex",
+           justifyContent: "center",
+            alignItems: "center"
+          }}
+       >
+          <Loader type="ThreeDots" color="#2BAD60" height="100" width="100" />
+       </div>
+  );  
+}
 
 
 const Docs = (props) => {

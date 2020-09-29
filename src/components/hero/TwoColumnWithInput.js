@@ -116,15 +116,15 @@ formMethod = "get", }) => {
               Search for Authentic <span tw="text-teal-500">Doctors</span><wbr/> in
               your area
             </Heading>
-            <Paragraph style={{padding: "0px 25px 0px 0px"}}>Pakistan has seen a rapid influx of Fake Doctors, especially in low income areas. With no one to check their credentials, they have exploited the population and taken large sums of money form them only to put their lives at risk. This is an inititave to expose such doctors and report them. Find out if the doctor in your locality is authentic by searching them below</Paragraph>
+            <Paragraph style={{padding: "0px 70px 0px 0px"}}>Pakistan has seen a rapid influx of Fake Doctors, especially in low income areas. With no one to check their credentials, they have exploited the population and taken large sums of money form them only to put their lives at risk. This is an inititave to expose such doctors and report them. Find out if the doctor in your locality is authentic by searching them below</Paragraph>
             <Form action={formAction} method={formMethod}>
               <Input type="text" name="registration" placeholder="Registration Number" />
               <Input type="text" name="name" placeholder="Full Name" />
-              <Input type="text" name="gender" placeholder="Gender" />
-              
-              <Input type="text" name="city" placeholder="City" />
+              {/* <Input type="text" name="gender" placeholder="Gender" /> */}
               <Input type="text" name="fathersName" placeholder="Father's Name" />
-              <Input type="text" name="type" placeholder="Type" />
+              <Input type="text" name="city" placeholder="City" />
+              
+              {/* <Input type="text" name="type" placeholder="Type" /> */}
               
               <SubmitButton type="Search">{submitButtonText}</SubmitButton>
             </Form>

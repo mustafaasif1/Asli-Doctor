@@ -52,7 +52,7 @@ export default ({
   const [popup, setpup] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState('');
+  const [fake_doctor_name, setFakeDoctorName] = useState('');
   const [message, setMessage] = useState('');
   const longlat=useRef([0,0]);
 
@@ -68,8 +68,8 @@ export default ({
     setEmail(e.target.value);
   };
 
-  const handleSubjectInput = e => {
-    setSubject(e.target.value);
+  const handleFakeDoctorInput = e => {
+    setFakeDoctorName(e.target.value);
   };
 
   const handleMessageInput = e => {
@@ -89,12 +89,12 @@ export default ({
 
   const handleClickOpen = () => {
     if (email!=""){
-      axios.post('http://localhost:5000/report',{name: name, email: email, subject: subject, message: message, GoogleLocation: longlat}).then(res=>{
+      axios.post('http://localhost:5000/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat}).then(res=>{
         console.log(res);
+        setOpen(true);
       }).catch(err=>{console.log("Error: ",err)})
+      
       }
-    setOpen(true);
-    
   };
   const handleClose = () => {
     
@@ -111,8 +111,8 @@ export default ({
             {description && <Description>{description}</Description>}
             <Form action={formAction} method={formMethod}>
               <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email}/>
-              <Input type="text" name="name" placeholder="Full Name" onChange={handleNameInput} value={name}/>
-              <Input type="text" name="subject" placeholder="Subject" onChange={handleSubjectInput} value={subject}/>
+              <Input type="text" name="name" placeholder="Your Full Name" onChange={handleNameInput} value={name}/>
+              <Input type="text" name="fake_doctor_name" placeholder="Fake Doctor's Name" onChange={handleFakeDoctorInput} value={fake_doctor_name}/>
               <Textarea name="message" placeholder="Your Message Here" onChange={handleMessageInput} value={message}/>
               { popup ?
                <div className='popup'>
@@ -128,7 +128,7 @@ export default ({
                 null
               }
               <PrimaryButtonBase style={{backgroundColor: "#9400D3", marginTop:'20px'}} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
-              <SubmitButton type="submit" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
+              <SubmitButton type="button" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
               
             </Form>
           </TextContent>
