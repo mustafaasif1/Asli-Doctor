@@ -7,8 +7,9 @@ import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import EmailIllustrationSrc from "images/Oldmen-With-Physiotherapist.png";
 import '../../styles/popup.css'
 import MapContainer from "components/misc/googlemap.js";
-
+import Confirm from "components/misc/alerts.js";
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-6 md:py-6`;
@@ -55,7 +56,7 @@ export default ({
   const [fake_doctor_name, setFakeDoctorName] = useState('');
   const [message, setMessage] = useState('');
   const longlat=useRef([0,0]);
-
+  const history = useHistory();
   const handleNameInput = e => {
     setName(e.target.value);
   };
@@ -95,9 +96,12 @@ export default ({
       }).catch(err=>{console.log("Error: ",err)})
       
       }
+      else{
+        alert("Please enter your Email");
+      }
   };
   const handleClose = () => {
-    
+    history.push("/");
     setOpen(false);
   };
 
@@ -126,6 +130,12 @@ export default ({
               </div>
                 :
                 null
+              }
+              {
+                !open ?
+                null
+                :
+                <Confirm message="Your report has been submitted!" buttonMessage="Continue" handleClick={handleClose}/>
               }
               <PrimaryButtonBase style={{backgroundColor: "#9400D3", marginTop:'20px'}} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
               <SubmitButton type="button" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>

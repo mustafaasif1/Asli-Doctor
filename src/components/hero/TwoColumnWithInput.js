@@ -9,6 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Confirm from "components/misc/alerts.js";
+
+import { useHistory } from "react-router-dom";
 
 
 import Header from "../headers/light.js";
@@ -97,15 +100,25 @@ formMethod = "get", }) => {
   const handleChangeGender = (event) => {
     setGender(event.target.value);
   };
+  const history = useHistory();
+  
 
   const handleChangeType = (event) => {
     setType(event.target.value);
   };
-
+  const [open,setOpen]=React.useState(false);
+  const setSA=()=>{
+    setOpen(true);
+  }
+  const handleClose = () => {
+    history.push("/");
+    window.location.reload(false);
+    setOpen(false);
+  };
 
   return (
     <>
-      <Header roundedHeaderButton={roundedHeaderButton} LI={LI} setLI={setLI}/>
+      <Header roundedHeaderButton={roundedHeaderButton} LI={LI} setLI={setLI} setSA={setSA}/>
       {/* < GetInformationForm/> */}
       
       <Container>
@@ -116,6 +129,7 @@ formMethod = "get", }) => {
               Search for Authentic <span tw="text-teal-500">Doctors</span><wbr/> in
               your area
             </Heading>
+            
             <Paragraph style={{padding: "0px 70px 0px 0px"}}>Pakistan has seen a rapid influx of Fake Doctors, especially in low income areas. With no one to check their credentials, they have exploited the population and taken large sums of money form them only to put their lives at risk. This is an inititave to expose such doctors and report them. Find out if the doctor in your locality is authentic by searching them below</Paragraph>
             <Form action={formAction} method={formMethod}>
               <Input type="text" name="registration" placeholder="Registration Number" />
@@ -128,6 +142,7 @@ formMethod = "get", }) => {
               
               <SubmitButton type="Search">{submitButtonText}</SubmitButton>
             </Form>
+            
         
            
           </LeftColumn>
@@ -139,6 +154,12 @@ formMethod = "get", }) => {
                 src={DesignIllustration}
                 alt="Design Illustration"
               />
+              {
+                !open ?
+                null
+                :
+                <Confirm message="You Will be Signed Out!" buttonMessage="Continue" handleClick={handleClose}/>
+              }
             </IllustrationContainer>
           </RightColumn>
         </TwoColumn>

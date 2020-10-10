@@ -56,7 +56,7 @@ export const DesktopNavLinks = tw.nav`
   hidden lg:flex flex-1 justify-between items-center
 `;
 
-export default ({ roundedHeaderButton = true, logoLink, links, setLI, LI,className, collapseBreakpointClass = "lg" }) => {
+export default ({ roundedHeaderButton = true, logoLink, links, setLI, LI,setSA,className, collapseBreakpointClass = "lg" }) => {
   /*
    * This header component accepts an optionals "links" prop that specifies the links to render in the navbar.
    * This links props should be an array of "NavLinks" components which is exported from this file.
@@ -72,6 +72,7 @@ export default ({ roundedHeaderButton = true, logoLink, links, setLI, LI,classNa
    */
   const clickHandle=()=>{
     setLI(false);
+    setSA();
   }
   const defaultLinks = [
     <NavLinks key={1}>

@@ -11,6 +11,7 @@ import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import Confirm from "components/misc/alerts.js";
 
 const Container = tw(ContainerBase)`min-h-screen bg-teal-600 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -86,7 +87,10 @@ export default ({
   const handlePassInput = e => {
     setPass(e.target.value);
   };
-
+  const handleClose =() =>{
+    history.push("/");
+    
+  }
   const handleClickOpen = () => {
     setEmail(email.trim());
     if (email!="" && pass.length>8){
@@ -96,7 +100,6 @@ export default ({
           setSignedIn(true);
           setLI(true);
 
-          history.push("/");
 
         }
       }).catch(err=>{console.log("Error: ",err)})
@@ -128,6 +131,12 @@ export default ({
               <DividerTextContainer>
                 <DividerText>Or Sign in with your e-mail</DividerText>
               </DividerTextContainer>
+              {
+                !open ?
+                null
+                :
+                <Confirm message="Signed in Successfully!" buttonMessage="Continue" handleClick={handleClose}/>
+              }
               <Form>
                 <Input type="email" placeholder="Email" onChange={handleEmailInput} value={email}/>
                 <Input type="password" placeholder="Password" onChange={handlePassInput} value={pass}/>

@@ -9,6 +9,8 @@ import googleIconImageSrc from "images/google-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import Confirm from "components/misc/alerts.js";
+
 
 const Container = tw(ContainerBase)`min-h-screen bg-teal-600 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -79,7 +81,10 @@ export default ({
   const [signedIn,setSignedIn]=React.useState(false);
   const history = useHistory();
 
-  
+  const handleClose =() =>{
+    history.push("/");
+    
+  }
   const handleEmailInput = e => {
     setEmail(e.target.value);
   };
@@ -95,7 +100,6 @@ export default ({
         if (!res.data.includes('Error')){
           setSignedIn(true);
           setLI(true);
-          history.push("/");
 
           
         }
@@ -129,6 +133,12 @@ export default ({
               <DividerTextContainer>
                 <DividerText>Or Sign up with your e-mail</DividerText>
               </DividerTextContainer>
+              {
+                !open ?
+                null
+                :
+                <Confirm message="Sign up was Successful!" buttonMessage="Continue" handleClick={handleClose}/>
+              }
               <Form>
                 <Input type="email" placeholder="Email" onChange={handleEmailInput} value={email} />
                 <Input type="password" placeholder="Password" onChange={handlePassInput} value={pass}/>
