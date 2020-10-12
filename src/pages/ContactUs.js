@@ -15,7 +15,7 @@ const Phone = tw.span`text-sm mt-0 block text-gray-500`;
 export default ({setLI, LI}) => {
   return (
     <AnimationRevealPage>
-      <Header LI={LI} setLI={setLI}/>
+      <Header/>
       <ContactUsForm />
       
       <Footer />

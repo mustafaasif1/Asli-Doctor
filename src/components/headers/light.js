@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -56,7 +56,7 @@ export const DesktopNavLinks = tw.nav`
   hidden lg:flex flex-1 justify-between items-center
 `;
 
-export default ({ roundedHeaderButton = true, logoLink, links, setLI, LI,setSA,className, collapseBreakpointClass = "lg" }) => {
+export default ({ roundedHeaderButton = true, logoLink, links, className, collapseBreakpointClass = "lg" }) => {
   /*
    * This header component accepts an optionals "links" prop that specifies the links to render in the navbar.
    * This links props should be an array of "NavLinks" components which is exported from this file.
@@ -70,22 +70,34 @@ export default ({ roundedHeaderButton = true, logoLink, links, setLI, LI,setSA,c
    * changing the defaultLinks variable below below.
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
+  
+  const [loggedIn,setLoggedIn]=useState(false);
   const clickHandle=()=>{
-    setLI(false);
-    setSA();
+    localStorage.setItem('loggedIn', '')
+    setLoggedIn(false);
+    window.location.reload()
   }
+  useEffect(()=>{
+    var email = localStorage.getItem('loggedIn')
+    if (email!='') {
+      setLoggedIn(true);
+
+    } else {
+      setLoggedIn(false);
+    }
+  })
   const defaultLinks = [
     <NavLinks key={1}>
       <NavLink href="/">Home</NavLink>
       <NavLink href="/FakeDoctorReport">Fake Doctor Reports</NavLink>
       {/* <NavLink href="/ContactUs">Contact Us</NavLink> */}
-      {!LI && 
+      {!loggedIn && 
       <NavLink href="/LogIn" tw="lg:ml-12!">
         Login
       </NavLink>}
-      {!LI &&
+      {!loggedIn &&
         <PrimaryLink css={roundedHeaderButton && tw`rounded-full bg-teal-500`} href="/SignUp">Sign Up</PrimaryLink>}
-      {LI &&
+      {loggedIn &&
         <PrimaryLink css={roundedHeaderButton && tw`rounded-full bg-teal-500`} onClick={clickHandle}>Sign Out</PrimaryLink>}
 
     </NavLinks>

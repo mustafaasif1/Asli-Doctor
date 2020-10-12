@@ -99,8 +99,8 @@ export default ({
         console.log(res);
         if (!res.data.includes('Error')){
           setSignedIn(true);
-          setLI(true);
-
+          localStorage.setItem('loggedIn', email)
+          
           
         }
       }).catch(err=>{console.log("Error: ",err)})

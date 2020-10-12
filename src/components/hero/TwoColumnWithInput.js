@@ -107,9 +107,7 @@ formMethod = "get", }) => {
     setType(event.target.value);
   };
   const [open,setOpen]=React.useState(false);
-  const setSA=()=>{
-    setOpen(true);
-  }
+  
   const handleClose = () => {
     history.push("/");
     window.location.reload(false);
@@ -118,7 +116,7 @@ formMethod = "get", }) => {
 
   return (
     <>
-      <Header roundedHeaderButton={roundedHeaderButton} LI={LI} setLI={setLI} setSA={setSA}/>
+      <Header roundedHeaderButton={roundedHeaderButton}/>
       {/* < GetInformationForm/> */}
       
       <Container>
@@ -154,12 +152,12 @@ formMethod = "get", }) => {
                 src={DesignIllustration}
                 alt="Design Illustration"
               />
-              {
+              {/* {
                 !open ?
                 null
                 :
                 <Confirm message="You Will be Signed Out!" buttonMessage="Continue" handleClick={handleClose}/>
-              }
+              } */}
             </IllustrationContainer>
           </RightColumn>
         </TwoColumn>

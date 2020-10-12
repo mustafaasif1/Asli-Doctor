@@ -110,19 +110,16 @@ import DoctorList from "pages/Pricing.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default function App() {
-  const [login,setLogged]=useState(false);
-  const setLogIn=(param)=>{
-    setLogged(param);
-  }
+  
   return (
     <Router>
       <Switch> 
-        <Route path="/SignUp" render={(props) => <SignupPage {...props} setLI={setLogIn} LI={login} />}/>
-        <Route path="/LogIn" render={(props) => <LoginPage {...props} setLI={setLogIn} LI={login} />}/>
-        <Route path="/Doctors" render={(props) => <DoctorList {...props} setLI={setLogIn} LI={login} />}/>
-        <Route path="/ContactUs" render={(props) => <ContactUsPage {...props} setLI={setLogIn} LI={login} />}/>
-        <Route path="/FakeDoctorReport" render={(props) => <FakeDoctorReport {...props} setLI={setLogIn} LI={login}/>}/>
-        <Route path="/" render={(props) => <SaaSProductLandingPage {...props} setLI={setLogIn} LI={login} />}
+        <Route path="/SignUp" render={(props) => <SignupPage {...props}  />}/>
+        <Route path="/LogIn" render={(props) => <LoginPage {...props}  />}/>
+        <Route path="/Doctors" render={(props) => <DoctorList {...props}  />}/>
+        <Route path="/ContactUs" render={(props) => <ContactUsPage {...props}  />}/>
+        <Route path="/FakeDoctorReport" render={(props) => <FakeDoctorReport {...props} />}/>
+        <Route path="/" render={(props) => <SaaSProductLandingPage {...props}  />}
 />  
         
       </Switch>

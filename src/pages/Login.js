@@ -98,8 +98,7 @@ export default ({
         
         if (res.data=="login"){
           setSignedIn(true);
-          setLI(true);
-
+          localStorage.setItem('loggedIn', email)
 
         }
       }).catch(err=>{console.log("Error: ",err)})

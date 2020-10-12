@@ -389,7 +389,7 @@ class DoctorList extends Component{
       
       <AnimationRevealPage>
         
-        <Header LI={this.props.LI} setLI={this.props.setLI}/>
+        <Header/>
         {/* <div style={{padding: "30px", justifyContent: "center", alignItems: "center", display: "flex"}}>
         <Subheading>
               Do you want a new search? <PreviewButton stlye={{margin: "20px"}}>Click Here</PreviewButton>
