@@ -12,6 +12,19 @@ class Confirm extends Component {
     }
     render(){
         return(
+            // <div id="popup1" class="overlay">
+            //     <div class="popup">
+            //     {this.props.message}
+            //         <a class="close" href="#">&times;</a>
+            //         <div className='popup_inner_lower_message'>
+            //             <PrimaryButtonBase onClick={this.props.handleClick} type="button">{this.props.buttonMessage}</PrimaryButtonBase>
+            //         </div>
+            //     </div>
+            // </div>
+
+
+
+
             <div className='done_message'>
                 <div className="response_message">
                 {this.props.message}
@@ -25,3 +38,5 @@ class Confirm extends Component {
 }
 
 export default Confirm;
+
+

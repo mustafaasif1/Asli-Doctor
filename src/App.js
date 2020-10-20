@@ -98,6 +98,7 @@ import FakeDoctorReport from "pages/FakeDoctorReport.js";
 // import PricingPage from "pages/Pricing.js";
 import AboutUsPage from "pages/AboutUs.js";
 import ContactUsPage from "pages/ContactUs.js";
+import Dashboard from "pages/AdminDashboard.js";
 // import BlogIndexPage from "pages/BlogIndex.js";
 // import TermsOfServicePage from "pages/TermsOfService.js";
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
@@ -119,7 +120,9 @@ export default function App() {
         <Route path="/Doctors" render={(props) => <DoctorList {...props}  />}/>
         <Route path="/ContactUs" render={(props) => <ContactUsPage {...props}  />}/>
         <Route path="/FakeDoctorReport" render={(props) => <FakeDoctorReport {...props} />}/>
+        <Route path="/AdminDashboard" render={(props) => <Dashboard {...props}  />}/>
         <Route path="/" render={(props) => <SaaSProductLandingPage {...props}  />}
+          
 />  
         
       </Switch>

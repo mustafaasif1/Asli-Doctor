@@ -11,6 +11,13 @@ import Confirm from "components/misc/alerts.js";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
+
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-6 md:py-6`;
 const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
@@ -38,6 +45,28 @@ const Textarea = styled(Input).attrs({as: "textarea"})`
 
 const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-8`
 
+
+function RadioButtonsGroup() {
+  const [value, setValue] = React.useState('Doctor does not have a proper medical degree');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Frequent Issues with the doctors</FormLabel>
+      <RadioGroup aria-label="issue" name="issue" value={value} onChange={handleChange}>
+        <FormControlLabel value="Doctor does not have a proper medical degree" control={<Radio />} label="Doctor does not have a proper medical degree" />
+        <FormControlLabel value="Doctor is not showing his/her degree" control={<Radio />} label="Doctor is not showing his/her degree" />
+        <FormControlLabel value="Doctor is giving fake medicines" control={<Radio />} label="Doctor is giving fake medicines" />
+        <FormControlLabel value="Other" control={<Radio />} label="Other" />
+        {/* <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
+      </RadioGroup>
+    </FormControl>
+  );
+}
+
 export default ({
   subheading = <><span tw="text-teal-500">Report a fake doctor</span></>,
   heading = <>Do you think a doctor is not authentic? <span tw="text-teal-500">Report the doctor</span><wbr/> now!</>,
@@ -55,8 +84,10 @@ export default ({
   const [email, setEmail] = useState('');
   const [fake_doctor_name, setFakeDoctorName] = useState('');
   const [message, setMessage] = useState('');
+  const [value, setValue] = useState('');
   const longlat=useRef([0,0]);
   const history = useHistory();
+
   const handleNameInput = e => {
     setName(e.target.value);
   };
@@ -90,21 +121,43 @@ export default ({
 
   const handleClickOpen = () => {
     if (email!=""){
-      axios.post('http://localhost:5000/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat}).then(res=>{
-        console.log(res);
-        setOpen(true);
-      }).catch(err=>{console.log("Error: ",err)})
-      
-      }
-      else{
-        alert("Please enter your Email");
-      }
+      if (value=="Other"){
+          axios.post('http://localhost:5000/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat}).then(res=>{
+          console.log(res);
+          setOpen(true);
+        }).catch(err=>{console.log("Error: ",err)})
+      } else {
+        axios.post('http://localhost:5000/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: value, GoogleLocation: longlat}).then(res=>{
+          console.log(res);
+          setOpen(true);
+        }).catch(err=>{console.log("Error: ",err)})
+      } 
+    }
+    else {
+      alert("Please enter your Email");
+    }
   };
+
+
   const handleClose = () => {
     history.push("/");
     setOpen(false);
   };
 
+  const mystyle = {
+    // color: "white",
+    // backgroundColor: "DodgerBlue",
+    padding: "10px",
+    // fontFamily: "Arial"
+  };
+
+  
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+ 
   return (
     <Container>
       <TwoColumn>
@@ -117,7 +170,31 @@ export default ({
               <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email}/>
               <Input type="text" name="name" placeholder="Your Full Name" onChange={handleNameInput} value={name}/>
               <Input type="text" name="fake_doctor_name" placeholder="Fake Doctor's Name" onChange={handleFakeDoctorInput} value={fake_doctor_name}/>
-              <Textarea name="message" placeholder="Your Message Here" onChange={handleMessageInput} value={message}/>
+              {/* <div style={mystyle}><h1>Frequent Issues with the doctor</h1></div> */}
+              <div style={{padding: '20px'}}></div>
+              {/* <RadioButtonsGroup/> */}
+              <FormControl component="fieldset">
+              <FormLabel component="legend">Frequent Issues with the doctors</FormLabel>
+              <RadioGroup aria-label="issue" name="issue" value={value} onChange={handleChange}>
+                <FormControlLabel value="Doctor does not have a proper medical degree" control={<Radio />} label="Doctor does not have a proper medical degree" />
+                <FormControlLabel value="Doctor is not showing his/her degree" control={<Radio />} label="Doctor is not showing his/her degree" />
+                <FormControlLabel value="Doctor is giving fake medicines" control={<Radio />} label="Doctor is giving fake medicines" />
+                <FormControlLabel value="Doctor is extremely rude" control={<Radio />} label="Doctor is extremely rude" />
+                <FormControlLabel value="Other" control={<Radio />} label="Other" />
+                {/* <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
+              </RadioGroup>
+              </FormControl>
+
+              { value == 'Other'? 
+                <Textarea name="message" placeholder="Enter your issue if the above reasons do not apply" onChange={handleMessageInput} value={message}/>
+                :
+                null
+              }
+
+
+              
+              
+        
               { popup ?
                <div className='popup'>
                 <div className='popup_inner'>
@@ -138,6 +215,10 @@ export default ({
                 <Confirm message="Your report has been submitted!" buttonMessage="Continue" handleClick={handleClose}/>
               }
               <PrimaryButtonBase style={{backgroundColor: "#9400D3", marginTop:'20px'}} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
+              { longlat?
+                <div style={mystyle}><h1>You currently do not have any location selected</h1></div> : <div style={mystyle}><h1>The location you selected is {longlat}</h1></div>
+
+              }
               <SubmitButton type="button" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
               
             </Form>
