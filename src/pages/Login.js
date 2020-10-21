@@ -91,14 +91,21 @@ export default ({
     history.push("/");
     
   }
+
+  const handleCloseFail =() =>{
+    history.push("/");
+    
+  }
+
   const handleClickOpen = () => {
     setEmail(email.trim());
     if (email!="" && pass.length>8){
       axios.post('http://localhost:5000/login',{email: email, secret: pass}).then(res=>{
         
         if (res.data=="login"){
+          localStorage.setItem('loggedIn', email);
           setSignedIn(true);
-          localStorage.setItem('loggedIn', email)
+          
 
         }
       }).catch(err=>{console.log("Error: ",err)})
@@ -134,6 +141,8 @@ export default ({
                 !open ?
                 null
                 :
+                !signedIn ?
+                <Confirm message="Username or Password incorrect" buttonMessage="Try Again" handleClick={handleCloseFail}/> :
                 <Confirm message="Signed in Successfully!" buttonMessage="Continue" handleClick={handleClose}/>
               }
               <Form>

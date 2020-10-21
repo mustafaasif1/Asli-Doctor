@@ -85,6 +85,8 @@ export default ({
   const [fake_doctor_name, setFakeDoctorName] = useState('');
   const [message, setMessage] = useState('');
   const [value, setValue] = useState('');
+  const [longon, setLongon]=useState(false);
+  
   const longlat=useRef([0,0]);
   const history = useHistory();
 
@@ -115,7 +117,7 @@ export default ({
   };
   
   const handleClosePop=()=>{
-    console.log(longlat);
+    setLongon(true);
     setpup(false);
   };
 
@@ -215,8 +217,9 @@ export default ({
                 <Confirm message="Your report has been submitted!" buttonMessage="Continue" handleClick={handleClose}/>
               }
               <PrimaryButtonBase style={{backgroundColor: "#9400D3", marginTop:'20px'}} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
-              { longlat?
-                <div style={mystyle}><h1>You currently do not have any location selected</h1></div> : <div style={mystyle}><h1>The location you selected is {longlat}</h1></div>
+              { !longon ?
+              <div style={mystyle}><h1>You currently do not have any location selected</h1></div> : 
+              <div style={mystyle}><h1>The location you selected is: {longlat.current[0].toFixed(4)}° N, {longlat.current[1].toFixed(4)}° E</h1></div>
 
               }
               <SubmitButton type="button" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>

@@ -85,6 +85,13 @@ export default ({
     history.push("/");
     
   }
+
+
+  const handleCloseFail =() =>{
+    history.push("/");
+    
+  }
+
   const handleEmailInput = e => {
     setEmail(e.target.value);
   };
@@ -98,8 +105,10 @@ export default ({
       axios.post('http://localhost:5000/users',{email: email.trim(), secret: pass}).then(res=>{
         console.log(res);
         if (!res.data.includes('Error')){
+          console.log('Hello');
+          
+          localStorage.setItem('loggedIn', email);
           setSignedIn(true);
-          localStorage.setItem('loggedIn', email)
           
           
         }
@@ -137,8 +146,10 @@ export default ({
                 !open ?
                 null
                 :
+                !signedIn ?
+                <Confirm message="Password Length should be more than 8 characters" buttonMessage="Try Again" handleClick={handleCloseFail}/> :
                 <Confirm message="Sign up was Successful!" buttonMessage="Continue" handleClick={handleClose}/>
-              }
+                            }
               <Form>
                 <Input type="email" placeholder="Email" onChange={handleEmailInput} value={email} />
                 <Input type="password" placeholder="Password" onChange={handlePassInput} value={pass}/>
