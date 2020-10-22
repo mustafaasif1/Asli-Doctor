@@ -102,7 +102,7 @@ export default ({
   const handleClickOpen = () => {
     
     if (email!="" && pass.length>8){
-      axios.post('http://localhost:5000/users',{email: email.trim(), secret: pass}).then(res=>{
+      axios.post('/users',{email: email.trim(), secret: pass}).then(res=>{
         console.log(res);
         if (!res.data.includes('Error')){
           console.log('Hello');

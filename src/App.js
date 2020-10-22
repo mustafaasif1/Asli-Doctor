@@ -109,21 +109,21 @@ import ComponentRenderer from "ComponentRenderer.js";
 import DoctorList from "pages/Pricing.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from "pages/Login.js";
+import FakeDoctorForm from "components/forms/FakeDoctorForm";
 
 export default function App() {
   
   return (
     <Router>
       <Switch> 
-        <Route path="/SignUp" render={(props) => <SignupPage {...props}  />}/>
-        <Route path="/LogIn" render={(props) => <LoginPage {...props}  />}/>
-        <Route path="/Doctors" render={(props) => <DoctorList {...props}  />}/>
-        <Route path="/ContactUs" render={(props) => <ContactUsPage {...props}  />}/>
-        <Route path="/FakeDoctorReport" render={(props) => <FakeDoctorReport {...props} />}/>
-        <Route path="/AdminDashboard" render={(props) => <Dashboard {...props}  />}/>
-        <Route path="/" render={(props) => <SaaSProductLandingPage {...props}  />}
-          
-/>  
+ 
+          <Route path="/SignUp" component={SignupPage}/>
+          <Route path="/LogIn" component={LoginPage}/>
+          <Route path="/Doctors" component={DoctorList}/>
+          <Route path="/ContactUs" component= {ContactUsPage}/>
+          <Route path="/FakeDoctorReport" component={FakeDoctorReport}/>
+          <Route exact path="/" component={SaaSProductLandingPage}/>
         
       </Switch>
     </Router>

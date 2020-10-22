@@ -100,7 +100,7 @@ export default ({
   const handleClickOpen = () => {
     setEmail(email.trim());
     if (email!="" && pass.length>8){
-      axios.post('http://localhost:5000/login',{email: email, secret: pass}).then(res=>{
+      axios.post('/login',{email: email, secret: pass}).then(res=>{
         
         if (res.data=="login"){
           localStorage.setItem('loggedIn', email);
