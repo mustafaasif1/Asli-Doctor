@@ -10,6 +10,8 @@ import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import Confirm from "components/misc/alerts.js";
+import Button from '@material-ui/core/Button';
+
 
 
 const Container = tw(ContainerBase)`min-h-screen bg-teal-600 text-white font-medium flex justify-center -m-8`;
@@ -157,22 +159,27 @@ export default ({
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
                 </SubmitButton>
-                {/* <p tw="mt-6 text-xs text-gray-600 text-center">
-                  I agree to abide by Asli Doctor's{" "}
-                  <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
-                    Terms of Service
-                  </a>{" "}
-                  and its{" "}
-                  <a href={privacyPolicyUrl} tw="border-b border-gray-500 border-dotted">
-                    Privacy Policy
-                  </a>
-                </p> */}
-                {/* <p tw="mt-8 text-sm text-gray-600 text-center">
-                  Dont have an account?{" "}
-                  <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
+              </Form>
+                
+
+                <DividerTextContainer>
+                <p style={{fontSize: "14px", color: "grey"}}>
+                Already have an account?{" "}
+                  {/* <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
                     Login
-                  </a>
-                </p> */}
+                  </a> */}
+
+                  <Button variant="contained" style={{
+                      // borderRadius: 35,
+                      backgroundColor: "#008080",
+                      color: "white"
+                      // padding: "18px 36px",
+                      // fontSize: "18px"
+                  }} href={signInUrl}>
+                  Login
+                  </Button>
+                </p>
+              </DividerTextContainer>
 
                 {/* <p tw="mt-8 text-sm text-gray-600 text-center">
                   Already have an account?{" "}
@@ -180,7 +187,7 @@ export default ({
                     Sign In
                   </a>
                 </p> */}
-              </Form>
+              
             </FormContainer>
           </MainContent>
         </MainContainer>
@@ -191,3 +198,5 @@ export default ({
     </Container>
   </AnimationRevealPage>
 )};
+
+
