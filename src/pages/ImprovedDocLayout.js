@@ -108,7 +108,7 @@ const Docs = (props) => {
   const handleClickOpenn = () => {
     //setLoading(true);
     axios
-      .get("/reviews", {
+      .get("http://localhost:5000/reviews", {
         params: { reg: "/.*" + props.person.reg + ".*/i" },
       })
       .then((res) => {
