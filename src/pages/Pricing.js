@@ -11,6 +11,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { TableSortLabel } from '@material-ui/core';
+import Avatar from "react-avatar";
 
 
 import orderBy from 'lodash/orderBy';
@@ -32,6 +33,111 @@ import { Button } from "@material-ui/core";
 import { usePromiseTracker } from "react-promise-tracker";
 import Loader from 'react-loader-spinner';
 
+
+import Dialog from '@material-ui/core/Dialog';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+import styled from "styled-components";
+
+
+
+const useStyles1 = makeStyles((theme) => ({
+  appBar: {
+    position: 'relative',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
+}));
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function FullScreenDialog() {
+  const classes = useStyles1();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  var divStyle = {
+    background: "#eee",
+    padding: "20px",
+    margin: "20px",
+    display: "flex",
+  };
+
+  const Title = styled.h2`
+    color: #000;
+    font-weight: 300;
+    margin: 6px 0;
+  `;
+  
+
+  const ActionButton = styled.button`
+    margin: 0 5px;
+    padding: 8px 14px;
+    background: #37bc9b;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    outline: 0;
+    font-weight: 300;
+    :hover {
+      opacity: 0.8;
+    }
+  `;
+
+  return (
+    <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Reviews
+      </Button>
+      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Reviews
+            </Typography>
+            <Button autoFocus color="inherit" onClick={handleClose}>
+              Add a new review
+            </Button>
+          </Toolbar>
+        </AppBar>
+        
+        <div style={divStyle}>
+          <Avatar size="100" round={true} />
+          <div style={{ padding: " 0px 20px" }}>
+            <Title>Name: Ahmed</Title>
+            <Title>Review: Good Doctor</Title>
+
+            <ActionButton>Accept this review</ActionButton>
+            <ActionButton>Delete this review</ActionButton>  
+          </div>
+          
+        </div>
+      </Dialog>
+    </div>
+  );
+}
 
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();
@@ -204,17 +310,19 @@ function BasicTable(props) {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={() => {
+                  console.log('hi');
+                }}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      
                       <TableCell key={column.id} align={column.align} >
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                       
                     );
                   })}
+                  <FullScreenDialog/>
                   {/* <Button variant="contained" color="primary">
                     Reviews
                   </Button> */}

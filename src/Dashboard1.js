@@ -241,8 +241,26 @@ export default function Dashboard() {
         </GridItem>
       </GridContainer> */}
       <GridContainer>
-        {/* <GridItem xs={12} sm={12} md={6}>
-          <CustomTabs
+        <GridItem xs={12} sm={12} md={6}>
+        <Card>
+            <CardHeader color="primary">
+              <h4 className={classes.cardTitleWhite}>All Reviews</h4>
+              {/* <p className={classes.cardCategoryWhite}>
+                New employees on 15th September, 2016
+              </p> */}
+            </CardHeader>
+            <CardBody>
+              <Table
+                tableHeaderColor="warning"
+                tableHead={["ID", "Doctors Name", "Complainer's Name", "Review", "Status"]}
+                tableData={[
+                  ["1","Mustafa Asif", "Dr Ahmed Ashraf", "The doctor was extremely friendly", "Accepted"],
+                  ["2","Omer Shakeel", "Dr Firoz", "The doctor helped me alot", "Pending"]                
+                ]}
+              />
+            </CardBody>
+          </Card>
+          {/* <CustomTabs
             title="Tasks:"
             headerColor="primary"
             tabs={[
@@ -257,31 +275,31 @@ export default function Dashboard() {
                   />
                 )
               },
-              {
-                tabName: "Website",
-                tabIcon: Code,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0]}
-                    tasksIndexes={[0, 1]}
-                    tasks={website}
-                  />
-                )
-              },
-              {
-                tabName: "Server",
-                tabIcon: Cloud,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[1]}
-                    tasksIndexes={[0, 1, 2]}
-                    tasks={server}
-                  />
-                )
-              }
+              // {
+              //   tabName: "Website",
+              //   tabIcon: Code,
+              //   tabContent: (
+              //     <Tasks
+              //       checkedIndexes={[0]}
+              //       tasksIndexes={[0, 1]}
+              //       tasks={website}
+              //     />
+              //   )
+              // },
+              // {
+              //   tabName: "Server",
+              //   tabIcon: Cloud,
+              //   tabContent: (
+              //     <Tasks
+              //       checkedIndexes={[1]}
+              //       tasksIndexes={[0, 1, 2]}
+              //       tasks={server}
+              //     />
+              //   )
+              // }
             ]}
-          />
-        </GridItem> */}
+          /> */}
+        </GridItem>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="warning">

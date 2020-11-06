@@ -18,6 +18,9 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import axios from "axios";
+import Button from '@material-ui/core/Button';
+
+
 
 import { usePromiseTracker } from "react-promise-tracker";
 import Loader from 'react-loader-spinner';
@@ -38,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+
 
 
 const LoadingIndicator = props => {
@@ -147,7 +152,6 @@ const Docs = (props) => {
     }
     setOpen(false);
   };
-
   
 
   return (
@@ -195,7 +199,11 @@ const Docs = (props) => {
                   <div style={{ padding: " 0px 20px" }}>
                     <Title>Name: {i.name}</Title>
                     <Title>Review: {i.review}</Title>
+
+                    <ActionButton>Accept this review</ActionButton>
+                    <ActionButton>Delete this review</ActionButton>  
                   </div>
+                  
                 </div>
               ))}
             </div>
