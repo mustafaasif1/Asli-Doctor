@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -38,7 +39,11 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import { trackPromise } from 'react-promise-tracker';
 import { bugs, website, server } from "variables/general.js";
+import axios from 'axios';
+
+
 
 import {
   dailySalesChart,
@@ -87,6 +92,35 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
   const classes = useStyles();
+  const [reports, setReports] = React.useState([]);
+  const [reviews, setReviews] = React.useState([]);
+  useEffect(() => {
+    trackPromise(
+      axios.get("http://localhost:5000/getfake").then(res=>{
+        
+        
+        var temp = res.data.map((i, index)=>{
+          var newList = [index+1, i.email, i.name, i.fake_doctor_name, String(i.GoogleLocation.current[0])+" N "+String(i.GoogleLocation.current[1])+" E", i.message]
+          return newList
+        })
+        setReports(temp)
+        
+      })).catch(err=>{console.log(err)})
+
+      trackPromise(
+        axios.get("http://localhost:5000/decidereview").then(res=>{
+          
+          var temp = res.data.map((i, index)=>{
+            var newList = [index+1, i.reg, i.name, i.review, "Pending"]
+            return newList
+          })
+          setReviews(temp)  
+          console.log(res.data)   
+        })).catch(err=>{console.log(err)})
+
+        
+        
+  },[]);
   return (
     <div>
       <ButtonAppBar/>
@@ -253,10 +287,7 @@ export default function Dashboard() {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["ID", "Doctors Name", "Complainer's Name", "Review", "Status"]}
-                tableData={[
-                  ["1","Mustafa Asif", "Dr Ahmed Ashraf", "The doctor was extremely friendly", "Accepted"],
-                  ["2","Omer Shakeel", "Dr Firoz", "The doctor helped me alot", "Pending"]                
-                ]}
+                tableData={reviews}
               />
             </CardBody>
           </Card>
@@ -312,12 +343,7 @@ export default function Dashboard() {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["ID", "Email Address", "Complainer's Name", "Fake Doctors Name", "Location", "Reason"]}
-                tableData={[
-                  ["1", "mustafa@gmail.com", "Mustafa Asif", "Dr Ahmed Ashraf", "31.5204° N, 74.3587° E", "The doctor was very rude"],
-                  ["2", "maroof@gmail.com", "Maroof Saleemi", "Dr Sameer", "35.2453° N, 30.1234° E", "The doctor was not showing his/her degree"],
-                  ["3", "omer@gmail.com", "Omer Shakeel", "Dr Zainab", "98.1385 N, 16.9476 E", "Doctor is giving fake medicines"],
-                
-                ]}
+                tableData={reports}
               />
             </CardBody>
           </Card>

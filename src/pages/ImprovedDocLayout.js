@@ -111,6 +111,7 @@ const Docs = (props) => {
     setAddReview(e.target.value);
   };
   const handleClickOpenn = () => {
+    
     //setLoading(true);
     axios
       .get("http://localhost:5000/reviews", {
@@ -138,10 +139,11 @@ const Docs = (props) => {
   const handleClose = () => {
     if (name !== "" && addReview !== "") {
       axios
-        .post("/rate", {
+        .post("http://localhost:5000/rate", {
           name: name.trim(),
           review: addReview,
           reg: props.person.reg,
+          display: false
         })
         .then((res) => {
           console.log(res);
@@ -199,9 +201,7 @@ const Docs = (props) => {
                   <div style={{ padding: " 0px 20px" }}>
                     <Title>Name: {i.name}</Title>
                     <Title>Review: {i.review}</Title>
-
-                    <ActionButton>Accept this review</ActionButton>
-                    <ActionButton>Delete this review</ActionButton>  
+                    
                   </div>
                   
                 </div>

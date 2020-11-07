@@ -12,6 +12,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { TableSortLabel } from '@material-ui/core';
 import Avatar from "react-avatar";
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 
 import orderBy from 'lodash/orderBy';
@@ -62,17 +67,83 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function FullScreenDialog() {
+function FullScreenDialog(props) {
   const classes = useStyles1();
   const [open, setOpen] = React.useState(false);
+  const [addReview, setAddReview] = React.useState("");
+  const [reviews, setReviews] = React.useState([]);
+  const [name, setName] = React.useState("");
+  const [newOpen, setNewOpen] = React.useState(false);
+
 
   const handleClickOpen = () => {
+    axios
+      .get("http://localhost:5000/reviews", {
+        params: { reg: "/.*" + props.props.reg_num + ".*/i" },
+      })
+      .then((res) => {
+        setReviews(res.data);
+        //setLoading(false);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
     setOpen(true);
+
+
+
+  };
+
+  const handleCloseByRate = () => {
+    console.log(name, addReview)
+    if (name !== "" && addReview !== "") {
+      console.log({
+        name: name.trim(),
+        review: addReview,
+        reg: props.props.reg_num,
+        display: false
+      })
+      axios
+        .post("http://localhost:5000/rate", {
+          name: name.trim(),
+          review: addReview,
+          reg: props.props.reg_num,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        });
+    }
+    setNewOpen(false);
+  };
+
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleAddReviewChange = (e) => {
+    setAddReview(e.target.value);
+  };
+  const handleNewOpen = () => {
+    setNewOpen(true);
+  };
+
+  const handleNewClose = () => {
+    setNewOpen(false);
+    
   };
 
   const handleClose = () => {
     setOpen(false);
+    
   };
+
+
+
 
   var divStyle = {
     background: "#eee",
@@ -117,24 +188,72 @@ function FullScreenDialog() {
             <Typography variant="h6" className={classes.title}>
               Reviews
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
+            <Button autoFocus color="inherit" onClick={handleNewOpen}>
               Add a new review
             </Button>
+            
           </Toolbar>
         </AppBar>
         
-        <div style={divStyle}>
-          <Avatar size="100" round={true} />
-          <div style={{ padding: " 0px 20px" }}>
-            <Title>Name: Ahmed</Title>
-            <Title>Review: Good Doctor</Title>
-
-            <ActionButton>Accept this review</ActionButton>
-            <ActionButton>Delete this review</ActionButton>  
-          </div>
-          
-        </div>
+        <div>
+              {reviews.map((i) => (
+                <div style={divStyle}>
+                  <Avatar name={i.name} size="100" round={true} />
+                  <div style={{ padding: " 0px 20px" }}>
+                    <Title>Name: {i.name}</Title>
+                    <Title>Review: {i.review}</Title>
+                    
+                  </div>
+                  
+                </div>
+              ))}
+            </div>
       </Dialog>
+      <Dialog
+            open={newOpen}
+            onClose={handleCloseByRate}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">
+              Have you had an encounter with {props.props.name}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Write a review about your experience with this doctor below
+              </DialogContentText>
+              <div style={{ padding: "15px" }}>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Your Name"
+                  type="text"
+                  fullWidth
+                  color="teal"
+                  onChange={handleNameChange}
+                  value={name}
+                />
+              </div>
+              <div>
+                <TextField
+                  style={{ padding: "0px 15px" }}
+                  autoFocus
+                  margin="dense"
+                  id="review"
+                  label="Your Review"
+                  type="text"
+                  onChange={handleAddReviewChange}
+                  value={addReview}
+                  fullWidth
+                />
+              </div>
+            </DialogContent>
+            <DialogActions>
+              <ActionButton style={{ margin: "10px" }} onClick={handleCloseByRate}>
+                Submit Review
+              </ActionButton>
+            </DialogActions>
+          </Dialog>
     </div>
   );
 }
@@ -293,7 +412,6 @@ function BasicTable(props) {
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                   onClick={() => {
-                    console.log('hi');
                     setRows(orderBy(rows, column.id))
 
                     // setOrder
@@ -322,7 +440,7 @@ function BasicTable(props) {
                       
                     );
                   })}
-                  <FullScreenDialog/>
+                  <FullScreenDialog props={row}/>
                   {/* <Button variant="contained" color="primary">
                     Reviews
                   </Button> */}
@@ -457,7 +575,7 @@ const parsedData=(params)=>{
    
   for (let i = 0; i < toGet.length; i+=2) {
     if (toGet[i+1]!==""){
-    toFetch[toGet[i]]="/.*"+toGet[i+1]+".*/i"; 
+    toFetch[toGet[i]]="/.*"+String(toGet[i+1]).toUpperCase()+".*/i"; 
     }
     else{
       toFetch[toGet[i]]='/.*/';

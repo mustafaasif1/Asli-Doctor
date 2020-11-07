@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import Confirm from "components/misc/alerts.js";
 import Button from '@material-ui/core/Button';
+import GoogleLogin from 'react-google-login';
 
 
 
@@ -94,6 +95,17 @@ export default ({
     
   }
 
+  const responseGoogleSuccess = (response) => {
+  
+    console.log('email', response.profileObj.email)
+    localStorage.setItem('loggedIn', response.profileObj.email)
+    history.push("/")
+  }  
+    
+  const responseGoogle = (response) => {
+    console.log(response);
+  }  
+
   const handleEmailInput = e => {
     setEmail(e.target.value);
   };
@@ -131,14 +143,26 @@ export default ({
           <MainContent>
             <Heading>{headingText}</Heading>
             <FormContainer>
-              <SocialButtonsContainer>
+            <SocialButtonsContainer>
                 {socialButtons.map((socialButton, index) => (
-                  <SocialButton key={index} href={socialButton.url}>
+                   <GoogleLogin
+                  clientId="579382187187-v8quleq4c0apcgkoes0t1ocov07rsjgq.apps.googleusercontent.com"
+                  render={renderProps => (
+                    <SocialButton key={index} style={{cursor: 'pointer'}} onClick={renderProps.onClick} disabled={renderProps.disabled}>
                     <span className="iconContainer">
-                      <img src={socialButton.iconImageSrc} className="icon" alt="" />
+                      <img src={socialButton.iconImageSrc} className="icon" alt=""/>
                     </span>
                     <span className="text">{socialButton.text}</span>
                   </SocialButton>
+                    
+                  )}
+                  buttonText="Login"
+                  onSuccess={responseGoogleSuccess}
+                  onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                />
+                  
+                  
                 ))}
               </SocialButtonsContainer>
               <DividerTextContainer>

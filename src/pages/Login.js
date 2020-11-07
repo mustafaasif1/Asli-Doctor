@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import Confirm from "components/misc/alerts.js";
 import Button from '@material-ui/core/Button';
+import GoogleLogin from 'react-google-login';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -20,7 +21,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 
 const Container = tw(ContainerBase)`min-h-screen bg-teal-600 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -89,7 +89,9 @@ export default ({
   const [pass, setPass] = useState('');
   const [signedIn,setSignedIn]=React.useState(false);
   const history = useHistory();
-
+  const [gSign,setGSign]=React.useState(false);
+  
+  
   const handleEmailInput = e => {
     setEmail(e.target.value);
   };
@@ -105,6 +107,25 @@ export default ({
     history.push("/");
     
   }
+
+  const signInWithGoogle =() =>{
+    
+    setGSign(true);
+    
+  }
+
+
+
+const responseGoogleSuccess = (response) => {
+  
+  console.log('email', response.profileObj.email)
+  localStorage.setItem('loggedIn', response.profileObj.email)
+  history.push("/")
+}  
+  
+const responseGoogle = (response) => {
+  console.log(response);
+}  
 
   const handleClickOpen = () => {
     setEmail(email.trim());
@@ -135,12 +156,24 @@ export default ({
             <FormContainer>
               <SocialButtonsContainer>
                 {socialButtons.map((socialButton, index) => (
-                  <SocialButton key={index} href={socialButton.url}>
+                   <GoogleLogin
+                  clientId="579382187187-v8quleq4c0apcgkoes0t1ocov07rsjgq.apps.googleusercontent.com"
+                  render={renderProps => (
+                    <SocialButton key={index} style={{cursor: 'pointer'}} onClick={renderProps.onClick} disabled={renderProps.disabled}>
                     <span className="iconContainer">
                       <img src={socialButton.iconImageSrc} className="icon" alt=""/>
                     </span>
                     <span className="text">{socialButton.text}</span>
                   </SocialButton>
+                    
+                  )}
+                  buttonText="Login"
+                  onSuccess={responseGoogleSuccess}
+                  onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                />
+                  
+                  
                 ))}
               </SocialButtonsContainer>
               <DividerTextContainer>
@@ -207,6 +240,23 @@ export default ({
 
 function FormDialog() {
   const [open, setOpen] = React.useState(false);
+  const [emailz, setEmailz] = useState('');
+  const [pass, setPass] = useState('');
+  const history = useHistory();
+
+  const handleEmailInput = e => {
+    setEmailz(e.target.value);
+  };
+  const handleForgot =() =>{
+    setEmailz(emailz.trim());
+    console.log('email', emailz)
+    if (emailz!=""){
+      axios.post('http://localhost:5000/resets',{email: emailz}).then(res=>{
+        console.log(res);
+      })
+    }
+    history.push("/");
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -237,10 +287,13 @@ function FormDialog() {
             label="Email Address"
             type="email"
             fullWidth
+            placeholder="Email" 
+            onChange={handleEmailInput} 
+            value={emailz}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleForgot} color="primary">
             Reset
           </Button>
           
