@@ -7,6 +7,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import Button from '@material-ui/core/Button';
+
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 
@@ -45,9 +47,20 @@ export default function CustomTable(props) {
                     </TableCell>
                   );
                 })}
+                <Button variant="contained" color="primary">
+                  Accept
+                </Button>
+                <Button variant="contained" color="secondary">
+                  Reject
+                </Button>
+                {/* <div>
+                  Action Taken
+                </div> */}
               </TableRow>
             );
+            
           })}
+          
         </TableBody>
       </Table>
     </div>

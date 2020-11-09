@@ -50,6 +50,8 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import styled from "styled-components";
+import Search from "components/hero/SearchBar.js";
+
 
 
 
@@ -616,6 +618,7 @@ class DoctorList extends Component{
       <AnimationRevealPage>
         
         <Header/>
+        <Search roundedHeaderButton={true}/>
         {/* <div style={{padding: "30px", justifyContent: "center", alignItems: "center", display: "flex"}}>
         <Subheading>
               Do you want a new search? <PreviewButton stlye={{margin: "20px"}}>Click Here</PreviewButton>

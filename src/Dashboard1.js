@@ -287,7 +287,13 @@ export default function Dashboard() {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["ID", "Doctors Name", "Complainer's Name", "Review", "Status"]}
-                tableData={reviews}
+                tableData={[
+                  ["1", "Dakota Rice", "$36,738", "Niger", "Pending"],
+                  ["2", "Minerva Hooper", "$23,789", "Curaçao", "Pending"],
+                  ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Pending"],
+                  ["4", "Philip Chaney", "$38,735", "Korea, South", "Pending"]
+                ]}                
+                // tableData={reviews}
               />
             </CardBody>
           </Card>
@@ -343,7 +349,13 @@ export default function Dashboard() {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["ID", "Email Address", "Complainer's Name", "Fake Doctors Name", "Location", "Reason"]}
-                tableData={reports}
+                tableData={[
+                  ["1", "Dakota Rice", "$36,738", "Niger", "Pending", "1"],
+                  ["2", "Minerva Hooper", "$23,789", "Curaçao", "Pending", "1"],
+                  ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Pending", "1"],
+                  ["4", "Philip Chaney", "$38,735", "Korea, South", "Pending", "1"]
+                ]} 
+                // tableData={reports}
               />
             </CardBody>
           </Card>

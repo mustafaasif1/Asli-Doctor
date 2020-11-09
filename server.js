@@ -22,21 +22,18 @@ connection.once('open',()=>{
 })
 
 
-// app.use('/',express.static('AsliDoctor/build'))
+app.use('/',express.static('AsliDoctor/build'))
 
-// app.use('/LogIn',express.static('AsliDoctor/build'))
-
-
-// app.use('/SignUp',express.static('AsliDoctor/build'))
-
-// app.use('/ContactUs',express.static('AsliDoctor/build'))
-
-// app.use('/Doctors',express.static('AsliDoctor/build'))
-
-// app.use('/FakeDoctorReport',express.static('AsliDoctor/build'))
+app.use('/LogIn',express.static('AsliDoctor/build'))
 
 
-// app.use('/Dashboard',express.static('AsliDoctor/build'))
+app.use('/SignUp',express.static('AsliDoctor/build'))
+
+app.use('/ContactUs',express.static('AsliDoctor/build'))
+
+app.use('/Doctors',express.static('AsliDoctor/build'))
+
+app.use('/FakeDoctorReport',express.static('AsliDoctor/build'))
 
 
 
@@ -57,32 +54,6 @@ app.get('/sample',(req,res)=>{
     })
     
 });
-
-
-app.get('/getfake',(req,res)=>{
-    console.log("Requesting Fake Doctors...");
-    
-    connection.db.collection('report',(err,collection)=>{
-        
-    collection.find({name: /.*/}).toArray((err,results)=>{
-        res.send(JSON.stringify(results))});
-    })
-    
-});
-
-
-
-app.get('/decidereview',(req,res)=>{
-    
-    connection.db.collection('reviews',(err,collection)=>{
-        
-    collection.find({name: /.*/}).toArray((err,results)=>{
-        res.send(JSON.stringify(results))});
-    })
-    
-});
-
-
 app.post('/message',(req,res)=>{
     
     console.log(req.body);
@@ -117,19 +88,6 @@ app.post('/users',(req,res)=>{
     connection.db.collection('users',(err,collection)=>{
         
         collection.save(req.body).then(()=>res.send("Uploaded")).catch(err=>res.send("Error: "+err));
-    })
-    }
-});
-
-
-
-app.post('/resets',(req,res)=>{
-    
-    console.log(req.body);
-    if (req.body.email!=undefined){
-    connection.db.collection('resets',(err,collection)=>{
-        
-        collection.save(req.query).then(()=>res.send("Uploaded")).catch(err=>res.send("Error: "+err));
     })
     }
 });
@@ -191,8 +149,7 @@ app.get('/reviews',(req,res)=>{
     connection.db.collection('reviews',(err,collection)=>{
     console.log(req.query);
     collection.find({
-                    reg:eval(req.query.reg),
-                    display: true
+                    reg:eval(req.query.reg)
                     
     }).toArray((err,results)=>{res.send(JSON.stringify(results))});
     })
