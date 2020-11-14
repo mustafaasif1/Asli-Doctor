@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
@@ -16,7 +17,18 @@ const useStyles = makeStyles(styles);
 
 export default function CustomTable(props) {
   const classes = useStyles();
+  const curr = React.useRef();
   const { tableHead, tableData, tableHeaderColor } = props;
+  const acceptor = () =>{
+    axios.post("http://localhost:5000/setaccept", {reg: curr.current[1],name: curr.current[2], review: curr.current[3]})
+    console.log({reg: curr[1],name: curr[2], review: curr[3]})
+    //window.location.reload();
+  }
+
+  const deletor = () =>{
+    axios.get("http://localhost:5000/setdelete", {reg: curr.current[1],name: curr.current[2], review: curr.current[3]})
+    window.location.reload()
+  }
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
@@ -38,6 +50,7 @@ export default function CustomTable(props) {
         ) : null}
         <TableBody>
           {tableData.map((prop, key) => {
+            curr.current = prop
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
                 {prop.map((prop, key) => {
@@ -47,10 +60,10 @@ export default function CustomTable(props) {
                     </TableCell>
                   );
                 })}
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={acceptor}>
                   Accept
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={deletor}>
                   Reject
                 </Button>
                 {/* <div>

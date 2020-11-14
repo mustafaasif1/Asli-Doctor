@@ -96,7 +96,7 @@ export default function Dashboard() {
   const [reviews, setReviews] = React.useState([]);
   useEffect(() => {
     trackPromise(
-      axios.get("http://localhost:5000/getfake").then(res=>{
+      axios.get("http://localhost:5000/getfake",{name:""}).then(res=>{
         
         
         var temp = res.data.map((i, index)=>{
@@ -108,7 +108,7 @@ export default function Dashboard() {
       })).catch(err=>{console.log(err)})
 
       trackPromise(
-        axios.get("http://localhost:5000/decidereview").then(res=>{
+        axios.get("http://localhost:5000/decidereview",{name:""}).then(res=>{
           
           var temp = res.data.map((i, index)=>{
             var newList = [index+1, i.reg, i.name, i.review, "Pending"]
@@ -287,12 +287,7 @@ export default function Dashboard() {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["ID", "Doctors Name", "Complainer's Name", "Review", "Status"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger", "Pending"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao", "Pending"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Pending"],
-                  ["4", "Philip Chaney", "$38,735", "Korea, South", "Pending"]
-                ]}                
+                tableData={reviews}                
                 // tableData={reviews}
               />
             </CardBody>
@@ -349,12 +344,7 @@ export default function Dashboard() {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["ID", "Email Address", "Complainer's Name", "Fake Doctors Name", "Location", "Reason"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger", "Pending", "1"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao", "Pending", "1"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Pending", "1"],
-                  ["4", "Philip Chaney", "$38,735", "Korea, South", "Pending", "1"]
-                ]} 
+                tableData={reports} 
                 // tableData={reports}
               />
             </CardBody>
