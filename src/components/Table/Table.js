@@ -20,13 +20,13 @@ export default function CustomTable(props) {
   const curr = React.useRef();
   const { tableHead, tableData, tableHeaderColor } = props;
   const acceptor = () =>{
-    axios.post("http://localhost:5000/setaccept", {reg: curr.current[1],name: curr.current[2], review: curr.current[3]})
+    axios.post("/setaccept", {reg: curr.current[1],name: curr.current[2], review: curr.current[3]})
     console.log({reg: curr[1],name: curr[2], review: curr[3]})
-    //window.location.reload();
+    window.location.reload();
   }
 
   const deletor = () =>{
-    axios.get("http://localhost:5000/setdelete", {reg: curr.current[1],name: curr.current[2], review: curr.current[3]})
+    axios.get("/setdelete", {reg: curr.current[1],name: curr.current[2], review: curr.current[3]})
     window.location.reload()
   }
   return (

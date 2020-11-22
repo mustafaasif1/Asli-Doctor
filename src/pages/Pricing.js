@@ -80,7 +80,7 @@ function FullScreenDialog(props) {
 
   const handleClickOpen = () => {
     axios
-      .get("http://localhost:5000/reviews", {
+      .get("/reviews", {
         params: { reg: "/.*" + props.props.reg_num + ".*/i" },
       })
       .then((res) => {
@@ -107,7 +107,7 @@ function FullScreenDialog(props) {
         display: false
       })
       axios
-        .post("http://localhost:5000/rate", {
+        .post("/rate", {
           name: name.trim(),
           review: addReview,
           reg: props.props.reg_num,
@@ -483,7 +483,7 @@ class CustomTabs extends React.Component {
   
   componentDidMount(){
     trackPromise(
-    axios.get("http://localhost:5000/sample",{params: this.state.params}).then(res=>{
+    axios.get("/sample",{params: this.state.params}).then(res=>{
       
       this.setState({allDocs: res.data});
       if (res.data.length>this.state.maxToDisplay){

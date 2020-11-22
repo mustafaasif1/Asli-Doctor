@@ -94,9 +94,14 @@ export default function Dashboard() {
   const classes = useStyles();
   const [reports, setReports] = React.useState([]);
   const [reviews, setReviews] = React.useState([]);
+  const [email, setEmail] = React.useState('');
+
   useEffect(() => {
+
+    setEmail(localStorage.getItem('loggedIn'));
+    console.log(email,"this is my email")
     trackPromise(
-      axios.get("http://localhost:5000/getfake",{name:""}).then(res=>{
+      axios.get("/getfake",{name:""}).then(res=>{
         
         
         var temp = res.data.map((i, index)=>{
@@ -108,7 +113,7 @@ export default function Dashboard() {
       })).catch(err=>{console.log(err)})
 
       trackPromise(
-        axios.get("http://localhost:5000/decidereview",{name:""}).then(res=>{
+        axios.get("/decidereview",{name:""}).then(res=>{
           
           var temp = res.data.map((i, index)=>{
             var newList = [index+1, i.reg, i.name, i.review, "Pending"]
@@ -121,6 +126,9 @@ export default function Dashboard() {
         
         
   },[]);
+  if (email != "maroofsaleemi@gmail.com"){
+    return(<p>Access Denied</p>)
+  }
   return (
     <div>
       <ButtonAppBar/>

@@ -147,17 +147,26 @@ export default ({
       console.log('oops')
     }
     if (email != 0 && pass != 0 && re.test(String(email).toLowerCase()) && pass.length >= 8 ){
-      axios.post('http://localhost:5000/users',{email: email.trim(), secret: pass}).then(res=>{
-        console.log(res);
-        if (!res.data.includes('Error')){
-          console.log('Hello');
-          
-          localStorage.setItem('loggedIn', email);
-          setSignedIn(true);
-          
-          
+      axios.post('/login',{email: email}).then(res=>{
+        
+        if (res.data=="login"){
+
+          setValidemail(true);
+
+        } else {
+            axios.post('/users',{email: email.trim(), secret: pass}).then(res=>{
+            console.log(res);
+            if (!res.data.includes('Error')){
+              console.log('Hello');
+            
+              localStorage.setItem('loggedIn', email);
+              setSignedIn(true);
+            
+          }
+        }).catch(err=>{console.log("Error: ",err)})
         }
       }).catch(err=>{console.log("Error: ",err)})
+      
       }
     setOpen(true);
     

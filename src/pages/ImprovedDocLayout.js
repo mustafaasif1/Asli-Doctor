@@ -114,7 +114,7 @@ const Docs = (props) => {
     
     //setLoading(true);
     axios
-      .get("http://localhost:5000/reviews", {
+      .get("/reviews", {
         params: { reg: "/.*" + props.person.reg + ".*/i" },
       })
       .then((res) => {
@@ -139,7 +139,7 @@ const Docs = (props) => {
   const handleClose = () => {
     if (name !== "" && addReview !== "") {
       axios
-        .post("http://localhost:5000/rate", {
+        .post("/rate", {
           name: name.trim(),
           review: addReview,
           reg: props.person.reg,

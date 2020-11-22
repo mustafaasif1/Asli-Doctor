@@ -79,8 +79,10 @@ export default ({ roundedHeaderButton = true, logoLink, links, className, collap
   }
   useEffect(()=>{
     var email = localStorage.getItem('loggedIn')
-    if (email!='') {
+    if (email != '' || email != undefined) {
+      if (email.includes('@')){
       setLoggedIn(true);
+      }
 
     } else {
       setLoggedIn(false);
