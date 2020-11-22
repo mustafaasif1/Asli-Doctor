@@ -78,10 +78,16 @@ export default ({
   setLI,
   toggleLogin
 }) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [signedIn,setSignedIn]=React.useState(false);
+  const [shortpass, setShortpass] = React.useState(false);
+  const [emptypass, setEmptypass] = React.useState(false);
+  const [emptyemail, setEmptyemail] = React.useState(false);
+  const [incompletedetails, setIncompletedetails] = React.useState(false);
+  const [validemail, setValidemail] = React.useState(false);
   const history = useHistory();
 
   const handleClose =() =>{
@@ -115,7 +121,32 @@ export default ({
 
   const handleClickOpen = () => {
     
-    if (email!="" && pass.length>8){
+    setIncompletedetails(false)
+    setEmptyemail(false)
+    setEmptypass(false)
+    setValidemail(false)
+    setShortpass(false)
+    
+    if (email == ""){
+      setEmptyemail(true);
+      setIncompletedetails(true);
+    }
+    else if(!(re.test(String(email).toLowerCase()))){
+      setValidemail(true);
+      setIncompletedetails(true);
+    }
+    if(pass == ""){
+      setEmptypass(true);
+      setIncompletedetails(true);
+    }
+    else if(pass.length<8){
+      setShortpass(true);
+      setIncompletedetails(true);
+    }
+    if(incompletedetails){
+      console.log('oops')
+    }
+    if (email != 0 && pass != 0 && re.test(String(email).toLowerCase()) && pass.length >= 8 ){
       axios.post('http://localhost:5000/users',{email: email.trim(), secret: pass}).then(res=>{
         console.log(res);
         if (!res.data.includes('Error')){
@@ -169,20 +200,26 @@ export default ({
                 <DividerText>Or Sign up with your e-mail</DividerText>
               </DividerTextContainer>
               {
-                !open ?
-                null
-                :
-                !signedIn ?
-                <Confirm message="Password Length should be more than 8 characters" buttonMessage="Try Again" handleClick={handleCloseFail}/> :
-                <Confirm message="Sign up was Successful!" buttonMessage="Continue" handleClick={handleClose}/>
+                signedIn?
+                <Confirm message="Sign up was Successful!" buttonMessage="Continue" handleClick={handleClose}/>:null
                             }
               <Form>
-                <Input type="email" placeholder="Email" onChange={handleEmailInput} value={email} />
+                <Input style = {{width:"320px"}} type="email" placeholder="Email" onChange={handleEmailInput} value={email} />
+                 { emptyemail?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your email address</div>:null}
+                 { validemail?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter a valid email address</div>:null}
                 <Input type="password" placeholder="Password" onChange={handlePassInput} value={pass}/>
+                { emptypass?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter a password</div>:null}
+                { shortpass?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Password should be longer than 8 characters</div>:null}
                 <SubmitButton type="button" onClick={handleClickOpen}>
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
                 </SubmitButton>
+                { incompletedetails?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px", paddingTop: "10px"}}>Sign up failed. Please try again.</div>:null}
               </Form>
                 
 

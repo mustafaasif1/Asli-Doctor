@@ -77,7 +77,9 @@ export default ({
   formMethod = "get",
   textOnLeft = true,
 }) => {
+  var myEmail = localStorage.getItem('loggedIn')
   // The textOnLeft boolean prop can be used to display either the text on left or right side of the image.
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [open, setOpen] = React.useState(false);
   const [popup, setpup] = useState(false);
   const [name, setName] = useState('');
@@ -86,6 +88,13 @@ export default ({
   const [message, setMessage] = useState('');
   const [value, setValue] = useState('');
   const [longon, setLongon]=useState(false);
+  const [emptyemail, setEmptyemail] = useState(false);
+  const [emptyname, setEmptyname] = useState(false);
+  const [emptydoctor, setEmptydoctor] = useState(false);
+  const [emptyreason, setEmptyreason] = useState(false);
+  const [emptylocation, setEmptylocation] = useState(false);
+  const [incompletedetails,setIncompletedetails] = useState(false);
+  const [wrongemail, setWrongemail] = useState(false);
   
   const longlat=useRef([0,0]);
   const history = useHistory();
@@ -122,7 +131,33 @@ export default ({
   };
 
   const handleClickOpen = () => {
-    if (email!=""){
+    setEmptyname(false)
+    setEmptyemail(false)
+    setEmptydoctor(false)
+    setEmptyreason(false)
+    setIncompletedetails(false)
+    setWrongemail(false)
+    if (email == ""){
+      setEmptyemail(true)
+      setIncompletedetails(true)
+    }
+    else if (email != myEmail){
+      setWrongemail(true)
+      setIncompletedetails(true)
+    }
+    if (name == ""){
+      setEmptyname(true)
+      setIncompletedetails(true)
+    }
+    if (fake_doctor_name == ""){
+      setEmptydoctor(true)
+      setIncompletedetails(true)
+    }
+    if (value == ""){
+      setEmptyreason(true)
+      setIncompletedetails(true)
+    }
+    if (email!="" &&  name != "" && fake_doctor_name != "" && value != ""){
       if (value=="Other"){
           axios.post('http://localhost:5000/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat}).then(res=>{
           console.log(res);
@@ -134,9 +169,6 @@ export default ({
           setOpen(true);
         }).catch(err=>{console.log("Error: ",err)})
       } 
-    }
-    else {
-      alert("Please enter your Email");
     }
   };
 
@@ -170,9 +202,18 @@ export default ({
             {description && <Description>{description}</Description>}
             <Form action={formAction} method={formMethod}>
               <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email}/>
+               { emptyemail?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your email address</div>:null}
+              {wrongemail?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your correct email address</div>:null}
+
               <Input type="text" name="name" placeholder="Your Full Name" onChange={handleNameInput} value={name}/>
+             { emptyname?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your name</div>:null}
               <Input type="text" name="fake_doctor_name" placeholder="Fake Doctor's Name" onChange={handleFakeDoctorInput} value={fake_doctor_name}/>
               {/* <div style={mystyle}><h1>Frequent Issues with the doctor</h1></div> */}
+              { emptydoctor?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter doctor's name</div>:null}
               <div style={{padding: '20px'}}></div>
               {/* <RadioButtonsGroup/> */}
               <FormControl component="fieldset">
@@ -183,8 +224,9 @@ export default ({
                 <FormControlLabel value="Doctor is giving fake medicines" control={<Radio />} label="Doctor is giving fake medicines" />
                 <FormControlLabel value="Doctor is extremely rude" control={<Radio />} label="Doctor is extremely rude" />
                 <FormControlLabel value="Other" control={<Radio />} label="Other" />
-                {/* <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
+                
               </RadioGroup>
+
               </FormControl>
 
               { value == 'Other'? 
@@ -193,10 +235,10 @@ export default ({
                 null
               }
 
-
-              
-              
-        
+              {emptyreason?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please select an option</div>:null}
+                
+            
               { popup ?
                <div className='popup'>
                 <div className='popup_inner'>
@@ -223,6 +265,10 @@ export default ({
 
               }
               <SubmitButton type="button" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
+              {
+                incompletedetails?
+                 <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px", paddingTop:"10px"}}>Please fill the required details</div>:null
+              }
               
             </Form>
           </TextContent>

@@ -84,12 +84,17 @@ export default ({
   setLI
 
 }) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [signedIn,setSignedIn]=React.useState(false);
   const history = useHistory();
   const [gSign,setGSign]=React.useState(false);
+  const [emptypass, setEmptypass] = React.useState(false);
+  const [emptyemail, setEmptyemail] = React.useState(false);
+  const [incompletedetails, setIncompletedetails] = React.useState(false);
+  const [validemail, setValidemail] = React.useState(false);
   
   
   const handleEmailInput = e => {
@@ -128,8 +133,20 @@ const responseGoogle = (response) => {
 }  
 
   const handleClickOpen = () => {
+    setEmptyemail(false);
+    setValidemail(false);
+    setEmptypass(false);
     setEmail(email.trim());
-    if (email!="" && pass.length>8){
+    if (email ==""){
+      setEmptyemail(true)
+    } 
+    else if(!(re.test(String(email).toLowerCase()))){
+      setValidemail(true);
+    }
+    if (pass.length == ""){
+      setEmptypass(true);
+    }
+    if (pass.length != "" && email != "" && (re.test(String(email).toLowerCase()))){
       axios.post('http://localhost:5000/login',{email: email, secret: pass}).then(res=>{
         
         if (res.data=="login"){
@@ -179,21 +196,28 @@ const responseGoogle = (response) => {
               <DividerTextContainer>
                 <DividerText>Or Sign in with your e-mail</DividerText>
               </DividerTextContainer>
-              {
-                !open ?
-                null
-                :
-                !signedIn ?
-                <Confirm message="Username or Password incorrect" buttonMessage="Try Again" handleClick={handleCloseFail}/> :
-                <Confirm message="Signed in Successfully!" buttonMessage="Continue" handleClick={handleClose}/>
-              }
+              
               <Form>
-                <Input type="email" placeholder="Email" onChange={handleEmailInput} value={email}/>
+                <Input style = {{width:"320px"}} type="email" placeholder="Email" onChange={handleEmailInput} value={email}/>
+                { emptyemail?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your email address</div>:null}
+                 { validemail?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter a valid email address</div>:null}
                 <Input type="password" placeholder="Password" onChange={handlePassInput} value={pass}/>
+                { emptypass?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter a password</div>:null}
                 <SubmitButton type="button" onClick={handleClickOpen}>
                   <SubmitButtonIcon className="icon"/>
                   <span className="text">{submitButtonText}</span>
                 </SubmitButton>
+                {
+                !open ?
+                null
+                :
+                !signedIn ?
+                <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px", paddingTop: "10px"}}>Sign in failed. Please try again.</div>:
+                <Confirm message="Signed in Successfully!" buttonMessage="Continue" handleClick={handleClose}/>
+              }
               </Form>
               {/* <p tw="mt-6 text-xs text-gray-600 text-center">
                 <a href={FormDialog()} tw="border-b border-gray-500 border-dotted">
@@ -242,20 +266,37 @@ function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [emailz, setEmailz] = useState('');
   const [pass, setPass] = useState('');
+  const [emptyemailz, setEmptyemailz] = React.useState(false);
+  const [validemailz, setValidemailz] = React.useState(false);
+
   const history = useHistory();
 
   const handleEmailInput = e => {
     setEmailz(e.target.value);
   };
   const handleForgot =() =>{
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     setEmailz(emailz.trim());
     console.log('email', emailz)
-    if (emailz!=""){
+
+    setValidemailz(false)
+    setEmptyemailz(false)
+
+    if (emailz == ""){
+      setEmptyemailz(true);
+    }
+
+    else if (!(re.test(String(emailz).toLowerCase()))){
+      setValidemailz(true);
+    }
+
+    if (emailz!="" && (re.test(String(emailz).toLowerCase()))){
+      console.log('hello')
       axios.post('http://localhost:5000/resets',{email: emailz}).then(res=>{
         console.log(res);
       })
+      history.push("/");
     }
-    history.push("/");
   }
 
   const handleClickOpen = () => {
@@ -291,6 +332,13 @@ function FormDialog() {
             onChange={handleEmailInput} 
             value={emailz}
           />
+        {
+          validemailz?
+          <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter a valid email.</div>:null}
+        {
+          emptyemailz?
+          <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter an email address.</div>:null}
+        
         </DialogContent>
         <DialogActions>
           <Button onClick={handleForgot} color="primary">
