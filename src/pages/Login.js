@@ -274,7 +274,9 @@ function FormDialog() {
   const [pass, setPass] = useState('');
   const [emptyemailz, setEmptyemailz] = React.useState(false);
   const [validemailz, setValidemailz] = React.useState(false);
+  const [existEmailz, setExistEmailz] = React.useState(false);
 
+  
   const history = useHistory();
 
   const handleEmailInput = e => {
@@ -296,12 +298,20 @@ function FormDialog() {
       setValidemailz(true);
     }
 
-    if (emailz!="" && (re.test(String(emailz).toLowerCase()))){
+    else if (emailz!="" && (re.test(String(emailz).toLowerCase()))){
       console.log('hello')
       axios.post('http://localhost:5000/resets',{email: emailz}).then(res=>{
-        console.log(res);
+        
+        if (res.data!=="login"){
+          setExistEmailz(true);
+
+        }
+        else{
+          setExistEmailz(false);
+          history.push("/");
+        }
+        
       })
-      history.push("/");
     }
   }
 
@@ -344,6 +354,10 @@ function FormDialog() {
         {
           emptyemailz?
           <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter an email address.</div>:null}
+
+{
+          existEmailz?
+          <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter an existing email address.</div>:null}
         
         </DialogContent>
         <DialogActions>
