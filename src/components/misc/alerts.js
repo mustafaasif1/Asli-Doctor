@@ -25,7 +25,7 @@ class Confirm extends Component {
 
 
 
-            <div style = {{width: "340px", height: "200px"}} className='done_message'>
+            <div style = {{width: "340px", height: "250px"}} className='done_message'>
                 <div className="response_message">
                 {this.props.message}
                 </div>

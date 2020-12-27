@@ -82,12 +82,16 @@ export default ({
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  const [confirmpass, setConfirmpass] = useState('');
   const [signedIn,setSignedIn]=React.useState(false);
   const [shortpass, setShortpass] = React.useState(false);
   const [emptypass, setEmptypass] = React.useState(false);
   const [emptyemail, setEmptyemail] = React.useState(false);
   const [incompletedetails, setIncompletedetails] = React.useState(false);
+  const [gSign,setGSign]=React.useState(false);
   const [validemail, setValidemail] = React.useState(false);
+  const [existsemail, setExistsemail] = React.useState(false);
+  const [incorrectconfirm, setIncorrectconfirm] = React.useState(false);
   const history = useHistory();
 
   const handleClose =() =>{
@@ -110,6 +114,11 @@ export default ({
     
   const responseGoogle = (response) => {
     console.log(response);
+    if (gSign){
+      console.log(response);
+      alert("Please enable third-party cookies under Privacy and Security section to sign in with Google.");
+    }
+    setGSign(true);
   }  
 
   const handleEmailInput = e => {
@@ -119,6 +128,10 @@ export default ({
     setPass(e.target.value);
   };
 
+  const handleConfirmPassInput = e => {
+    setConfirmpass(e.target.value);
+  }
+
   const handleClickOpen = () => {
     
     setIncompletedetails(false)
@@ -126,6 +139,8 @@ export default ({
     setEmptypass(false)
     setValidemail(false)
     setShortpass(false)
+    setExistsemail(false)
+    setIncorrectconfirm(false)
     
     if (email == ""){
       setEmptyemail(true);
@@ -143,18 +158,22 @@ export default ({
       setShortpass(true);
       setIncompletedetails(true);
     }
+    else if(pass != confirmpass){
+      setIncorrectconfirm(true);
+      setIncompletedetails(true);
+    }
     if(incompletedetails){
       console.log('oops')
     }
-    if (email != 0 && pass != 0 && re.test(String(email).toLowerCase()) && pass.length >= 8 ){
-      axios.post('/login',{email: email}).then(res=>{
+    if (email != 0 && pass != 0 && re.test(String(email).toLowerCase()) && pass.length >= 8 && pass == confirmpass){
+      axios.post('http://localhost:5000/login',{email: email}).then(res=>{
         
         if (res.data=="login"){
 
-          setValidemail(true);
+          setExistsemail(true);
 
         } else {
-            axios.post('/users',{email: email.trim(), secret: pass}).then(res=>{
+            axios.post('http://localhost:5000/users',{email: email.trim(), secret: pass}).then(res=>{
             console.log(res);
             if (!res.data.includes('Error')){
               console.log('Hello');
@@ -218,11 +237,16 @@ export default ({
                   <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your email address</div>:null}
                  { validemail?
                   <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter a valid email address</div>:null}
+                  { existsemail?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>There is already an account with this email address</div>:null}
                 <Input type="password" placeholder="Password" onChange={handlePassInput} value={pass}/>
                 { emptypass?
                   <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter a password</div>:null}
                 { shortpass?
                   <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Password should be longer than 8 characters</div>:null}
+                <Input type="password" placeholder="Confirm Password" onChange={handleConfirmPassInput} value={confirmpass}/>
+                { incorrectconfirm?
+                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Passwords don't match</div>:null}
                 <SubmitButton type="button" onClick={handleClickOpen}>
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>

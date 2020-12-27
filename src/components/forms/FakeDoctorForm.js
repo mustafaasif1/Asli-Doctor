@@ -159,12 +159,12 @@ export default ({
     }
     if (email!="" &&  name != "" && fake_doctor_name != "" && value != ""){
       if (value=="Other"){
-          axios.post('/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat}).then(res=>{
+          axios.post('http://localhost:5000/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat}).then(res=>{
           console.log(res);
           setOpen(true);
         }).catch(err=>{console.log("Error: ",err)})
       } else {
-        axios.post('/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: value, GoogleLocation: longlat}).then(res=>{
+        axios.post('http://localhost:5000/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: value, GoogleLocation: longlat}).then(res=>{
           console.log(res);
           setOpen(true);
         }).catch(err=>{console.log("Error: ",err)})

@@ -125,11 +125,17 @@ const responseGoogleSuccess = (response) => {
   
   console.log('email', response.profileObj.email)
   localStorage.setItem('loggedIn', response.profileObj.email)
+  console.log("hello")
   history.push("/")
 }  
   
 const responseGoogle = (response) => {
   console.log(response);
+  if (gSign){
+    console.log(response);
+    alert("Please enable third-party cookies under Privacy and Security section to sign in with Google.");
+  }
+  setGSign(true);
 }  
 
   const handleClickOpen = () => {
@@ -147,7 +153,7 @@ const responseGoogle = (response) => {
       setEmptypass(true);
     }
     if (pass.length != "" && email != "" && (re.test(String(email).toLowerCase()))){
-      axios.post('/login',{email: email, secret: pass}).then(res=>{
+      axios.post('http://localhost:5000/login',{email: email, secret: pass}).then(res=>{
         
         if (res.data=="login"){
           localStorage.setItem('loggedIn', email);
@@ -292,7 +298,7 @@ function FormDialog() {
 
     if (emailz!="" && (re.test(String(emailz).toLowerCase()))){
       console.log('hello')
-      axios.post('/resets',{email: emailz}).then(res=>{
+      axios.post('http://localhost:5000/resets',{email: emailz}).then(res=>{
         console.log(res);
       })
       history.push("/");
