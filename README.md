@@ -1,68 +1,23 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Asli Doctor
+This was a summer project for the year 2019 where we built a web application in Javascript. There is a serious rise iin the number of fake doctors and no platform is available to check their authenticity. For this purpose we proposed a solution where people can directly check the doctors degree and report any suspicious activity they see. We scraped the data from pmdc.org and uploaded it on our own databases which was then used to query the searches
 
-## Available Scripts
+## Use Cases for the Web Application:
 
-In the project directory, you can run:
+### 1.	Extensive contribution on the visual design end
 
-### `yarn start`
+In order for people to use a website it is essential for it to have a simple yet appealing user interface. The frontend of the PDMC search page can be significantly improved. Furthermore, finding the search button on the main page was a slightly difficult task making it a hindrance for the people to use the service. The search, results and details pages can be enhanced by including concisely written, descriptive content. It can be used to add specific keywords and phrases that could help identify a certain doctor. It would also be able to show a doctors rating and any issue that a patient faced by the doctor. The way the search results are displayed can be made into cards and more information about the doctor can be included. We can make the content shareable on other social media websites to make others aware of any fake doctors and the treats that they can pose. We have included a sample and must better example of the search page below.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 2.	Report the fake doctors
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+There are thousands of doctors in Pakistan who don’t have their degrees verified in Pakistan. These types of doctors can be a huge threat to the public specially the lower class who are forced to go to these types of doctors because of their low fees. Without having a proper degree, the fake doctors use practices that may be injurious to the patient. Currently there is no mechanism to report these doctors and find out if the doctor that the patient is visiting is PMDC verified or not. There could be mainly two ways to identify the doctor’s identity and his credentials.
 
-### `yarn test`
+●	The foremost and basic step of identifying the doctors is to have every doctor’s current profile picture on our website. Although PDMC does not provide this feature, we could allow the pictures to be added through crowd sourcing or a doctor can himself add his own profile picture to improve his credibility. 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+●	Another step that could be used to identify the doctors is to ask for their registration number. Every doctor has a registration number that PDMC assigns to them. The patient can ask for the number and use that to search for the specific doctor. This website would be mostly used in rural areas so it’s necessary that people could use audio to record the number and then that registration number could be used to search for the doctor. All the information regarding the doctors would be displayed in Urdu and English so that its easy for everyone to use the website. 
 
-### `yarn build`
+If a person does not have their information displayed on the website, then it would indicate that the doctor is a fake who is only luring in people. Even if a person is a qualified doctor, the website would display the problems that the people faced with that doctor. All this would be based on crowd sourcing. The reviews, practices and the hygiene level could be checked through the website. If a person turns out to be a fake doctor who is unable to verify his/her credentials, then it a person can post a picture of the fake doctor along with the hospital he is operating in. He could also provide the person’s description as well as the name he is using.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3.	Verification of the reports against doctors 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+With the release of a website where people can report doctors there is always a danger of people taking revenge on a doctor even if he was legitimate. In order to control such posts, we could ask people to report in depth and in detail description of why they had a bad experience or why they think that a person is fake. The posts could be either manually checked by a person who could contact the area and ask for more details. They could also ask people to survey a specific doctor and try to investigate more about the doctor. As this would be crowd sourced, we wouldn’t be able to correctly identify all the doctors and check if all the reports are correct however, it certainly would help us to identify the ones who have their degree verified. If many people report a similar problem, the police could also intervene and investigate more on the doctor’s credentials. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
