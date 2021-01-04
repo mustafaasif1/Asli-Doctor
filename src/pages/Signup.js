@@ -166,14 +166,14 @@ export default ({
       console.log('oops')
     }
     if (email != 0 && pass != 0 && re.test(String(email).toLowerCase()) && pass.length >= 8 && pass == confirmpass){
-      axios.post('http://localhost:5000/login',{email: email}).then(res=>{
+      axios.post('/login',{email: email}).then(res=>{
         
         if (res.data=="login"){
 
           setExistsemail(true);
 
         } else {
-            axios.post('http://localhost:5000/users',{email: email.trim(), secret: pass}).then(res=>{
+            axios.post('/users',{email: email.trim(), secret: pass}).then(res=>{
             console.log(res);
             if (!res.data.includes('Error')){
               console.log('Hello');

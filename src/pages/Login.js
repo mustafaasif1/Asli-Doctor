@@ -153,7 +153,7 @@ const responseGoogle = (response) => {
       setEmptypass(true);
     }
     if (pass.length != "" && email != "" && (re.test(String(email).toLowerCase()))){
-      axios.post('http://localhost:5000/login',{email: email, secret: pass}).then(res=>{
+      axios.post('/login',{email: email, secret: pass}).then(res=>{
         
         if (res.data=="login"){
           localStorage.setItem('loggedIn', email);
@@ -300,7 +300,7 @@ function FormDialog() {
 
     else if (emailz!="" && (re.test(String(emailz).toLowerCase()))){
       console.log('hello')
-      axios.post('http://localhost:5000/resets',{email: emailz}).then(res=>{
+      axios.post('/resets',{email: emailz}).then(res=>{
         
         if (res.data!=="login"){
           setExistEmailz(true);

@@ -601,7 +601,7 @@ class DoctorList extends Component{
    componentDidMount(){
      console.log(this.props)
   //   trackPromise(
-  //   axios.get("http://localhost:5000/sample",{params: this.state.params}).then(res=>{
+  //   axios.get("/sample",{params: this.state.params}).then(res=>{
   //     this.setState({docs:res.data})
   //     console.log(this.state.docs)
   //   })).catch(err=>{console.log(err)})
