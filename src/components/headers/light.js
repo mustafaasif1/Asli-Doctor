@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -57,31 +57,18 @@ export const DesktopNavLinks = tw.nav`
 `;
 
 export default ({ roundedHeaderButton = true, logoLink, links, className, collapseBreakpointClass = "lg" }) => {
-  /*
-   * This header component accepts an optionals "links" prop that specifies the links to render in the navbar.
-   * This links props should be an array of "NavLinks" components which is exported from this file.
-   * Each "NavLinks" component can contain any amount of "NavLink" component, also exported from this file.
-   * This allows this Header to be multi column.
-   * So If you pass only a single item in the array with only one NavLinks component as root, you will get 2 column header.
-   * Left part will be LogoLink, and the right part will be the the NavLinks component you
-   * supplied.
-   * Similarly if you pass 2 items in the links array, then you will get 3 columns, the left will be "LogoLink", the center will be the first "NavLinks" component in the array and the right will be the second "NavLinks" component in the links array.
-   * You can also choose to directly modify the links here by not passing any links from the parent component and
-   * changing the defaultLinks variable below below.
-   * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
-   */
-  
-  const [loggedIn,setLoggedIn]=useState(false);
-  const clickHandle=()=>{
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  const clickHandle = () => {
     localStorage.setItem('loggedIn', '')
     setLoggedIn(false);
     window.location.reload()
   }
-  useEffect(()=>{
+  useEffect(() => {
     var email = localStorage.getItem('loggedIn')
-    if (email != '' && email != undefined && email!=null) {
-      if (email.length>5){
-      setLoggedIn(true);
+    if (email != '' && email != undefined && email != null) {
+      if (email.length > 5) {
+        setLoggedIn(true);
       }
 
     } else {
@@ -93,9 +80,9 @@ export default ({ roundedHeaderButton = true, logoLink, links, className, collap
       <NavLink href="/">Home</NavLink>
       <NavLink href="/FakeDoctorReport">Fake Doctor Reports</NavLink>
       {/* <NavLink href="/ContactUs">Contact Us</NavLink> */}
-      {!loggedIn && 
-      <NavLink href="/LogIn" tw="lg:ml-12!">
-        Login
+      {!loggedIn &&
+        <NavLink href="/LogIn" tw="lg:ml-12!">
+          Login
       </NavLink>}
       {!loggedIn &&
         <PrimaryLink css={roundedHeaderButton && tw`rounded-full bg-teal-500`} href="/SignUp">Sign Up</PrimaryLink>}

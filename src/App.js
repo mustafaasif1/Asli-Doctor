@@ -1,8 +1,7 @@
 import "tailwindcss/dist/base.css";
 import "styles/globalStyles.css";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { css } from "styled-components/macro"; //eslint-disable-line
-
 
 import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 
@@ -22,19 +21,19 @@ import Login from "pages/Login.js";
 import FakeDoctorForm from "components/forms/FakeDoctorForm";
 
 export default function App() {
-  
+
   return (
     <Router>
-      <Switch> 
- 
-          <Route path="/SignUp" component={SignupPage}/>
-          <Route path="/LogIn" component={LoginPage}/>
-          <Route path="/Doctors" component={DoctorList}/>
-          <Route path="/ContactUs" component= {ContactUsPage}/>
-          <Route path="/FakeDoctorReport" component={FakeDoctorReport}/>
-          <Route path="/Dashboard" component={Dashboard}/>
-          <Route exact path="/" component={SaaSProductLandingPage}/>
-        
+      <Switch>
+
+        <Route path="/SignUp" component={SignupPage} />
+        <Route path="/LogIn" component={LoginPage} />
+        <Route path="/Doctors" component={DoctorList} />
+        <Route path="/ContactUs" component={ContactUsPage} />
+        <Route path="/FakeDoctorReport" component={FakeDoctorReport} />
+        <Route path="/Dashboard" component={Dashboard} />
+        <Route exact path="/" component={SaaSProductLandingPage} />
+
       </Switch>
     </Router>
   );

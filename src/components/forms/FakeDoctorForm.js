@@ -1,4 +1,4 @@
-import React,{useState, useRef} from "react";
+import React, { useState, useRef } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
@@ -18,12 +18,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-const Container = tw.div`relative`;
+const Container = tw.div`relative py-8 px-10 lg:w-10/12 text-center max-w-lg mx-auto lg:max-w-none lg:text-left`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-6 md:py-6`;
 const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
 const ImageColumn = tw(Column)`md:w-5/12 flex-shrink-0 h-80 md:h-auto`;
 const TextColumn = styled(Column)(props => [
-  tw`md:w-7/12 mt-16 md:mt-0`,
+  tw`md:w-10/12 mt-16 md:mt-0`,
   props.textOnLeft ? tw`md:mr-12 lg:mr-16 md:order-first` : tw`md:ml-12 lg:ml-16 md:order-last`
 ]);
 
@@ -34,12 +34,14 @@ const Image = styled.div(props => [
 const TextContent = tw.div`lg:py-8 text-center md:text-left`;
 
 const Subheading = tw(SubheadingBase)`text-center md:text-left`;
-const Heading = tw(SectionHeading)`mt-4 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
-const Description = tw.p`mt-4 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`
+const Heading = tw(SectionHeading)`mt-4 font-sans font-bold text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
 
-const Form = tw.form`mt-8 md:mt-10 text-sm flex flex-col max-w-sm mx-auto md:mx-0`
+const Description = tw.p`my-5 font-sans lg:my-8 text-gray-500 text-base xl:text-lg`;
+// const Description = tw.p`mt-3 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`
+
+const Form = tw.form`mt-8 md:mt-10 text-sm flex flex-col mx-auto md:mx-0`
 const Input = tw.input`mt-6 first:mt-0 border-b-2 py-3 focus:outline-none font-medium transition duration-300 hocus:border-teal-500`
-const Textarea = styled(Input).attrs({as: "textarea"})`
+const Textarea = styled(Input).attrs({ as: "textarea" })`
   ${tw`h-24`}
 `
 
@@ -69,7 +71,7 @@ function RadioButtonsGroup() {
 
 export default ({
   subheading = <><span tw="text-teal-500">Report a fake doctor</span></>,
-  heading = <>Do you think a doctor is not authentic? <span tw="text-teal-500">Report the doctor</span><wbr/> now!</>,
+  heading = <>Do you think a doctor is not authentic? <span tw="text-teal-500">Report the doctor</span><wbr /> now!</>,
   //description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   description = "Although there has been a rapid rise in the number of doctors in Pakistan, unfortunately the number of doctors with fake registrations have also appeared. People who seek treatment from such individuals are at a high risk. If you have encountered such a doctor please fill the form below",
   submitButtonText = "Report!",
@@ -87,16 +89,16 @@ export default ({
   const [fake_doctor_name, setFakeDoctorName] = useState('');
   const [message, setMessage] = useState('');
   const [value, setValue] = useState('');
-  const [longon, setLongon]=useState(false);
+  const [longon, setLongon] = useState(false);
   const [emptyemail, setEmptyemail] = useState(false);
   const [emptyname, setEmptyname] = useState(false);
   const [emptydoctor, setEmptydoctor] = useState(false);
   const [emptyreason, setEmptyreason] = useState(false);
   const [emptylocation, setEmptylocation] = useState(false);
-  const [incompletedetails,setIncompletedetails] = useState(false);
+  const [incompletedetails, setIncompletedetails] = useState(false);
   const [wrongemail, setWrongemail] = useState(false);
-  
-  const longlat=useRef([0,0]);
+
+  const longlat = useRef([0, 0]);
   const history = useHistory();
 
   const handleNameInput = e => {
@@ -104,7 +106,7 @@ export default ({
   };
 
   const UpdateLatLong = (lat, Long) => {
-    longlat.current=[lat, Long];
+    longlat.current = [lat, Long];
   };
 
   const handleEmailInput = e => {
@@ -119,13 +121,13 @@ export default ({
     setMessage(e.target.value);
   };
 
-  const setPopUp=()=>{
-    window.scrollTo({top: document.documentElement.scrollHeight*(0.2), behaviour: 'smooth'});
+  const setPopUp = () => {
+    window.scrollTo({ top: document.documentElement.scrollHeight * (0.2), behaviour: 'smooth' });
 
     setpup(true);
   };
-  
-  const handleClosePop=()=>{
+
+  const handleClosePop = () => {
     setLongon(true);
     setpup(false);
   };
@@ -137,38 +139,38 @@ export default ({
     setEmptyreason(false)
     setIncompletedetails(false)
     setWrongemail(false)
-    if (email == ""){
+    if (email == "") {
       setEmptyemail(true)
       setIncompletedetails(true)
     }
-    else if (email != myEmail){
+    else if (email != myEmail) {
       setWrongemail(true)
       setIncompletedetails(true)
     }
-    if (name == ""){
+    if (name == "") {
       setEmptyname(true)
       setIncompletedetails(true)
     }
-    if (fake_doctor_name == ""){
+    if (fake_doctor_name == "") {
       setEmptydoctor(true)
       setIncompletedetails(true)
     }
-    if (value == ""){
+    if (value == "") {
       setEmptyreason(true)
       setIncompletedetails(true)
     }
-    if (email!="" &&  name != "" && fake_doctor_name != "" && value != ""){
-      if (value=="Other"){
-          axios.post('/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat}).then(res=>{
+    if (email != "" && name != "" && fake_doctor_name != "" && value != "") {
+      if (value == "Other") {
+        axios.post('/report', { name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat }).then(res => {
           console.log(res);
           setOpen(true);
-        }).catch(err=>{console.log("Error: ",err)})
+        }).catch(err => { console.log("Error: ", err) })
       } else {
-        axios.post('/report',{name: name, email: email, fake_doctor_name: fake_doctor_name, message: value, GoogleLocation: longlat}).then(res=>{
+        axios.post('/report', { name: name, email: email, fake_doctor_name: fake_doctor_name, message: value, GoogleLocation: longlat }).then(res => {
           console.log(res);
           setOpen(true);
-        }).catch(err=>{console.log("Error: ",err)})
-      } 
+        }).catch(err => { console.log("Error: ", err) })
+      }
     }
   };
 
@@ -185,38 +187,38 @@ export default ({
     // fontFamily: "Arial"
   };
 
-  
+
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
- 
+
   return (
     <Container>
-      <TwoColumn>
-        <TextColumn textOnLeft={textOnLeft}>
-          <TextContent>
-            {subheading && <Subheading>{subheading}</Subheading>}
-            <Heading>{heading}</Heading>
-            {description && <Description>{description}</Description>}
-            <Form action={formAction} method={formMethod}>
-              <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email}/>
-               { emptyemail?
-                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your email address</div>:null}
-              {wrongemail?
-                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your correct email address</div>:null}
 
-              <Input type="text" name="name" placeholder="Your Full Name" onChange={handleNameInput} value={name}/>
-             { emptyname?
-                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter your name</div>:null}
-              <Input type="text" name="fake_doctor_name" placeholder="Fake Doctor's Name" onChange={handleFakeDoctorInput} value={fake_doctor_name}/>
-              {/* <div style={mystyle}><h1>Frequent Issues with the doctor</h1></div> */}
-              { emptydoctor?
-                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please enter doctor's name</div>:null}
-              <div style={{padding: '20px'}}></div>
-              {/* <RadioButtonsGroup/> */}
-              <FormControl component="fieldset">
+      <TextColumn textOnLeft={textOnLeft}>
+        <TextContent>
+          {subheading && <Subheading>{subheading}</Subheading>}
+          <Heading>{heading}</Heading>
+          {description && <Description>{description}</Description>}
+          <Form action={formAction} method={formMethod}>
+            <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email} />
+            {emptyemail ?
+              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter your email address</div> : null}
+            {wrongemail ?
+              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter your correct email address</div> : null}
+
+            <Input type="text" name="name" placeholder="Your Full Name" onChange={handleNameInput} value={name} />
+            {emptyname ?
+              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter your name</div> : null}
+            <Input type="text" name="fake_doctor_name" placeholder="Fake Doctor's Name" onChange={handleFakeDoctorInput} value={fake_doctor_name} />
+            {/* <div style={mystyle}><h1>Frequent Issues with the doctor</h1></div> */}
+            {emptydoctor ?
+              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter doctor's name</div> : null}
+            <div style={{ padding: '20px' }}></div>
+            {/* <RadioButtonsGroup/> */}
+            <FormControl component="fieldset">
               <FormLabel component="legend">Frequent Issues with the doctors</FormLabel>
               <RadioGroup aria-label="issue" name="issue" value={value} onChange={handleChange}>
                 <FormControlLabel value="Doctor does not have a proper medical degree" control={<Radio />} label="Doctor does not have a proper medical degree" />
@@ -224,59 +226,57 @@ export default ({
                 <FormControlLabel value="Doctor is giving fake medicines" control={<Radio />} label="Doctor is giving fake medicines" />
                 <FormControlLabel value="Doctor is extremely rude" control={<Radio />} label="Doctor is extremely rude" />
                 <FormControlLabel value="Other" control={<Radio />} label="Other" />
-                
+
               </RadioGroup>
 
-              </FormControl>
+            </FormControl>
 
-              { value == 'Other'? 
-                <Textarea name="message" placeholder="Enter your issue if the above reasons do not apply" onChange={handleMessageInput} value={message}/>
-                :
-                null
-              }
+            {value == 'Other' ?
+              <Textarea name="message" placeholder="Enter your issue if the above reasons do not apply" onChange={handleMessageInput} value={message} />
+              :
+              null
+            }
 
-              {emptyreason?
-                  <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px"}}>Please select an option</div>:null}
-                
-            
-              { popup ?
-               <div className='popup'>
+            {emptyreason ?
+              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please select an option</div> : null}
+
+
+            {popup ?
+              <div className='popup'>
                 <div className='popup_inner'>
-                  <MapContainer updLoc={UpdateLatLong}/>
+                  <MapContainer updLoc={UpdateLatLong} />
                 </div>
                 <div className='popup_inner_lower'>
                   <PrimaryButtonBase onClick={handleClosePop} type="button">Add Location</PrimaryButtonBase>
                 </div>
 
               </div>
-                :
+              :
+              null
+            }
+            {
+              !open ?
                 null
-              }
-              {
-                !open ?
-                null
                 :
-                <Confirm message="Your report has been submitted!" buttonMessage="Continue" handleClick={handleClose}/>
-              }
-              <PrimaryButtonBase style={{backgroundColor: "#9400D3", marginTop:'20px'}} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
-              { !longon ?
-              <div style={mystyle}><h1>You currently do not have any location selected</h1></div> : 
+                <Confirm message="Your report has been submitted!" buttonMessage="Continue" handleClick={handleClose} />
+            }
+            <PrimaryButtonBase style={{ backgroundColor: "#90ee90", marginTop: '20px' }} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
+            {!longon ?
+              <div style={mystyle}><h1>You currently do not have any location selected</h1></div> :
               <div style={mystyle}><h1>The location you selected is: {longlat.current[0].toFixed(4)}° N, {longlat.current[1].toFixed(4)}° E</h1></div>
 
-              }
-              <SubmitButton type="button" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
-              {
-                incompletedetails?
-                 <div style = {{color: 'red', fontSize: 13,paddingLeft: "10px", paddingTop:"10px"}}>Please fill the required details</div>:null
-              }
-              
-            </Form>
-          </TextContent>
-        </TextColumn>
-        <ImageColumn>
-          <Image imageSrc={EmailIllustrationSrc} />
-        </ImageColumn>
-      </TwoColumn>
+            }
+            <SubmitButton type="button" onClick={handleClickOpen}>{submitButtonText}</SubmitButton>
+            {
+              incompletedetails ?
+                <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px", paddingTop: "10px" }}>Please fill the required details</div> : null
+            }
+
+          </Form>
+        </TextContent>
+      </TextColumn>
+
+
     </Container>
   );
 };
