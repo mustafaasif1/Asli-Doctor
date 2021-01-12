@@ -88,7 +88,7 @@ export default ({
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  const [signedIn,setSignedIn]=React.useState(false);
+  const [signedIn,setSignedIn]=React.useState(true);
   const history = useHistory();
   const [gSign,setGSign]=React.useState(false);
   const [emptypass, setEmptypass] = React.useState(false);
@@ -158,12 +158,19 @@ const responseGoogle = (response) => {
         if (res.data=="login"){
           localStorage.setItem('loggedIn', email);
           setSignedIn(true);
+          setOpen(true);
+
+        window.scrollTo({top: document.documentElement.scrollHeight*0, behaviour: 'smooth'});
           
 
+        } else{
+          setSignedIn(false);
         }
-      }).catch(err=>{console.log("Error: ",err)})
+      }).catch(err=>{
+        setSignedIn(false);
+        console.log("Error: ",err)}
+        )
       }
-    setOpen(true);
     
   };
   return(

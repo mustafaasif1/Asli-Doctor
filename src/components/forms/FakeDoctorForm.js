@@ -80,6 +80,7 @@ export default ({
   textOnLeft = true,
 }) => {
   var myEmail = localStorage.getItem('loggedIn')
+
   // The textOnLeft boolean prop can be used to display either the text on left or right side of the image.
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [open, setOpen] = React.useState(false);
@@ -97,9 +98,16 @@ export default ({
   const [emptylocation, setEmptylocation] = useState(false);
   const [incompletedetails, setIncompletedetails] = useState(false);
   const [wrongemail, setWrongemail] = useState(false);
+  const [notLoggedIn, setNotLoggedIn] = useState(false);
 
   const longlat = useRef([0, 0]);
   const history = useHistory();
+  React.useEffect(()=>{
+    if(myEmail == "" || myEmail == undefined || myEmail == null){
+      setNotLoggedIn(true);
+    }
+    
+  },[])
 
   const handleNameInput = e => {
     setName(e.target.value);
@@ -139,11 +147,17 @@ export default ({
     setEmptyreason(false)
     setIncompletedetails(false)
     setWrongemail(false)
+    setNotLoggedIn(false)
     if (email == "") {
       setEmptyemail(true)
       setIncompletedetails(true)
     }
-    else if (email != myEmail) {
+    else if(myEmail == "" || myEmail == undefined || myEmail == null){
+      setNotLoggedIn(true);
+      setIncompletedetails(true)
+    }
+    
+    else if (email != myEmail && myEmail != "" && myEmail != undefined && myEmail != null) {
       setWrongemail(true)
       setIncompletedetails(true)
     }
@@ -161,12 +175,12 @@ export default ({
     }
     if (email != "" && name != "" && fake_doctor_name != "" && value != "") {
       if (value == "Other") {
-        axios.post('/report', { name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat }).then(res => {
+        axios.post('/report', { name: name, email: email, fake_doctor_name: fake_doctor_name, message: message, GoogleLocation: longlat , display: false}).then(res => {
           console.log(res);
           setOpen(true);
         }).catch(err => { console.log("Error: ", err) })
       } else {
-        axios.post('/report', { name: name, email: email, fake_doctor_name: fake_doctor_name, message: value, GoogleLocation: longlat }).then(res => {
+        axios.post('/report', { name: name, email: email, fake_doctor_name: fake_doctor_name, message: value, GoogleLocation: longlat , display: false}).then(res => {
           console.log(res);
           setOpen(true);
         }).catch(err => { console.log("Error: ", err) })
@@ -207,7 +221,9 @@ export default ({
             {emptyemail ?
               <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter your email address</div> : null}
             {wrongemail ?
-              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter your correct email address</div> : null}
+              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter the email address associated with your account</div> : null}
+            {notLoggedIn ?
+              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please Log In to report a doctor</div> : null}
 
             <Input type="text" name="name" placeholder="Your Full Name" onChange={handleNameInput} value={name} />
             {emptyname ?

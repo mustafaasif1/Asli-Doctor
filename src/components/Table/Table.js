@@ -18,15 +18,30 @@ const useStyles = makeStyles(styles);
 export default function CustomTable(props) {
   const classes = useStyles();
   const curr = React.useRef();
-  const { tableHead, tableData, tableHeaderColor } = props;
-  const acceptor = () =>{
-    axios.post("/setaccept", {reg: curr.current[1],name: curr.current[2], review: curr.current[3]})
-    console.log({reg: curr[1],name: curr[2], review: curr[3]})
+  const { tableHead, tableData, tableHeaderColor, type} = props;
+
+  const acceptor = (val) =>{
+    if (type=="reviews"){
+    axios.post("/setaccept", {reg: val[1],name: val[2], review: val[3]})
+    }
+    else if(type=="reports"){
+      axios.post("/acceptreport", {email: val[1], name: val[2], fake_doctor_name: val[3], message: val[5]})
+      console.log({email: val[1], name: val[2], fake_doctor_name: val[3], message: val[5]})
+      
+    }
+
     window.location.reload();
   }
 
-  const deletor = () =>{
-    axios.get("/setdelete", {reg: curr.current[1],name: curr.current[2], review: curr.current[3]})
+  const deletor = (val) =>{
+    if (type=="reviews"){
+    axios.post("/setdelete", {reg: val[1],name: val[2], review: val[3]})
+    }
+    else if(type=="reports"){
+      axios.post("/rejectreport", {email: val[1], name: val[2], fake_doctor_name: val[3], message: val[5]})
+    
+    }
+
     window.location.reload()
   }
   return (
@@ -60,12 +75,18 @@ export default function CustomTable(props) {
                     </TableCell>
                   );
                 })}
-                <Button variant="contained" color="primary" onClick={acceptor}>
+                { !prop[6] ? (
+                  <div style={{justifyContent:'center'}}>
+                <Button variant="contained" color="primary" onClick={()=>{acceptor(prop)}}>
                   Accept
                 </Button>
-                <Button variant="contained" color="secondary" onClick={deletor}>
+                <Button variant="contained" color="secondary" onClick={()=>{deletor(prop)}}>
                   Reject
                 </Button>
+                </div>
+                )
+                : <p style={{justifyContent:'center'}}>Accepted</p>
+          }
                 {/* <div>
                   Action Taken
                 </div> */}

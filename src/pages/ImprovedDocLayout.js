@@ -100,6 +100,7 @@ const Docs = (props) => {
   const [name, setName] = React.useState("");
   const [addReview, setAddReview] = React.useState("");
   const [reviews, setReviews] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   const classes = useStyles();
 
@@ -154,6 +155,17 @@ const Docs = (props) => {
     }
     setOpen(false);
   };
+
+  React.useEffect(()=>{
+    var email = localStorage.getItem('loggedIn')
+    if (email != '' && email != undefined && email!=null) {
+      if (email.length>5){
+      setLoggedIn(true);
+      
+      }
+    }
+
+  }, []);
   
 
   return (
@@ -211,7 +223,7 @@ const Docs = (props) => {
           
           {/* This is where you can allow the user to write a review if he is signed In*/}
 
-          { true && 
+          { loggedIn && 
             <ActionButton onClick={handleClickOpen}>
             Add a new Review
             </ActionButton>

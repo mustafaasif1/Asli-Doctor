@@ -105,7 +105,7 @@ export default function Dashboard() {
         
         
         var temp = res.data.map((i, index)=>{
-          var newList = [index+1, i.email, i.name, i.fake_doctor_name, String(i.GoogleLocation.current[0])+" N "+String(i.GoogleLocation.current[1])+" E", i.message]
+          var newList = [index+1, i.email, i.name, i.fake_doctor_name, String(i.GoogleLocation.current[0])+" N "+String(i.GoogleLocation.current[1])+" E", i.message, i.display]
           return newList
         })
         setReports(temp)
@@ -116,7 +116,7 @@ export default function Dashboard() {
         axios.get("/decidereview",{name:""}).then(res=>{
           
           var temp = res.data.map((i, index)=>{
-            var newList = [index+1, i.reg, i.name, i.review, "Pending"]
+            var newList = [index+1, i.reg, i.name, i.review, "Pending", false, false]
             return newList
           })
           setReviews(temp)  
@@ -127,7 +127,7 @@ export default function Dashboard() {
         
   },[]);
   if (email != "maroofsaleemi@gmail.com"){
-    return(<p>Access Denied</p>)
+    return(<p>Cannot Get/dashboard</p>)
   }
   return (
     <div>
@@ -294,8 +294,9 @@ export default function Dashboard() {
             <CardBody>
               <Table
                 tableHeaderColor="warning"
-                tableHead={["ID", "Doctors Name", "Complainer's Name", "Review", "Status"]}
-                tableData={reviews}                
+                tableHead={["ID", "Registration Number", "Reviewer's Name", "Review", "Status"]}
+                tableData={reviews}
+                type={"reviews"}                
                 // tableData={reviews}
               />
             </CardBody>
@@ -352,7 +353,8 @@ export default function Dashboard() {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["ID", "Email Address", "Complainer's Name", "Fake Doctors Name", "Location", "Reason"]}
-                tableData={reports} 
+                tableData={reports}
+                type={"reports"} 
                 // tableData={reports}
               />
             </CardBody>

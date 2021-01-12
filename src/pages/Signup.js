@@ -179,7 +179,11 @@ export default ({
               console.log('Hello');
             
               localStorage.setItem('loggedIn', email);
+              window.scrollTo({top: document.documentElement.scrollHeight*0, behaviour: 'smooth'});
+        
               setSignedIn(true);
+              setOpen(true);
+    
             
           }
         }).catch(err=>{console.log("Error: ",err)})
@@ -187,7 +191,6 @@ export default ({
       }).catch(err=>{console.log("Error: ",err)})
       
       }
-    setOpen(true);
     
   };
   

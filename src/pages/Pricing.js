@@ -51,8 +51,33 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import styled from "styled-components";
 import Search from "components/hero/SearchBar.js";
+import tw from "twin.macro";
 
 
+const Text = styled.div`
+  ${tw`text-lg  text-gray-800`}
+  p {
+    ${tw`mt-2 leading-loose`}
+  }
+  h1 {
+    ${tw`text-3xl font-bold mt-10`}
+  }
+  h2 {
+    ${tw`text-2xl font-bold mt-8`}
+  }
+  h3 {
+    ${tw`text-xl font-bold mt-6`}
+  }
+  ul {
+    ${tw`list-disc list-inside`}
+    li {
+      ${tw`ml-2 mb-3`}
+      p {
+        ${tw`mt-0 inline leading-normal`}
+      }
+    }
+  }
+`;
 
 
 const useStyles1 = makeStyles((theme) => ({
@@ -76,7 +101,18 @@ function FullScreenDialog(props) {
   const [reviews, setReviews] = React.useState([]);
   const [name, setName] = React.useState("");
   const [newOpen, setNewOpen] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
+  React.useEffect(()=>{
+    var email = localStorage.getItem('loggedIn')
+    if (email != '' && email != undefined && email!=null) {
+      if (email.length>5){
+      setLoggedIn(true);
+      
+      }
+    }
+
+  }, []);
 
   const handleClickOpen = () => {
     axios
@@ -190,9 +226,11 @@ function FullScreenDialog(props) {
             <Typography variant="h6" className={classes.title}>
               Reviews
             </Typography>
+            { loggedIn &&
             <Button autoFocus color="inherit" onClick={handleNewOpen}>
               Add a new review
             </Button>
+            }
             
           </Toolbar>
         </AppBar>
@@ -388,7 +426,7 @@ function BasicTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -474,22 +512,28 @@ class CustomTabs extends React.Component {
   constructor(props){
     super(props)
     this.state={docs:[],
+      More: true,
       allDocs:[],
       val:0,
       maxToDisplay:10,
       minToDisplay:0,
+      empty:false,
     params: parsedData(window.location.href)};
   };
   
   componentDidMount(){
     trackPromise(
     axios.get("/sample",{params: this.state.params}).then(res=>{
-      
+      if (res.data.length == 0){
+        this.setState({empty: true})
+      }
       this.setState({allDocs: res.data});
       if (res.data.length>this.state.maxToDisplay){
         this.setState({docs: res.data.slice(this.state.minToDisplay, this.state.maxToDisplay)});
       }
-      
+      else{
+        this.setState({docs: res.data, More: false})
+      }
     })).catch(err=>{console.log(err)})
     
   }
@@ -498,15 +542,21 @@ class CustomTabs extends React.Component {
   handleUpdate = (event)=> {
     if (this.state.docs.length < this.state.allDocs.length) {
       var toAdd=0;
-        if (this.state.allDocs.length>=this.state.maxToDisplay){
+        if (this.state.allDocs.length>this.state.maxToDisplay){
           toAdd=10;
+          this.setState({More: true});
         }
         else{
           toAdd=this.state.allDocs.length-this.state.maxToDisplay;
+          
+          this.setState({More: false});
         }
         this.setState({maxToDisplay: this.state.maxToDisplay+10});
         this.setState({docs: this.state.allDocs.slice(this.state.minToDisplay, this.state.maxToDisplay)});
         window.scrollTo({top: document.documentElement.scrollHeight*(this.state.docs.length*0.001+0.7), behaviour: 'smooth'});
+    } else{
+
+      this.setState({More: false});
     }
         
   }
@@ -532,13 +582,21 @@ class CustomTabs extends React.Component {
             <Tab classes={this.props.classes} label="Tabular View" />
           </Tabs>
         </AppBar>
+        { this.state.empty &&
+        <Text style={{marginTop:'50px', marginBottom:'50px', textAlign: 'center'}}>
+        No doctors found that match your search criteria
+        </Text>
+
+        }
         {value === 0 && <div>
           {this.state.docs.map(i=><Docs person={i}/>)}
           { (this.state.docs.length > 0 || this.state.docs.length < this.state.allDocs.length )&& 
           <div style={{textAlign:'center'}}>
+            {this.state.More &&
           <Button variant="contained" color="primary" onClick={this.handleUpdate}>
           Load More
           </Button>
+  }
           </div>}
           
         </div >}
