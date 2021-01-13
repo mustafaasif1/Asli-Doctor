@@ -211,19 +211,20 @@ export default ({
   return (
     <Container>
 
-      <TextColumn textOnLeft={textOnLeft}>
+      
         <TextContent>
           {subheading && <Subheading>{subheading}</Subheading>}
           <Heading>{heading}</Heading>
           {description && <Description>{description}</Description>}
+          {notLoggedIn ?
+              <div style={{ color: 'red', fontSize: 15}}>Please Log In to report a doctor</div> : null}
           <Form action={formAction} method={formMethod}>
             <Input type="email" name="email" placeholder="Your Email Address" onChange={handleEmailInput} value={email} />
             {emptyemail ?
               <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter your email address</div> : null}
             {wrongemail ?
               <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please enter the email address associated with your account</div> : null}
-            {notLoggedIn ?
-              <div style={{ color: 'red', fontSize: 13, paddingLeft: "10px" }}>Please Log In to report a doctor</div> : null}
+            
 
             <Input type="text" name="name" placeholder="Your Full Name" onChange={handleNameInput} value={name} />
             {emptyname ?
@@ -276,7 +277,7 @@ export default ({
                 :
                 <Confirm message="Your report has been submitted!" buttonMessage="Continue" handleClick={handleClose} />
             }
-            <PrimaryButtonBase style={{ backgroundColor: "#90ee90", marginTop: '20px' }} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
+            <PrimaryButtonBase style={{ backgroundColor: "#6666ff", marginTop: '20px' }} onClick={setPopUp} type="button">Add Location of Doctor To Report</PrimaryButtonBase>
             {!longon ?
               <div style={mystyle}><h1>You currently do not have any location selected</h1></div> :
               <div style={mystyle}><h1>The location you selected is: {longlat.current[0].toFixed(4)}° N, {longlat.current[1].toFixed(4)}° E</h1></div>
@@ -290,9 +291,6 @@ export default ({
 
           </Form>
         </TextContent>
-      </TextColumn>
-
-
     </Container>
   );
 };

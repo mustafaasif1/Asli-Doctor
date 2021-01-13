@@ -127,7 +127,7 @@ export default ({ roundedHeaderButton, setLI, LI, submitButtonText = "Submit",
               your area
             </Heading>
 
-            <Paragraph style={{ padding: "0px 70px 0px 0px" }}>Pakistan has seen a rapid influx of Fake Doctors, especially in low income areas. With no one to check their credentials, they have exploited the population and taken large sums of money form them only to put their lives at risk. This is an inititave to expose such doctors and report them. Find out if the doctor in your locality is authentic by searching them below</Paragraph>
+            <Paragraph style={{ padding: "0px 0px 0px 0px" }}>Pakistan has seen a rapid influx of Fake Doctors, especially in low income areas. With no one to check their credentials, they have exploited the population and taken large sums of money form them only to put their lives at risk. This is an inititave to expose such doctors and report them. Find out if the doctor in your locality is authentic by searching them below</Paragraph>
 
             <Form action={formAction} method={formMethod}>
               <Input type="text" name="registration" placeholder="Registration Number" />
