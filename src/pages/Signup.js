@@ -95,7 +95,9 @@ export default ({
   const history = useHistory();
 
   const handleClose =() =>{
+
     history.push("/");
+    
     
   }
 

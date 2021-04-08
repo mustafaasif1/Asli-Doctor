@@ -1,22 +1,27 @@
 const express = require('express')
 const cors=require('cors');
 const mongoose=require('mongoose');
+const { AttachMoneyRounded } = require('@material-ui/icons');
 const router=express.Router();
 require('dotenv').config()
 
-const app=express();
-const port=process.env.PORT || 5000;
+const app = express();
+const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
+
 const uri="mongodb+srv://maroofsaleemi:saleemi123@cluster0.bjzso.mongodb.net/AsliDoc?retryWrites=true&w=majority";
+
 mongoose.connect(process.env.MONGODB_URI || uri,{useNewUrlParser:true, useCreateIndex:true, useUnifiedTopology:true})
 
-const connection=mongoose.connection
+const connection = mongoose.connection
 
 
-app.listen(port,()=>{
+app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`);
 })
+
+
 connection.once('open',()=>{
     console.log("MongoDB connected successfully");
 })
@@ -40,11 +45,14 @@ app.use('/Dashboard',express.static('AsliDoctor/build'))
 
 
 
-app.get('/sample',(req,res)=>{
+app.get('/sample',(req, res)=>{
+
+
+
     console.log("Requesting Doctors...");
 
     connection.db.collection('Info',(err,collection)=>{
-
+        
         collection.find({
                     Name:eval(req.query.name),
                     "Father Name":eval(req.query.fathersName),
@@ -204,7 +212,7 @@ app.post('/setaccept',(req,res)=>{
                 revNumbers=results[0].reviews+1;
                 console.log(revNumbers);
                 connection.db.collection('Info',(err, collection)=>{
-                    collection.updateOne({"reg":req.body.reg},
+                    collection.updateOne({"name":req.body.reg},
                                         {$set:{"reviews":revNumbers}})
                 });
             });

@@ -511,7 +511,8 @@ class CustomTabs extends React.Component {
 
   constructor(props){
     super(props)
-    this.state={docs:[],
+    this.state = {docs:[],
+      data:10,
       More: true,
       allDocs:[],
       val:0,
@@ -523,7 +524,8 @@ class CustomTabs extends React.Component {
   
   componentDidMount(){
     trackPromise(
-    axios.get("/sample",{params: this.state.params}).then(res=>{
+    
+    axios.get("/sample", {params: this.state.params}).then(res=>{
       if (res.data.length == 0){
         this.setState({empty: true})
       }
